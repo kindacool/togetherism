@@ -3,6 +3,10 @@
 
 <mapper namespace="eventns">
 
+<insert id="create" parameterType="event">
+insert into event values(event_seq.nextval,#{club_num},#{club_host_email},#{event_date},
+sysdate,#{event_date},#{event_info},#{event_file},#{event_spot_long},#{event_spot_lat})
+</insert>
 </mapper>
 
 

@@ -12,7 +12,6 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@Controller
 public class SampleDTO {
 	private String member_email;
 	private String member_nickname;
