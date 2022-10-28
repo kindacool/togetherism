@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.StringTokenizer;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -57,16 +59,43 @@ public class EventController {
 		int fileSize = (int) mf.getSize(); // 단위 : Byte
 		System.out.println(fileName);
 		
+		int err = 0;
+		String file[] = new String[2];
+		String newfilename = "";
+		
+		if(fileName != "") { // 첨부파일이 전송된 경우
+			//파일 중복문제 해결
+			String extension = fileName.substring(fileName.lastIndexOf("."), fileName.length());
+			System.out.println("extension: " + extension);
+			
+			UUID uuid = UUID.randomUUID();
+			
+			newfilename = uuid.toString() + extension;
+			System.out.println("newfilename; " + newfilename);
+			
+			StringTokenizer st = new StringTokenizer(fileName, ".");
+			file[0] = st.nextToken(); // 파일명
+			file[1] = st.nextToken(); // 확장자
+			
+			if(fileSize > 1000000) { // 1MB
+				err = 1;
+				model.addAttribute("err", err);
+				
+				return "togetherview/event_file_upload_result";
+			}
+		}
+		
 		// 첨부파일 업로드
 		// mf.transferTo(new File("/path/"+fileName));
 		String path = session.getServletContext().getRealPath("/upload");
 		System.out.println("path : " + path);
 		
-		FileOutputStream fos = new FileOutputStream(path + "/" + fileName);
+		
+		FileOutputStream fos = new FileOutputStream(path + "/" + newfilename);
 		fos.write(mf.getBytes());
 		fos.close();
 		
-		event.setEvent_file(fileName);
+		event.setEvent_file(newfilename);
 		System.out.println(event.getEvent_file());
 		
 		int result = eventService.eventCreate(event);
