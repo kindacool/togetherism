@@ -17,7 +17,7 @@
 	<form name="event_form"
 		action="<%=request.getContextPath()%>/event_create.do" method="post"
 		enctype="multipart/form-data">
-		<input type="hidden" value="-1" name="club_num"> 
+		<input type="hidden" value="1" name="club_num0"> 
 		<input type="hidden" value="x@g.com" name="club_host_email">
 		<input type="hidden" id="event_spot_lat" name="event_spot_lat" value="">
 		<input type="hidden" id="event_spot_long" name="event_spot_long" value="">

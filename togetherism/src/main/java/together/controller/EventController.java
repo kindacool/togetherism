@@ -33,15 +33,14 @@ public class EventController {
 	
 	@RequestMapping(value = "/event_create.do", method = RequestMethod.POST)
 	public String eventCreate(@RequestParam("event_file0") MultipartFile mf,
+			@RequestParam("club_num0") int club_num0,
 			@ModelAttribute EventDTO event, 
 			Model model,
 			HttpSession session, HttpServletRequest request) throws Exception {
 		
 		System.out.println("Controller arrived");
 
-		// club_num 을 문자 -> 숫자로
-		int club_num_int = ((Integer)event.getClub_num()).intValue();
-		event.setClub_num(club_num_int);
+		event.setClub_num(club_num0);
 		
 		// 날짜 처리
 		String event_date_date = request.getParameter("event_date_date");
