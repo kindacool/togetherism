@@ -28,8 +28,8 @@ public class EventDAOImpl implements EventDAO {
 		return sqlSession.insert("eventns.create",event);
 	}
 	
-	public int getEventListCount() {
-		return sqlSession.selectOne("eventns.listcount");
+	public int getEventListCount(EventDTO event) {
+		return sqlSession.selectOne("eventns.listcount", event);
 	}
 	
 	public List<EventDTO> getEventList(EventDTO event){

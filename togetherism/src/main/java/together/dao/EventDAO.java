@@ -9,7 +9,7 @@ public interface EventDAO {
 	public int eventCreate(EventDTO event);
 	
 	// 이벤트 목록 출력 : 이벤트 개수 출력
-	public int getEventListCount();
+	public int getEventListCount(EventDTO event);
 	
 	// 이벤트 목록 출력 : 이벤트 목록 가져오기
 	public List<EventDTO> getEventList(EventDTO event);

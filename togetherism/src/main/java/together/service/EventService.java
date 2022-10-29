@@ -9,7 +9,7 @@ public interface EventService {
 	public int eventCreate(EventDTO event);
 	
 	// 이벤트 목록 출력 : 이벤트 개수 구하기
-	public int getEventListCount();
+	public int getEventListCount(EventDTO event);
 	
 	// 이벤트 목록 출력 : 이벤트 리스트 가져오기
 	public List<EventDTO> getEventList(EventDTO event);

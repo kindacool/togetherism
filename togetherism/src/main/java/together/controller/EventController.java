@@ -120,23 +120,26 @@ public class EventController {
 		// 지역명이 넘어왔는지 확인
 		System.out.println("지역 : " + event.getEvent_region()); // 안넘어왔을떄 null, String 형
 		
-		int page = 1;
+		int eventPage = 1;
 		int limit = 10;
 		
 		// 페이지 값이 넘어온 경우엔 그 값을 페이지 번호로 지정
-		if (request.getParameter("page") != null) {
-			page = Integer.parseInt(request.getParameter("page"));
+		if (request.getParameter("eventPage") != null) {
+			eventPage = Integer.parseInt(request.getParameter("eventPage"));
 		}
+		
+		// 페이지 번호 확인
+		System.out.println("페이지 : " + eventPage);
 
 		// 총 이벤트 수를 받아옴.
-		int listcount = eventService.getEventListCount();
+		int listcount = eventService.getEventListCount(event); // 키워드,모임명,지역명 넘김
 		System.out.println("총 이벤트 수 " + listcount);
 		
-		int startRow = (page - 1) * limit + 1; // 1, 11, 21, 31
+		int startRow = (eventPage - 1) * limit + 1; // 1, 11, 21, 31
 		int endRow = startRow + limit - 1; // 10, 20, 30, 40
 
 		// 나머지 파생변수들을 구함
-		PagingPgm pp = new PagingPgm(listcount, limit, page);
+		PagingPgm pp = new PagingPgm(listcount, limit, eventPage);
 		event.setStartRow(startRow);
 		event.setEndRow(endRow);
 		int no = listcount - startRow + 1;		// 화면 출력 번호
@@ -151,9 +154,10 @@ public class EventController {
 		// 데이터 갯수, 화면에 출력할 데이터 갯수, 블랙덩 페이지 갯수, 현재 페이지 번호,
 		// 각 블럭의 시작 페이지, 각 블럭의 끝 페이지, 총 페이지수 
 		model.addAttribute("pp", pp);
-		// 검색
+		// 각 케이스별 페이징 처리를 위해 전달
 		model.addAttribute("keyword", event.getKeyword());
 		model.addAttribute("club_num", event.getClub_num());
+		model.addAttribute("event_region", event.getEvent_region());
 
 		return "togetherview/event_list"; // 이후 리스트 출력하는 페이지로 가는걸로 수정
 	}

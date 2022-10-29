@@ -8,7 +8,7 @@
 </head>
 <body>
 <script>
-location.href="event_list.do?club_region=수도권";
+location.href="event_list.do?event_region=경상권";
 </script>
 </body>
 </html>

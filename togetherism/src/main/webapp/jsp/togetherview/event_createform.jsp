@@ -17,7 +17,7 @@
 	<form name="event_form"
 		action="<%=request.getContextPath()%>/event_create.do" method="post"
 		enctype="multipart/form-data">
-		<input type="hidden" value="1" name="club_num0">  <!-- Merge 이후 넘어올 값 -->
+		<input type="hidden" value="9" name="club_num0">  <!-- Merge 이후 넘어올 값 -->
 		<input type="hidden" value="x@g.com" name="club_host_email"> <!-- Merge 이후 넘어올 값 -->
 		<input type="hidden" id="event_spot_lat" name="event_spot_lat" value="">
 		<input type="hidden" id="event_spot_long" name="event_spot_long" value="">
@@ -52,6 +52,7 @@
 			<td>이벤트 지역</td>
 			<select name="event_region">
 			<option value="수도권">수도권</option>
+			<option value="경상권">경상권</option>
 			</select>
 			<tr>
 				<td>이벤트 설명</td>

@@ -8,8 +8,25 @@ insert into event values(event_seq.nextval,#{club_num},#{club_host_email},#{even
 sysdate,#{event_date},#{event_info},#{event_file, jdbcType=VARCHAR},#{event_spot_long},#{event_spot_lat},#{event_region})
 </insert>
 
-<select id="listcount" resultType="int">
+<select id="listcount" resultType="int" parameterType="event">
 select count(*) from event
+	<where>
+		<if test="keyword != null">
+		<!-- 키워드가 있을땐, 복합 검색(제목, 내용, 장소 등 모든) -->
+		club_host_email like '%'||#{keyword}||'%' or
+		event_title like '%'||#{keyword}||'%' or
+		event_info like '%'||#{keyword}||'%' or
+		event_region like '%'||#{keyword}||'%'
+		</if>
+		<if test="club_num != 0">
+		<!-- 모임번호가 0 이 아니면, 특정 모임에 대한 이벤트를 검색 -->
+		club_num = #{club_num}
+		</if>
+		<if test="event_region != null">
+		<!-- 넘어온 지역이 있을땐, 특정 지역에 대한 모임을 검색 -->
+		event_region = #{event_region}
+		</if>
+	</where>
 </select>
 
 <select id="eventlist" resultType="event" parameterType="event">
@@ -20,7 +37,8 @@ select count(*) from event
 		<!-- 키워드가 있을땐, 복합 검색(제목, 내용, 장소 등 모든) -->
 		club_host_email like '%'||#{keyword}||'%' or
 		event_title like '%'||#{keyword}||'%' or
-		event_info like '%'||#{keyword}||'%'
+		event_info like '%'||#{keyword}||'%' or
+		event_region like '%'||#{keyword}||'%'
 		</if>
 		<if test="club_num != 0">
 		<!-- 모임번호가 0 이 아니면, 특정 모임에 대한 이벤트를 검색 -->

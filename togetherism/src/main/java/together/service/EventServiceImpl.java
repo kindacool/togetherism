@@ -19,8 +19,8 @@ public class EventServiceImpl implements EventService{
 		return eventDao.eventCreate(event);
 	}
 	
-	public int getEventListCount() {
-		return eventDao.getEventListCount();
+	public int getEventListCount(EventDTO event) {
+		return eventDao.getEventListCount(event);
 	}
 	
 	public List<EventDTO> getEventList(EventDTO event){
