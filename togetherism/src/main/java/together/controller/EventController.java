@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.StringTokenizer;
 import java.util.UUID;
@@ -23,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import together.model.EventDTO;
 import together.service.EventService;
+import together.service.PagingPgm;
 import together.service.SampleService;
 
 @Controller
@@ -33,13 +36,15 @@ public class EventController {
 	
 	@RequestMapping(value = "/event_create.do", method = RequestMethod.POST)
 	public String eventCreate(@RequestParam("event_file0") MultipartFile mf,
+			@ModelAttribute EventDTO event,
 			@RequestParam("club_num0") int club_num0,
-			@ModelAttribute EventDTO event, 
 			Model model,
 			HttpSession session, HttpServletRequest request) throws Exception {
 		
 		System.out.println("Controller arrived");
+		System.out.println("여기" + event.getEvent_title());
 
+		// 현재는 club 이 구현되지 않아 club_num 이 넘어오지 않으므로, 임의로 넣은 숫자
 		event.setClub_num(club_num0);
 		
 		// 날짜 처리
@@ -84,6 +89,7 @@ public class EventController {
 			}
 		}
 		
+		if(fileName != "") { // 첨부파일이 전송된 경우
 		// 첨부파일 업로드
 		// mf.transferTo(new File("/path/"+fileName));
 		String path = session.getServletContext().getRealPath("/upload");
@@ -96,11 +102,59 @@ public class EventController {
 		
 		event.setEvent_file(newfilename);
 		System.out.println(event.getEvent_file());
-		
+		}
 		int result = eventService.eventCreate(event);
 		
-		model.addAttribute("result", result);
-		return "togetherview/sayhello"; // 추후 이벤트 리스트로 가는걸로 수정
+		return "redirect:/event_list.do"; // 이벤트 리스트 목록 불러오기
 	}
 	
+	@RequestMapping(value = "/event_list.do", method = RequestMethod.GET)
+	public String eventList(Model model, EventDTO event, HttpServletRequest request) throws Exception {
+		System.out.println("Controller arrived");
+		List<EventDTO> eventlist = new ArrayList<EventDTO>();
+		
+		// 키워드가 넘어왔는지 확인
+		System.out.println("키워드 : " + event.getKeyword()); // 안넘어왔을때 null, String 형
+		// club_num 즉 모임명이 넘어왔는지 확인
+		System.out.println("모임 : " + event.getClub_num()); // 안넘어왔을때 0, int형
+		// 지역명이 넘어왔는지 확인
+		System.out.println("지역 : " + event.getEvent_region()); // 안넘어왔을떄 null, String 형
+		
+		int page = 1;
+		int limit = 10;
+		
+		// 페이지 값이 넘어온 경우엔 그 값을 페이지 번호로 지정
+		if (request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+
+		// 총 이벤트 수를 받아옴.
+		int listcount = eventService.getEventListCount();
+		System.out.println("총 이벤트 수 " + listcount);
+		
+		int startRow = (page - 1) * limit + 1; // 1, 11, 21, 31
+		int endRow = startRow + limit - 1; // 10, 20, 30, 40
+
+		// 나머지 파생변수들을 구함
+		PagingPgm pp = new PagingPgm(listcount, limit, page);
+		event.setStartRow(startRow);
+		event.setEndRow(endRow);
+		int no = listcount - startRow + 1;		// 화면 출력 번호
+		
+		eventlist = eventService.getEventList(event); // 리스트를 받아옴.
+		System.out.println(eventlist);
+				
+		// 가져온 이벤트 리스트
+		model.addAttribute("eventlist", eventlist);
+		// 화면 출력 번호
+		model.addAttribute("no", no);
+		// 데이터 갯수, 화면에 출력할 데이터 갯수, 블랙덩 페이지 갯수, 현재 페이지 번호,
+		// 각 블럭의 시작 페이지, 각 블럭의 끝 페이지, 총 페이지수 
+		model.addAttribute("pp", pp);
+		// 검색
+		model.addAttribute("keyword", event.getKeyword());
+		model.addAttribute("club_num", event.getClub_num());
+
+		return "togetherview/event_list"; // 이후 리스트 출력하는 페이지로 가는걸로 수정
+	}
 }

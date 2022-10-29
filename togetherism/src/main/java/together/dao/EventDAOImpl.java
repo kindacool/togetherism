@@ -1,5 +1,7 @@
 package together.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -24,5 +26,13 @@ public class EventDAOImpl implements EventDAO {
 		System.out.println(event.getEvent_date());
 		System.out.println(event.getEvent_reg_date());
 		return sqlSession.insert("eventns.create",event);
+	}
+	
+	public int getEventListCount() {
+		return sqlSession.selectOne("eventns.listcount");
+	}
+	
+	public List<EventDTO> getEventList(EventDTO event){
+		return sqlSession.selectList("eventns.eventlist", event);
 	}
 }

@@ -1,9 +1,8 @@
 
-
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 mapOption = {
 	center : new kakao.maps.LatLng(37.53288514135262, 126.99055287202485), // 지도의
-																			// 중심좌표
+	// 중심좌표
 	level : 3
 // 지도의 확대 레벨
 };
@@ -27,18 +26,21 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 
 	// 마커 위치를 클릭한 위치로 옮깁니다
 	marker.setPosition(latlng);
-	
+
 	// 위경도를 화면에 표시만 하기
 	var resultLat = document.getElementById('event_spot_lat0');
 	var resultLng = document.getElementById('event_spot_long0');
 	resultLat.innerHTML = latlng.getLat();
 	resultLng.innerHTML = latlng.getLng();
-	
+
 	var lat_string = latlng.getLat().toString();
 	var lng_string = latlng.getLng().toString();
-	
+
 	// 위경도를 hidden 값으로 넘기기
-	document.getElementById('event_spot_lat').setAttribute('value', latlng.getLat().toString());
-	document.getElementById('event_spot_long').setAttribute('value', latlng.getLng().toString());
+	document.getElementById('event_spot_lat').setAttribute('value',
+			latlng.getLat().toString());
+	document.getElementById('event_spot_long').setAttribute('value',
+			latlng.getLng().toString());
+	
 	
 });

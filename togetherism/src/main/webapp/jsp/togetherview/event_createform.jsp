@@ -17,8 +17,8 @@
 	<form name="event_form"
 		action="<%=request.getContextPath()%>/event_create.do" method="post"
 		enctype="multipart/form-data">
-		<input type="hidden" value="1" name="club_num0"> 
-		<input type="hidden" value="x@g.com" name="club_host_email">
+		<input type="hidden" value="1" name="club_num0">  <!-- Merge 이후 넘어올 값 -->
+		<input type="hidden" value="x@g.com" name="club_host_email"> <!-- Merge 이후 넘어올 값 -->
 		<input type="hidden" id="event_spot_lat" name="event_spot_lat" value="">
 		<input type="hidden" id="event_spot_long" name="event_spot_long" value="">
 
@@ -28,7 +28,8 @@
 			<em>지도를 클릭해주세요!</em>
 		</p>
 		<div id="clickLatlng"></div>
-
+		
+		<!-- 맵 작업 코드 -->
 		<script type="text/javascript" src="../../js/event_spot_map.js"></script>
 		<table>
 			<caption>이벤트 생성 폼</caption>
@@ -48,6 +49,10 @@
 				<div id="event_spot_long0"></div>
 			</td>
 
+			<td>이벤트 지역</td>
+			<select name="event_region">
+			<option value="수도권">수도권</option>
+			</select>
 			<tr>
 				<td>이벤트 설명</td>
 				<td><textarea name="event_info"></textarea></td>

@@ -18,4 +18,12 @@ public class EventDTO {
 	private String event_file;
 	private String event_spot_long;
 	private String event_spot_lat;
+	private String event_region;
+	
+	// page
+	private int startRow;
+	private int endRow;
+	
+	// 검색
+	private String keyword;
 }

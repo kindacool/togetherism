@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-location.href = event_createform.jsp
+<script>
+location.href="event_list.do?club_region=수도권";
+</script>
 </body>
 </html>
