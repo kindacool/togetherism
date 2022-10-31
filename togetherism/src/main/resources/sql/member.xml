@@ -3,8 +3,20 @@
 
 <mapper namespace="memberns">
 
-</mapper>
+    <!-- 회원저장 -->
+    <insert id="member_insert" parameterType="member">
+     insert into member (member_email,member_nickname,member_pw,member_image,member_mobile1,
+     member_mobile2,member_mobile3,member_region,member_reg_date,member_del_yn) values(#{member_email},
+     #{member_nickname},#{member_pw},#{member_image,jdbcType=VARCHAR},
+     #{member_mobile1},#{member_mobile2},#{member_mobile3},#{member_region},sysdate,'N')
+    </insert>
+    
+    <!-- email 중복 체크 -->
+    <select id="member_email_check" parameterType="String" resultType="member">
+     select * from member where member_email=#{member_email} and member_del_yn='N'
+    </select>
 
+</mapper>
 
 
 
