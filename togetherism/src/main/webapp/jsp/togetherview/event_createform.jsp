@@ -30,7 +30,7 @@
 		<div id="clickLatlng"></div>
 		
 		<!-- 맵 작업 코드 -->
-		<script type="text/javascript" src="../../js/event_spot_map.js"></script>
+		<script type="text/javascript" src="<%=request.getContextPath()%>/js/event_spot_map.js"></script>
 		<table>
 			<caption>이벤트 생성 폼</caption>
 			<tr>

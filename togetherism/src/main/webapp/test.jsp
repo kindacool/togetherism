@@ -8,7 +8,7 @@
 </head>
 <body>
 <script>
-location.href="event_list.do?event_region=경상권";
+location.href="event_list.do";
 </script>
 </body>
 </html>

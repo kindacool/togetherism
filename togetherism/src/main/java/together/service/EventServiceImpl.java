@@ -26,4 +26,16 @@ public class EventServiceImpl implements EventService{
 	public List<EventDTO> getEventList(EventDTO event){
 		return eventDao.getEventList(event);
 	}
+	
+	public EventDTO getEventCont(int event_num) {
+		return eventDao.getEventCont(event_num);
+	}
+	
+	public int eventUpdate(EventDTO event) {
+		return eventDao.eventUpdate(event);
+	}
+	
+	public int eventDelete(int event_num) {
+		return eventDao.eventDelete(event_num);
+	}
 }

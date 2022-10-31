@@ -35,4 +35,14 @@ public class EventDAOImpl implements EventDAO {
 	public List<EventDTO> getEventList(EventDTO event){
 		return sqlSession.selectList("eventns.eventlist", event);
 	}
+	
+	public EventDTO getEventCont(int event_num) {
+		return sqlSession.selectOne("eventns.eventcont", event_num);
+	}
+	public int eventUpdate(EventDTO event) {
+		return sqlSession.update("eventns.update", event);
+	}
+	public int eventDelete(int event_num) {
+		return sqlSession.delete("eventns.delete",event_num);
+	}
 }
