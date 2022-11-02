@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>z
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
@@ -22,16 +22,16 @@
 		<tr>
 			<td>이메일</td>
 			<td>
-			<input type="text" name="email_id" id="email_id" maxlength="100" />@
+			<input type="text" name="email_id" id="email_id" maxlength="100" onKeyup="email_checkR()" />@
 			<input name="email_domain" id="email_domain" readonly/>
-				<select id="mail_list" name="mail_list" onchange="domain_list()"> 
+				<select id="mail_list" name="mail_list" onChange="domain_list()"> 
 						<option value="">=이메일선택=</option>
 						<option value="gmail.com">gmail.com</option>
 						<option value="naver.com">naver.com</option>
 						<option value="daum.net">daum.net</option>
 						<option value="0">직접입력</option>
 				</select>
-			<input type="button" value="아이디 중복체크" class="input_button"
+			<input type="button" id="email_check_button" value="이메일 중복체크" class="input_button"
       		onclick="email_check()" />
       		<div id="email_check">
 			
@@ -55,7 +55,14 @@
 		<!----- 닉네임 ---------------------------------------------------------->
 		<tr>
 			<td>닉네임</td>
-			<td><input type="text" name="member_nickname" id="member_nickname" maxlength="20" /></td>
+			<td>
+				<input type="text" name="member_nickname" id="member_nickname" maxlength="20" 
+				onKeyup="nickname_checkR()"/>
+				<input type="button" id="nickname_check_button" value="닉네임 중복체크" class="input_button"
+	      		onClick="nickname_check()" />
+      		<div id="nickname_check">
+      		</td>
+      		
 		</tr>
 		
 		<!----- 휴대전화 ---------------------------------------------------------->

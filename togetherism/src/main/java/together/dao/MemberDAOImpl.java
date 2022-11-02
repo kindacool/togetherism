@@ -12,23 +12,68 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Autowired
 	private SqlSession sqlSession;
-
-	@Override
-	public void insertMember(MemberDTO member) throws Exception {
-		// TODO Auto-generated method stub
-		sqlSession.insert( "member_insert", member);
-	}
-
+	
 	@Override
 	public int checkMemberEmail(String member_email) throws Exception {
 		// TODO Auto-generated method stub
 	
 		int re = -1;	// 사용 가능한 ID
-		MemberDTO member = (MemberDTO) sqlSession.selectOne("member_email_check", member_email);
+		MemberDTO member = (MemberDTO) sqlSession.selectOne("member_emailcheck", member_email);
 		
 		if (member != null)
 			re = 1; 	// 중복id
 		return re;
 	}
+	
+	@Override
+	public int checkMemberNickname(String member_nickname) throws Exception {
+		// TODO Auto-generated method stub
+		int re = -1;	// 사용 가능한 닉네임
+		MemberDTO member = (MemberDTO) sqlSession.selectOne("member_nickcheck", member_nickname);
+		
+		if (member != null)
+			re = 1; 	// 중복 닉네임
+		
+		
+		return re;
+	}
+
+	@Override
+	public void insertMember(MemberDTO member) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.insert("member_insert", member);
+	}
+
+	@Override
+	public MemberDTO userCheck(String email) throws Exception{
+		// TODO Auto-generated method stub
+		return (MemberDTO) sqlSession.selectOne("member_usercheck", email);
+	}
+
+	@Override
+	public void updateMember(MemberDTO member) throws Exception{
+		// TODO Auto-generated method stub
+		sqlSession.update("member_edit", member);
+	}
+
+	@Override
+	public MemberDTO findPwd(MemberDTO member) throws Exception{
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("member_pwfind", member);
+	}
+
+	@Override
+	public MemberDTO findemail(MemberDTO member) throws Exception{
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("member_emailfind", member);
+	}
+
+	@Override
+	public void deleteMember(MemberDTO member) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.update("member_delete", member);
+	}
+
+
 	
 }

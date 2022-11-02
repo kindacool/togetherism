@@ -21,18 +21,26 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
 
+
 <script>
 function check(){
-	if($.trim($("#member_email").val())==""){
+	if($.trim($("#login_email").val())==""){
 		alert("아이디를 입력하세요!");
-		$("#member_email").val("").focus();
+		$("#login_email").val("").focus();
 		return false;
 		}	
-	if($.trim($("#member_pw").val())==""){
+	if($.trim($("#login_pw").val())==""){
 		alert("비밀번호를 입력하세요!");
-		$("#member_pw").val("").focus();
+		$("#login_pw").val("").focus();
 		return false;
 		}
+}
+
+/*비번찾기 공지창*/
+function pwd_find(){
+	 window.open("pwd_find.do","비번찾기","width=450,height=500");
+	 //자바 스크립트에서 window객체의 open("공지창경로와 파일명","공지창이름","공지창속성")
+	 //메서드로 새로운 공지창을 만듬.폭이 400,높이가 400인 새로운 공지창을 만듬.단위는 픽셀
 }
 
 </script>
@@ -45,15 +53,13 @@ function check(){
 <div class="wrapper">
 	<div class="inner-warpper text-center">
 		<h2 class="title">Togetherism 로그인</h2>
-			<form action="login.jsp" method="post" onsubmit="return check()">
+			<form action="<%=request.getContextPath()%>/member_login_ok.do" method="post" onsubmit="return check()">
 				<div class="input-group">
-					<label class="palceholder" for="email">이메일주소</label> 
-					<input type="text" class="form-control" name="member_email" id="member_email" placeholder="" /> 
+					<input type="text" class="form-control" name="login_email" id="login_email" placeholder="이메일주소" /> 
 					<span class="lighting"></span>
 				</div>
 				<div class="input-group">
-					<label class="palceholder" for="pw">비밀번호</label> 
-					<input type="password" class="form-control" name="member_pw" id="member_pw" placeholder="" />
+					<input type="password" class="form-control" name="login_pw" id="login_pw" placeholder="비밀번호" />
 					<span class="lighting"></span>
 				</div>
 				
@@ -64,8 +70,10 @@ function check(){
 						<input type="checkbox" id="rememberMe"/> 
 						<label for="rememberMe">아이디 기억하기</label>
 					</div>
-					<a class="forgot pull-right" href="#">아이디 찾기</a> 
-					<a class="forgot pull-right" href="#">비밀번호 찾기</a>
+					<a class="forgot pull-right" 
+					href="<%=request.getContextPath()%>/member_emailfind.do">이메일 찾기</a> 
+					<a class="forgot pull-right" 
+					href="<%=request.getContextPath()%>/member_pwfind.do">비밀번호 찾기</a>
 				</div>
 			</form>
 	</div>
