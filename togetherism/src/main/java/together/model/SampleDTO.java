@@ -12,7 +12,6 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@Controller
 public class SampleDTO {
 	private String member_email;
 	private String member_nickname;
@@ -26,5 +25,5 @@ public class SampleDTO {
 	private String member_del_yn;
 	private Date member_del_date;
 	private String member_del_reason;
-	
+
 }
