@@ -26,4 +26,6 @@ public class EventDTO {
 	
 	// 검색
 	private String keyword;
+	// 미리보기
+	private String preview;
 }

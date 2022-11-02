@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../include/header.jsp"%>
+<%@ include file="../include/headerlib.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,7 +51,7 @@ marker.setMap(map);
 			</tr>
 			<tr>
 				<td>이벤트 설명</td>
-				<td>${event.event_info}</td>
+				<td>${eventInfobr}</td>
 			</tr>
 			<tr>
 				<td><input type="file" name="event_file0"></td>
@@ -68,6 +68,9 @@ marker.setMap(map);
             				<c:when test="${token eq 'png'}">
             						<img src="<%=request.getContextPath() %>/upload/${event.event_file}" style="height:100px; weight:100px;"alt="${event.event_file}"/>
             				</c:when>
+            				<c:when test="${token eq 'jifi'}">
+            						<img src="<%=request.getContextPath() %>/upload/${event.event_file}" style="height:100px; weight:100px;" alt="${event.event_file}"/>
+            				</c:when>
             				<c:when test="${token eq 'gif'}">
             						<img src="<%=request.getContextPath() %>/upload/${event.event_file}" style="height:100px; weight:100px;" alt="${event.event_file}"/>
             				</c:when>
@@ -80,7 +83,7 @@ marker.setMap(map);
 				</c:forTokens>
 				</c:if>
 	<c:if test="${empty event.event_file}">
-		<img src="images/togetherimage.jpg" style="height:100px; weight:100px;" alt="defalutimage">
+		<img src="<%=request.getContextPath()%>/images/togetherimage.jpg" style="height:100px; weight:100px;" alt="defalutimage">
 		첨부파일이 없습니다!
 	</c:if>
 			</tr>
@@ -97,7 +100,7 @@ marker.setMap(map);
 		onclick="location='event_list.do?club_num=${club_num}&eventPage=${eventPage}'" />
 </c:if>
 <c:if test="${club_num == 0}">
-<input type="button" value="먼저 해당 모임에 가입하기" />
+<a href="<%=request.getContextPath()%>/club_ct.do?club_num=${event.club_num}">해당 모임에 가입하기</a>
 </c:if>
 
 </body>

@@ -3,6 +3,60 @@
 
 <mapper namespace="club_member_joinns">
 
+<select id="joincont" resultType="club_member_join" parameterType="String">
+select * from club_member_join where member_email = #{member_email} and club_num = #{club_num}
+</select>
+
+<select id="membercont" resultType="member" parameterType="String">
+select * from member where member_email = #{member_email}
+</select>
+
+<insert id="join" parameterType="club_member_join">
+insert into club_member_join values(club_member_join_seq.nextval,#{member_email}, #{club_num}, 
+#{member_nickname}, #{member_image}, #{join_hello}, #{club_host_yn})
+</insert>
+
+<update id="updatecount" parameterType="int">
+update club set club_member_count = club_member_count + 1 where club_num = #{club_num}
+</update>
+
+<select id="clubmember" resultType="club_member_join" parameterType="int">
+select * from club_member_join where club_num = #{club_num} and club_host_yn = 'N'
+</select>
+
+<select id="clubcont" resultType="club" parameterType="int">
+select * from club where club_num = #{club_num}
+</select>
+
+<select id="joinedclub" resultType="club_member_join" parameterType="String">
+select * from club_member_join where member_email = #{sess}
+</select>
+
+<select id="clublist" resultType="club" parameterType="club_member_join">
+select * from club
+where
+club_num in
+<foreach collection="list" item="item" separator="," open="(" close=")">
+#{item.club_num}
+</foreach>
+</select>
+
+<select id="clubhostyn" resultType="String" parameterType="club_member_join">
+select club_host_yn from club_member_join where member_email = #{member_email} and club_num = #{club_num}
+</select>
+
+<delete id="leave" parameterType="club_member_join">
+delete from club_member_join where member_email = #{member_email} and club_num = #{club_num} 
+and club_host_yn = 'N'
+</delete>
+
+<update id="minuscount" parameterType="int">
+update club set club_member_count = club_member_count - 1 where club_num = #{club_num}
+</update>
+
+<select id="myclub" resultType="club_member_join" parameterType="String">
+select * from club_member_join where member_email = #{sess} and club_host_yn='Y'
+</select>
 </mapper>
 
 

@@ -44,18 +44,28 @@ public class EventController {
 	@Autowired
 	private EventService eventService;
 	
+	// 이벤트 만들기 폼으로 이동
+	@RequestMapping(value = "/event_createform.do", method = RequestMethod.GET)
+	public String eventCreateForm(@RequestParam("club_num") int club_num, Model model) {
+		// 1. 세션을 구하기
+		// 2. 세션을 구해서 club_member_join 테이블에서 확인해서 모임장이면 만들기 가능
+		// 또는 club 테이블에서 확인도 가능함
+		// 그리고 모임장이면 모임장 이메일을 구해서 model 객체에 저장
+		// 일단 임의로 설정
+		model.addAttribute("club_host_email", "x@g.com");
+		model.addAttribute("club_num", club_num);
+		return "togetherview/event_createform";
+	}
+
+	// 이벤트 만들기
 	@RequestMapping(value = "/event_create.do", method = RequestMethod.POST)
 	public String eventCreate(@RequestParam("event_file0") MultipartFile mf,
 			@ModelAttribute EventDTO event,
-			@RequestParam("club_num0") int club_num0,
 			Model model,
 			HttpSession session, HttpServletRequest request) throws Exception {
-		
+		int result = 0;
 		System.out.println("Controller arrived");
 		System.out.println("여기" + event.getEvent_title());
-
-		// 현재는 club 이 구현되지 않아 club_num 이 넘어오지 않으므로, 임의로 넣은 숫자
-		event.setClub_num(club_num0);
 		
 		// 날짜 처리
 		String event_date_date = (String)request.getParameter("event_date_date");
@@ -92,10 +102,10 @@ public class EventController {
 			file[1] = st.nextToken(); // 확장자
 			
 			if(fileSize > 1000000) { // 1MB
-				err = 1;
-				model.addAttribute("err", err);
+				result = 2;
+				model.addAttribute("result", result);
 				
-				return "togetherview/event_file_upload_result";
+				return "togetherview/event_create_result";
 			}
 		}
 		
@@ -113,13 +123,16 @@ public class EventController {
 			System.out.println(event.getEvent_file());
 		}
 		
-		int result = eventService.eventCreate(event);
-		
-		return "redirect:/event_list.do"; // 이벤트 리스트 목록 불러오기
+		result = eventService.eventCreate(event);
+		model.addAttribute("result", result);
+		model.addAttribute("club_num", event.getClub_num());
+		return "togetherview/event_create_result"; // 특정 모임의 이벤트 리스트 목록 불러오기
 	}
 	
+	// 이벤트 목록 리스트
 	@RequestMapping(value = "/event_list.do", method = RequestMethod.GET)
-	public String eventList(Model model, EventDTO event, HttpServletRequest request) throws Exception {
+	public String eventList(Model model, EventDTO event, 
+			HttpServletRequest request) throws Exception {
 		System.out.println("Controller arrived");
 		List<EventDTO> eventlist = new ArrayList<EventDTO>();
 		
@@ -129,6 +142,8 @@ public class EventController {
 		System.out.println("모임 : " + event.getClub_num()); // 안넘어왔을때 0, int형
 		// 지역명이 넘어왔는지 확인
 		System.out.println("지역 : " + event.getEvent_region()); // 안넘어왔을떄 null, String 형
+		// preview
+		System.out.println("preview : " + event.getPreview()); // 안넘어왔을떄 null, String 형
 		
 		int eventPage = 1;
 		int limit = 10;
@@ -136,6 +151,12 @@ public class EventController {
 		// 페이지 값이 넘어온 경우엔 그 값을 페이지 번호로 지정
 		if (request.getParameter("eventPage") != null) {
 			eventPage = Integer.parseInt(request.getParameter("eventPage"));
+		}
+		
+		// preview 가 Y 면 3페이지만 출력
+		if (event.getPreview() != null) {
+			limit = 3;
+			model.addAttribute("preview", event.getPreview());
 		}
 		
 		// 페이지 번호 확인
@@ -170,6 +191,8 @@ public class EventController {
 		model.addAttribute("event_region", event.getEvent_region());
 
 		model.addAttribute("eventPage", eventPage);
+		model.addAttribute("preview", event.getPreview());
+		
 
 		return "togetherview/event_list"; // 이후 리스트 출력하는 페이지로 가는걸로 수정
 	}

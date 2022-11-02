@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="../include/header.jsp"%>
+<%@ include file="../include/headerlib.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -124,6 +124,9 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
             				<c:when test="${token eq 'png'}">
             						<img src="<%=request.getContextPath() %>/upload/${event.event_file}" style="height:100px; weight:100px;"alt="${event.event_file}"/>
             				</c:when>
+            				<c:when test="${token eq 'jifi'}">
+            						<img src="<%=request.getContextPath() %>/upload/${event.event_file}" style="height:100px; weight:100px;" alt="${event.event_file}"/>
+            				</c:when>
             				<c:when test="${token eq 'gif'}">
             						<img src="<%=request.getContextPath() %>/upload/${event.event_file}" style="height:100px; weight:100px;" alt="${event.event_file}"/>
             				</c:when>
@@ -136,7 +139,7 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 				</c:forTokens>
 				</c:if>
 		<c:if test="${empty event.event_file}"> <%-- 첨부파일이 없을때 --%>
-			<img src="images/togetherimage.jpg" style="height:100px; weight:100px;" alt="defalutimage">
+			<img src="<%=request.getContextPath()%>/images/togetherimage.jpg" style="height:100px; weight:100px;" alt="defalutimage">
 			첨부파일이 없습니다!
 		</c:if>
 			</tr>

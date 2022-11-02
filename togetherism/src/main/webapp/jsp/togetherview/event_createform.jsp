@@ -5,7 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>이벤트 생성 폼</title>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=44a98d8b63fb071cda538e0fedd4970c"></script>
 <!-- services와 clusterer, drawing 라이브러리 불러오기 -->
@@ -17,8 +16,8 @@
 	<form name="event_form"
 		action="<%=request.getContextPath()%>/event_create.do" method="post"
 		enctype="multipart/form-data">
-		<input type="hidden" value="9" name="club_num0">  <!-- Merge 이후 넘어올 값 -->
-		<input type="hidden" value="x@g.com" name="club_host_email"> <!-- Merge 이후 넘어올 값 -->
+		<input type="hidden" value="${club_num}" name="club_num">  <!-- Merge 이후 넘어올 값 -->
+		<input type="hidden" value="${club_host_email}" name="club_host_email"> <!-- Merge 이후 Controller 에서 구해서 넘어올 값 -->
 		<input type="hidden" id="event_spot_lat" name="event_spot_lat" value="">
 		<input type="hidden" id="event_spot_long" name="event_spot_long" value="">
 

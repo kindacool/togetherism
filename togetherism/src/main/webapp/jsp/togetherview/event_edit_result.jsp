@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../include/header.jsp"%>
+<%@ include file="../include/headerlib.jsp"%>
 
 <!DOCTYPE html>
 <html>
@@ -12,8 +12,8 @@
 
 <c:if test="${result == 1}">
 <script>
-	alert("수정 성공했습니다.");
-	location.href="event_list.do?eventPage=${eventPage}&club_num=${club_num}";
+	alert("수정 성공했습니다."); // 이후 모임페이지 가는걸로 수정
+	location.href="<%=request.getContextPath()%>/event_list.do?eventPage=${eventPage}&club_num=${club_num}";
 // 삭제 메세지 뿌린 후 location 객체로 리스트로로 돌아가기 이떄 리스트는 특정 모임의 리스트이므로club_num 과 eventPage 필요
 </script>
 </c:if>
