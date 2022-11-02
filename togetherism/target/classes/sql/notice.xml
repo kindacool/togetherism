@@ -3,26 +3,40 @@
 
 <mapper namespace="noticens">
 
+	<!-- 공지사항 작성 -->
+	<insert id="insert" parameterType="notice">
+		insert into notice values
+		(notice_seq.nextval, #{manager_email}, #{notice_title}, sysdate, #{notice_content}, #{notice_file,jdbcType=VARCHAR})
+	</insert>
+	
+	<!-- 글 개수 구하기 -->
+	<select id="count" resultType="int">
+		select count (*) from notice
+	</select>
+	
+	<!-- 글 목록 구하기 -->
+	<select id="list" parameterType="int" resultType="notice">
+		<![CDATA[
+		select * from (select rownum rnum, notice.* from (
+		select * from notice order by notice_num desc) notice )
+		where rnum >= ((#{page} - 1) * 10 + 1 ) and rnum <= (#{page} * 10)
+		]]>
+	</select>
+	
+	<!-- 글 상세 내용 구하기 -->
+	<select id="content" parameterType="int" resultType="notice">
+		select * from notice where notice_num = #{notice_num }
+	</select>
+	
+	<!-- 글 삭제 -->
+	<delete id="delete" parameterType="int">
+		delete from notice where notice_num = #{notice_num }
+	</delete>
+		
+	<!-- 글 수정 -->
+	<update id="update" parameterType="notice">
+		update notice set notice_title=#{notice_title}, notice_content=#{notice_content},
+		notice_file=#{notice_file,jdbcType=VARCHAR} where notice_num = #{notice_num}
+	</update>
+
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
