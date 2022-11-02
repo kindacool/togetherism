@@ -23,3 +23,4 @@ public class MemberDTO {
 	private String member_del_reason;
 	
 }
+

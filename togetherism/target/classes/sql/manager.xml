@@ -3,26 +3,36 @@
 
 <mapper namespace="managerns">
 
+	<resultMap id="memberResult"				type="member">
+		<result property="member_email"			column="member_email"/>
+		<result property="member_nickname"		column="member_nickname"/>
+		<result property="member_pw"			column="member_pw"/>
+		<result property="member_image"			column="member_image"/>
+		<result property="member_mobile1"		column="member_mobile1"/>
+		<result property="member_mobile2"		column="member_mobile2"/>
+		<result property="member_mobile3"		column="member_mobile3"/>
+		<result property="member_region"		column="member_region"/>
+		<result property="member_reg_date"		column="member_reg_date"/>
+		<result property="member_del_yn"		column="member_del_yn"/>
+		<result property="member_del_date"		column="member_del_date"/>
+		<result property="member_del_reason"	column="member_del_reason"/>
+		
+	</resultMap>
+	
+	<!-- 전체 회원 목록  -->
+	<select id="memberList" resultMap="memberResult">
+		select * from member order by member_reg_date desc
+	</select>
+	
+	<!-- 회원 1명 상세정보 -->
+	<select id="getMember" parameterType="int" resultType="member">
+		select * from member where member_email = #{member_email}
+	</select>
+	
+	<!-- 회원 삭제 -->
+	<update id="memberDelete" parameterType="member">
+		update member set member_del_yn = 'Y', member_del_date = sysdate,
+		member_del_reason = #{member_del_reason} where member_email = #{member_email}
+	</update>
+
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
