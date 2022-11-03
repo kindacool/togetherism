@@ -100,8 +100,10 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 
 			<td>이벤트 지역</td>
 			<select name="event_region">
-			<option value="수도권">수도권</option>
-			<option value="경상권">경상권</option>
+			<option value="수도권" <c:if test="${event.event_region == '수도권'}">selected
+            </c:if>>수도권</option>
+			<option value="경상권" <c:if test="${event.event_region == '경상권'}">selected
+            </c:if>>경상권</option>
 			</select>
 			<tr>
 				<td>이벤트 설명</td>

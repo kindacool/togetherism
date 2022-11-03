@@ -17,6 +17,6 @@ public class SampleDAOImpl implements SampleDAO{
 	public SampleDTO testselect(String pw) {
 		System.out.println("DAO arrived");
 
-		return sqlSession.selectOne("samplens.test", pw);
+		return (SampleDTO)sqlSession.selectList("samplens.test", pw).get(0);
 	}
 }

@@ -12,8 +12,7 @@ select * from member where member_email = #{member_email}
 </select>
 
 <insert id="join" parameterType="club_member_join">
-insert into club_member_join values(club_member_join_seq.nextval,#{member_email}, #{club_num}, 
-#{member_nickname}, #{member_image}, #{join_hello}, #{club_host_yn})
+insert into club_member_join values(club_member_join_seq.nextval,#{member_email}, #{club_num}, #{join_hello}, #{club_host_yn})
 </insert>
 
 <update id="updatecount" parameterType="int">
@@ -56,6 +55,23 @@ update club set club_member_count = club_member_count - 1 where club_num = #{clu
 
 <select id="myclub" resultType="club_member_join" parameterType="String">
 select * from club_member_join where member_email = #{sess} and club_host_yn='Y'
+</select>
+
+<update id="updatevc" parameterType="int">
+update club set club_viewcount = club_viewcount + 1 where club_num = #{club_num}
+</update>
+
+<resultMap type="together.model.ClubMemberInfo" id="joinresult">
+	<result property="join_hello" column="join_hello" />
+	<result property="member_image" column="member_image" />
+	<result property="member_nickname" column="member_nickname" />
+</resultMap>
+
+<select id="memberlist" parameterType="int" resultMap="joinresult">
+select a.join_hello, b.member_image, b.member_nickname 
+from club_member_join a 
+inner join member b 
+on (a.member_email = b.member_email and a.club_num = #{club_num})
 </select>
 </mapper>
 

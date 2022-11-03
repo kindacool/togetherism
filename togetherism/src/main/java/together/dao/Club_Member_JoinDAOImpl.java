@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import together.model.ClubDTO;
+import together.model.ClubMemberInfo;
 import together.model.Club_Member_JoinDTO;
 import together.model.MemberDTO;
 
@@ -69,4 +70,15 @@ public class Club_Member_JoinDAOImpl implements Club_Member_JoinDAO{
 	public List<Club_Member_JoinDTO> getMyClub(String sess){
 		return sqlSession.selectList("club_member_joinns.myclub", sess);
 	}
+	
+	// club 테이블과 연동할 것, merge 후 수정, 상세페이지 이동시 모임의 조회수 증가
+	public void getUpdateViewCount(int club_cum) {
+		sqlSession.update("club_member_joinns.updatevc", club_cum);
+	}
+	
+	// member 테이블과 연동할 것, merge 후 수정, 특정 클럽의 멤버 리스트 가져오기
+	public List<ClubMemberInfo> getMemberList(int club_num){
+		return sqlSession.selectList("club_member_joinns.memberlist",club_num);
+	}
+	
 }

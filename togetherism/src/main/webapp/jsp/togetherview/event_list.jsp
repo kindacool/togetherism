@@ -22,6 +22,9 @@
 	<c:if test="${not empty preview}"> <!--  모임 내에서 이벤트를 볼때 preview 상태면 더보기 출력 -->
 		<a href="<%=request.getContextPath()%>/event_list.do?club_num=${club_num}"> 더보기 </a>
 	</c:if>
+	<c:if test="${empty preview}"> <!--  모임 내에서 이벤트를 볼때 preview 상태가 아니면 모임으로 돌아가기 출력-->
+		<a href="<%=request.getContextPath()%>/club_ct.do?club_num=${club_num}"> 해당 모임으로 돌아가기 </a>
+	</c:if>
 </c:if>
 
 <!-- 이벤트가 없을때 처리 -->

@@ -245,6 +245,11 @@ public class EventController {
 		System.out.println("Controller arrived");
 		System.out.println("이벤트 수정 " + event.getEvent_title());
 
+		// 1. 세션을 구하기
+		// 2. 세션을 구해서 club_member_join 테이블에서 확인해서 모임장이면 수정 가능
+		// 또는 club 테이블에서 확인도 가능함
+		// 그리고 모임장이면 모임장 이메일을 구해서 model 객체에 저장
+		
 		// 날짜 처리
 		String event_date_date = (String)request.getParameter("event_date_date");
 		String event_date_time = (String)request.getParameter("event_date_time");
@@ -328,6 +333,11 @@ public class EventController {
 			System.out.println("이벤트 번호" + event_num);
 			System.out.println("모임 번호: " + club_num);
 			System.out.println("페이지 : " + eventPage);
+			
+			// 1. 세션을 구하기
+			// 2. 세션을 구해서 club_member_join 테이블에서 확인해서 모임장이면 삭제 가능
+			// 또는 club 테이블에서 확인도 가능함
+			// 그리고 모임장이면 모임장 이메일을 구해서 model 객체에 저장
 			
 			EventDTO old = this.eventService.getEventCont(event_num);
 			// 첨부파일이 있다면

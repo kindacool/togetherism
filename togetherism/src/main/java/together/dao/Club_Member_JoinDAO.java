@@ -3,6 +3,7 @@ package together.dao;
 import java.util.List;
 
 import together.model.ClubDTO;
+import together.model.ClubMemberInfo;
 import together.model.Club_Member_JoinDTO;
 import together.model.MemberDTO;
 
@@ -43,4 +44,10 @@ public interface Club_Member_JoinDAO {
 	
 	// 내가 운영하는 모임 리스트
 	public List<Club_Member_JoinDTO> getMyClub(String sess);
+	
+	// club 테이블과 연동할 것, merge 후 수정, 상세페이지 이동시 모임의 조회수 증가
+	public void getUpdateViewCount(int club_cum);
+	
+	// member 테이블과 club_member_join 조인, 특정 클럽의 멤버 리스트 가져오기
+	public List<ClubMemberInfo> getMemberList(int club_num);
 }
