@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -118,7 +119,7 @@ public class NoticeController {
 		int noticeCount = noticeService.getCount();
 		System.out.println("데이터 개수: "+noticeCount);
 		
-		//글 목록 리스트
+		//글 목록 전체
 		List<NoticeDTO> noticeList = noticeService.getNoticeList(page);
 		System.out.println("게시판 글 출력: "+noticeList);
 		
@@ -270,5 +271,20 @@ public class NoticeController {
 		model.addAttribute("result", result);
 		
 		return "togetherview/notice_delete";
+	}
+	
+	//수정폼의 첨부파일 삭제
+//	@RequestMapping(value= "notice_modifyFile.do", method = RequestMethod.POST)
+//	public String notice_modifyFile (@RequestParam("modifyFile") String img, int notice_num, Model model) {
+	
+	@RequestMapping("notice_modifyFile.do")
+	public String notice_modifyFile (int notice_num, Model model) {
+		
+		int result = noticeService.fileDelete(notice_num);
+		System.out.println("notice_file 컬럼 null 처리 완료");
+		
+		model.addAttribute("result", result);
+		
+		return "togetherview/notice_fileResult";
 	}
 }

@@ -14,8 +14,8 @@ public class ManagerServiceImpl implements ManagerService {
 	@Autowired
 	ManagerDAOImpl managerDao;
 	
-	public List<MemberDTO> memberList() {
-		return managerDao.memberList();
+	public List<MemberDTO> memberList(int page) {
+		return managerDao.memberList(page);
 	}
 	
 	public MemberDTO getMember(MemberDTO member_email) {
@@ -24,6 +24,10 @@ public class ManagerServiceImpl implements ManagerService {
 	
 	public void memberDelete(MemberDTO member_email) {
 		managerDao.memberDelete(member_email);
+	}
+	
+	public int memberCount() {
+		return managerDao.memberCount();
 	}
 
 }

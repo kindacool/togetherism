@@ -2,6 +2,8 @@ package together.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.avalon.framework.service.ServiceManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,13 +20,39 @@ public class ManagerController {
 	
 	//회원관리 리스트 진입
 	@RequestMapping("manager_list.do")
-	public String manager_list(Model model) {
+	public String manager_list(HttpServletRequest request, Model model) {
 		
-		List<MemberDTO> memberList = managerService.memberList();
+		//page : 현재 페이지, limit : 한 화면에 출력할 목록
+		int page = 1;
+		int limit = 10;
 		
+		if (request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+		
+		//총 데이터 개수
+		int memberCount = managerService.memberCount();
+		System.out.println("총 회원수: "+memberCount);
+		
+		//회원 목록 전체
+		List<MemberDTO> memberList = managerService.memberList(page);
 		System.out.println("회원 목록 구해오기 성공");
 		
+		//1 블럭당 페이지 개수
+		int pageCount = memberCount / limit + ((memberCount%limit == 0) ? 0 : 1);
+		int startPage = ((page - 1) / 10) * limit + 1;	// 1, 11, 21,
+		int endPage = startPage + 10 - 1;
+		
+		if (endPage > pageCount) endPage = pageCount;
+		
+		model.addAttribute("page", page);
+		model.addAttribute("memberCount", memberCount);
 		model.addAttribute("memberList", memberList);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		
+		System.out.println("전체 회원 목록 출력 성공");
 		
 		return "togetherview/manager_list";
 	}
@@ -50,14 +78,9 @@ public class ManagerController {
 		
 		System.out.println("회원 삭제 메소드 진입");
 		
-//		MemberDTO memberDto = managerService.getMember(member_email);
-//		System.out.println("삭제할 회원 정보 구해오기");
-		//manager_deleteForm에서 받아온 탈퇴사유 member_del_reason을 DTO에 주입
-//		memberDto.setMember_del_reason(memberDto.getMember_email());
-		System.out.println("삭제 메소드 호출");
 		//회원이메일을 매개로 member_del_yn 컬럼 값을 'y'로 변경하는 메소드
 		managerService.memberDelete(memberDto);
-//		managerService.memberDelete(memberDto.get);
+		System.out.println("삭제 메소드 호출 성공");
 		
 		return "togetherview/manager_delete";
 	}

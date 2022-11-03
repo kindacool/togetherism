@@ -38,5 +38,10 @@
 		update notice set notice_title=#{notice_title}, notice_content=#{notice_content},
 		notice_file=#{notice_file,jdbcType=VARCHAR} where notice_num = #{notice_num}
 	</update>
+	
+	<!-- 수정 폼에서 첨부파일 삭제 : 컬럼 값 null 로 변경 -->
+	<update id="fileDelete" parameterType="int">
+		update notice set notice_file='' where notice_num = #{notice_num}
+	</update>
 
 </mapper>

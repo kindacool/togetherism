@@ -10,7 +10,7 @@ import together.dao.NoticeDAOImpl;
 import together.model.NoticeDTO;
 
 @Service
-public class NoticeServiceImpl {
+public class NoticeServiceImpl implements NoticeService {
 	@Autowired
 	private NoticeDAOImpl noticeDao;
 	
@@ -36,6 +36,10 @@ public class NoticeServiceImpl {
 	
 	public int update (NoticeDTO noticeDto){
 		return noticeDao.update(noticeDto);
+	}
+	
+	public int fileDelete (int notice_num) {
+		return noticeDao.fileDelete(notice_num);
 	}
 
 }

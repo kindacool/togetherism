@@ -14,6 +14,7 @@
 </head>
 <body>
 <form method=post action="manager_delete.do">
+<input type="hidden" value="${page }">
 <div class="container">
 	<p><h1>관리자 > ${memberDto.member_nickname } > 강제탈퇴 </h1></p>
 </div>

@@ -14,8 +14,8 @@ public class ManagerDAOImpl implements ManagerDAO {
 	@Autowired
 	SqlSession sqlSession;
 	
-	public List<MemberDTO> memberList() {
-		return sqlSession.selectList("managerns.memberList");
+	public List<MemberDTO> memberList(int page) {
+		return sqlSession.selectList("managerns.memberList", page);
 	}
 	
 	public MemberDTO getMember(MemberDTO member_email) {
@@ -24,6 +24,10 @@ public class ManagerDAOImpl implements ManagerDAO {
 	
 	public void memberDelete(MemberDTO member_email) {
 		sqlSession.update("managerns.memberDelete", member_email);
+	}
+	
+	public int memberCount() {
+		return sqlSession.selectOne("managerns.memberCount");
 	}
 
 }

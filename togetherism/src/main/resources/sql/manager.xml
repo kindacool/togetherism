@@ -4,6 +4,7 @@
 <mapper namespace="managerns">
 
 	<resultMap id="memberResult"				type="member">
+		
 		<result property="member_email"			column="member_email"/>
 		<result property="member_nickname"		column="member_nickname"/>
 		<result property="member_pw"			column="member_pw"/>
@@ -20,8 +21,12 @@
 	</resultMap>
 	
 	<!-- 전체 회원 목록  -->
-	<select id="memberList" resultMap="memberResult">
-		select * from member order by member_reg_date desc
+	<select id="memberList" parameterType="int" resultType="member">
+		<![CDATA[
+		select * from (select rownum rnum, member.* from (
+		select * from member order by member_reg_date desc) member )
+		where rnum >= ((#{page} - 1) * 10 + 1 ) and rnum <= (#{page} * 10)
+		]]>
 	</select>
 	
 	<!-- 회원 1명 상세정보 -->
@@ -34,5 +39,10 @@
 		update member set member_del_yn = 'Y', member_del_date = sysdate,
 		member_del_reason = #{member_del_reason} where member_email = #{member_email}
 	</update>
+	
+	<!-- 총 회원 수 구하기 -->
+	<select id="memberCount" resultType="int">
+		select count (*) from member
+	</select>
 
 </mapper>

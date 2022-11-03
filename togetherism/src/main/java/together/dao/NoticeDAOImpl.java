@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import together.model.NoticeDTO;
 
 @Repository
-public class NoticeDAOImpl {
+public class NoticeDAOImpl implements NoticeDAO{
 	
 	@Autowired
 	private SqlSession sqlSession;
@@ -36,6 +36,11 @@ public class NoticeDAOImpl {
 	
 	public int update (NoticeDTO noticeDto) {
 		return sqlSession.update("noticens.update", noticeDto);
+	}
+	
+	// 공지사항 수정폼에서 첨부파일 삭제
+	public int fileDelete (int notice_num) {
+		return sqlSession.update("noticens.fileDelete", notice_num);
 	}
 
 }

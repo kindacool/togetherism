@@ -13,7 +13,8 @@
 <style>
 	.linkstyle {text-decoration: none; color: black; hover: red;}
 	.currentPage {font-style: bold;}
-	.unregister {}
+	.member_del {color:#A6A6A6; text-decoration:line-through; text-align:"center";}
+	.del_date {text-decoration:none;}
 </style>
 </head>
 <body>
@@ -25,12 +26,14 @@
 		<thread class="table-light">
 			<tr>
 				<th style="width: 200px"> 이메일 </th>
-				<th style="width: 150px"> 닉네임 </th>
-				<th style="width: 200px"> 가입일자 </th>
-				<th style="width: 150px" align="center"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </th>
+				<th style="width: 200px"> 닉네임 </th>
+				<th style="width: 120px"> 가입일자 </th>
+				<th style="width: 120px" align="center"> 탈퇴일자 </th>
+				<th style="width: 120px" align="center"> </th>
 			</tr>
 		</thread>
 		<tbody>
+			<!-- 가입한 회원이 없을 때 -->
 	 		<c:if test="${empty memberList }">
 				<tr>
 					<td>
@@ -38,18 +41,39 @@
 					</td>
 				</tr>
 			</c:if>
+			
+			<!-- 가입한 회원이 존재할 때 -->
 			<c:if test="${not empty memberList }"> 
 				<c:forEach var="m" items="${memberList }">
-					<tr><c:if test="${m.member_del_yn == 'N'}">
+				
+				<!-- 탈퇴한 회원 목록에 줄을 그어줌 -->
+				<c:if test="${ m.member_del_yn == 'Y' }"> 
+					<tr class="member_del">
+				</c:if>
+				
 						<td>${m.member_email } </td>
 						<td> ${m.member_nickname } </td>
 						<td> <fmt:formatDate value="${m.member_reg_date }"  
-											pattern="yyyy-MM-dd HH:mm EEEE"/> </td>
-						<td align=center><button class="btn btn-danger" text-align="center" 
-										onClick="location.href='manager_deleteForm.do?member_email=${m.member_email}' "> 강제탈퇴 </button>
+											pattern="yyyy-MM-dd"/> </td>
+						<td>
+							<!-- 탈퇴한 회원일 경우 탈퇴일자를 표시 -->
+							<c:if test="${ m.member_del_yn == 'Y' }"> ${m.member_del_date }</c:if>
+							<c:if test="${ m.member_del_yn == 'N' }"></c:if>
 						</td>
-					</c:if>
+						<td>
+							<!-- 탈퇴한 회원일 경우 [강제탈퇴] 버튼 비활성화 -->
+							<c:if test="${m.member_del_yn == 'Y' }">
+								<button class="btn btn-danger" text-align="center" disabled> 강제탈퇴 </button>
+							</c:if>
+							
+							<!-- 탈퇴하지 않은 회원은 [강제탈퇴] 버튼 활성화 -->
+							<c:if test="${m.member_del_yn == 'N' }">
+								<button class="btn btn-danger" text-align="center" 
+								onClick="location.href='manager_deleteForm.do?member_email=${m.member_email}&page=${page }' "> 강제탈퇴 </button>
+							</c:if>
+						</td>
 					</tr>
+					
 				</c:forEach>
 			</c:if>
 		</tbody>
@@ -70,14 +94,14 @@
 
 <div align="center">
 	<!-- 게시판에 글이 존재할 때 -->
-	<c:if test="${ noticeCount > 0 }">
+	<c:if test="${ memberCount > 0 }">
 		
 		<!-- 최신 페이지 -->
-		<a href ="notice_list.do?page=1" class="linkstyle"> 처음 </a>
+		<a href ="manager_list.do?page=1" class="linkstyle"> 처음 </a>
 		
 		<!-- 이전 블럭 이동 -->
 		<c:if test="${startPage > 10 }">
-			<a href="notice_list.do?page=${startPage-10 }" class="linkstyle"> << </a>
+			<a href="manager_list.do?page=${startPage-10 }" class="linkstyle"> << </a>
 		</c:if>
 		
 		<!-- 1블럭당 출력되는 페이지 : 10 -->
@@ -87,17 +111,17 @@
 			
 			<!-- 현재 페이지가 아닐 때 -->
 			<c:if test="${i != page }">
-				<a href="notice_list.do?page=${i }" class="linkstyle">${i }</a>
+				<a href="manager_list.do?page=${i }" class="linkstyle">${i }</a>
 			</c:if>
 		</c:forEach>
 		
 		<!-- 다음 블럭 이동 -->
 		<c:if test="${ endPage < pageCount }">
-			<a href="notice_list.do?page=${startPage+10 }" class="linkstyle"> >> </a>
+			<a href="manager_list.do?page=${startPage+10 }" class="linkstyle"> >> </a>
 		</c:if>
 		
 		<!-- 마지막 페이지 -->
-		<a href="notice_list.do?page=${pageCount }" class="linkstyle"> 끝 </a>
+		<a href="manager_list.do?page=${pageCount }" class="linkstyle"> 끝 </a>
 		
 	</c:if>
 </div>
