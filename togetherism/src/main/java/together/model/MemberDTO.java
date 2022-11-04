@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class MemberDTO {
+
 	
 	private String member_email;
 	private String member_nickname;
@@ -23,4 +24,3 @@ public class MemberDTO {
 	private String member_del_reason;
 	
 }
-

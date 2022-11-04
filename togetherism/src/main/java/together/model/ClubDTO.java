@@ -110,6 +110,4 @@ public class ClubDTO {
 	public void setClub_viewcount(int club_viewcount) {
 		this.club_viewcount = club_viewcount;
 	}
-	
-	
 }
