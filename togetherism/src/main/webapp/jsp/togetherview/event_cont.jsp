@@ -12,6 +12,14 @@
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=44a98d8b63fb071cda538e0fedd4970c&libraries=services,clusterer,drawing"></script>
 
+<script>
+$(document).ready(function(){
+	if(${event.event_region == 'Abroad'}){
+		$('#map').hide();
+		alert("해외 지역 이벤트는 지도를 지원하지 않음을 유의해주세요");
+	}
+});
+</script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -45,11 +53,21 @@ marker.setMap(map);
 			</tr>
 			<tr>
 				<td>이벤트 날짜 및 시간</td>
-				<td>${event.event_date}</td>
+				<td><fmt:formatDate value="${event.event_date}" pattern="YYYY년  M월 d일 HH:mm"/> </td>
 			</tr>
 			<tr>
 				<td>이벤트 지역</td>
-				<td>${event.event_region}</td>
+				<td>
+		<c:choose>
+        	<c:when test="${event.event_region == 'Seoul_Metropolitan'}">수도권</c:when>
+        	<c:when test="${event.event_region == 'Gangwon'}">강원</c:when>
+        	<c:when test="${event.event_region == 'Gyeongsang'}">경상</c:when>
+        	<c:when test="${event.event_region == 'Jeolla'}">전라</c:when>
+        	<c:when test="${event.event_region == 'Chungcheong'}">충청</c:when>
+        	<c:when test="${event.event_region == 'Jeju'}">제주</c:when>
+        	<c:when test="${event.event_region == 'Abroad'}">해외</c:when>
+        </c:choose>
+				</td>
 			</tr>
 			<tr>
 				<td>이벤트 설명</td>

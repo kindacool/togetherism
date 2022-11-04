@@ -8,37 +8,56 @@
 <meta charset="UTF-8">
 <title>모임 상세 페이지</title>
 </head>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=44a98d8b63fb071cda538e0fedd4970c"></script>
+<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=44a98d8b63fb071cda538e0fedd4970c&libraries=services,clusterer,drawing"></script>
+
 <script>
 $(document).ready(function(){
  //버튼 클릭시 ajax 실행  
 
-	$('#container').html("${clubInfobr}");
-	
+ 	// 초기상태
+ 	$('#container').html("${clubInfobr}");
+ 	if(${club.club_region == 'Abroad'}){
+		$(".hide").hide();
+ 	}
+ 
 	// 모임내 이벤트 리스트
 	$("#event_list").click(function(){
 		$('#container').load('<%=request.getContextPath()%>/event_list.do?club_num=${club.club_num}&preview=Y'); // 나중엔 모임번호는 리스트에서 넘어옴, 지금은 임의로 2 로 설정
+		$(".hide").hide();
 	});
+	
 	// 가입된 회원
 	$("#join_member").click(function(){
 		$('#container').load('<%=request.getContextPath()%>/club_member.do?club_num=${club.club_num}'); // 나중엔 모임번호는 리스트에서 넘어옴, 지금은 임의로 22 로 설정
+		$(".hide").hide();
 	});
 	// 모임 상세 정보
 	$("#club_info").click(function(){
 		$('#container').html("${clubInfobr}");
+
+	 	if(${club.club_region == 'Abroad'}){
+			$(".hide").hide();
+	 	} else{
+			$(".hide").show();
+	 	}
 	});
 	
 	// 사진첩
 	$("#photo_board").click(function(){
 		$('#container').load('<%=request.getContextPath()%>/photo_list.do?club_num=${club.club_num}');
+		$('#map').hide();
+		$(".hide").hide();
 	});
-
 
 });
 
-
 </script>
 <body>
-<input type='text' id='copyText' style='position:absolute; left:-9999px'>
 <table>
 	<tr>
 		<td>모임명</td>
@@ -108,6 +127,83 @@ $(document).ready(function(){
   </div>
 </div>
 </form>
+
 <div id="container"></div>
+
+<h4 class="hide">이벤트 장소</h4>
+
+<!-- 맵이 표시될 위치 -->
+<div id="map" class="hide" style="width: 500px; height: 400px;"></div>
+
+<c:if test="${empty eventlist}">
+<div class="alert alert-warning hide" role="alert" style="width: 640px;">
+ 	현재 이 모임에서 이벤트(정모)를 개설한 적이 없습니다
+</div>
+</c:if>
+<!-- 맵 작업 코드 -->
+<script>
+
+<c:if test="${not empty eventlist}">
+var count = 0;
+var sum_event_spot_lat = 0
+var sum_event_spot_long = 0
+<c:forEach items="${eventlist}" var="event">
+var sum_event_spot_lat = sum_event_spot_lat + ${event.event_spot_lat};
+var sum_event_spot_long = sum_event_spot_long + ${event.event_spot_long};
+var count = count + 1;
+</c:forEach>
+var avg_event_spot_lat = sum_event_spot_lat / count;
+var avg_event_spot_long = sum_event_spot_long / count;
+console.log(avg_event_spot_lat);
+console.log(avg_event_spot_long);
+</c:if>
+<c:if test="${empty eventlist}">
+var avg_event_spot_lat = 38.439801;
+var avg_event_spot_long = 127.127730;
+</c:if>
+
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+mapOption = { 
+		
+    center: new kakao.maps.LatLng(avg_event_spot_lat, avg_event_spot_long), // 지도의 중심좌표
+    level: 7 // 지도의 확대 레벨
+	
+	
+};
+
+//지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+var map = new kakao.maps.Map(mapContainer, mapOption);
+
+//마커를 표시할 위치와 title 객체 배열입니다 
+var positions = [
+	<c:forEach items="${eventlist}" var="event">
+    {
+        title: '${event.event_title}', 
+        latlng: new kakao.maps.LatLng(${event.event_spot_lat}, ${event.event_spot_long})
+    },
+    </c:forEach>
+];
+
+//마커 이미지의 이미지 주소입니다
+var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+    
+for (var i = 0; i < positions.length; i ++) {
+    
+    // 마커 이미지의 이미지 크기 입니다
+    var imageSize = new kakao.maps.Size(24, 35); 
+    
+    // 마커 이미지를 생성합니다    
+    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
+    
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+        map: map, // 마커를 표시할 지도
+        position: positions[i].latlng, // 마커를 표시할 위치
+        title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+        image : markerImage // 마커 이미지 
+    });
+}
+</script>
+
 </body>
 </html>

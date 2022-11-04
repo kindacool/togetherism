@@ -100,10 +100,20 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 
 			<td>이벤트 지역</td>
 			<select name="event_region">
-			<option value="수도권" <c:if test="${event.event_region == '수도권'}">selected
+			<option value="Seoul_Metropolitan" <c:if test="${event.event_region == 'Seoul_Metropolitan'}">selected
             </c:if>>수도권</option>
-			<option value="경상권" <c:if test="${event.event_region == '경상권'}">selected
-            </c:if>>경상권</option>
+			<option value="Gangwon" <c:if test="${event.event_region == 'Gangwon'}">selected
+            </c:if>>강원</option>
+			<option value="Gyeongsang" <c:if test="${event.event_region == 'Gyeongsang'}">selected
+            </c:if>>경상</option>
+			<option value="Jeolla" <c:if test="${event.event_region == 'Jeolla'}">selected
+            </c:if>>전라</option>
+			<option value="Chungcheong" <c:if test="${event.event_region == 'Chungcheong'}">selected
+            </c:if>>충청</option>
+			<option value="Jeju" <c:if test="${event.event_region == 'Jeju'}">selected
+            </c:if>>제주</option>
+			<option value="Abroad" <c:if test="${event.event_region == 'Abroad'}">selected
+            </c:if>>해외</option>
 			</select>
 			<tr>
 				<td>이벤트 설명</td>

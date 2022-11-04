@@ -33,6 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.w3c.dom.events.Event;
 
+import together.model.ClubDTO;
 import together.model.EventDTO;
 import together.service.EventService;
 import together.service.PagingPgm;
@@ -54,6 +55,12 @@ public class EventController {
 		// 일단 임의로 설정
 		model.addAttribute("club_host_email", "x@g.com");
 		model.addAttribute("club_num", club_num);
+		
+		// 모임의 지역이 수도권이면 이벤트 만들때 맵이 수도권을 중간으로 해서 보여주는 작업을 위해
+		ClubDTO clubdto = eventService.getClubCont(club_num);
+		String club_region = clubdto.getClub_region();
+		
+		model.addAttribute("club_region", club_region);
 		return "togetherview/event_createform";
 	}
 

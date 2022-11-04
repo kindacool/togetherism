@@ -13,17 +13,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import together.dao.EventDAO;
 import together.model.ClubDTO;
 import together.model.ClubMemberInfo;
 import together.model.Club_Member_JoinDTO;
+import together.model.EventDTO;
 import together.model.MemberDTO;
 import together.service.Club_Member_JoinService;
+import together.service.EventService;
 
 @Controller
 public class Club_Member_JoinController {
 
 	@Autowired
 	private Club_Member_JoinService club_Member_JoinService;
+	@Autowired
+	private EventService eventService;
 
 	// 일반 회원 모임 가입
 	@RequestMapping(value = "/club_join.do", method = RequestMethod.GET)
@@ -41,7 +46,7 @@ public class Club_Member_JoinController {
 		System.out.println("가입하려는 멤버 이메일 : " + cmjdto.getMember_email());
 		model.addAttribute("club_num", cmjdto.getClub_num());
 
-		// 3. 구한 세션으로 select
+		// 3. 구한 세션으로 select 해서 이미 가입된 회원인지 확인
 		Club_Member_JoinDTO cmj = club_Member_JoinService.getJoin(cmjdto);
 
 		if (cmj != null) { // 데이터가 있을때, 즉 중복가입일때
@@ -102,7 +107,6 @@ public class Club_Member_JoinController {
 	public String clubCont(@RequestParam("club_num") int club_num, 
 			Model model) throws Exception {
 		
-		
 		ClubDTO club = club_Member_JoinService.getClubCont(club_num);
 		model.addAttribute("club", club);
 
@@ -113,7 +117,14 @@ public class Club_Member_JoinController {
 		// 모임 상세페이지로 이동할땐 조회수를 1 증가시켜야함
 		// 뒤로가기 했을때도 실행되어 조회수 증가하는건 나중에 처리하기, 목록에서 눌렀을때만 조회수 증가되도록 해보자
 		club_Member_JoinService.getUpdateViewCount(club_num);
-	
+		
+		// 또한 club_num 으로 Event 테이블을 검색해서 해당 club_num 을 가진 이벤트 데이터 List 를 모두 가져오기
+		// 맵에 모든 이벤트 지역을 마커로 표시하기 위해 필요
+		List<EventDTO> eventlist = eventService.getEventListWithCN(club_num);
+		model.addAttribute("eventlist", eventlist);
+		
+		System.out.println(eventlist);
+		
 		return "togetherview/club_cont";
 	}
 

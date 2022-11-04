@@ -94,8 +94,19 @@
     <div class="col-md-8">
       <div class="card-body">
         <h5 class="card-title hidden"><a href="<%=request.getContextPath()%>/event_cont.do?club_num=${club_num}&event_num=${i.event_num}&eventPage=${eventPage}&state=cont">${i.event_title}</a></h5>
-        <p class="card-text hidden">${i.event_info}dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</p>
-        <p class="card-text">${i.event_region}</p>
+        <p class="card-text hidden">${i.event_info}</p>
+        <p class="card-text">
+        <c:choose>
+        	<c:when test="${i.event_region == 'Seoul_Metropolitan'}">수도권</c:when>
+        	<c:when test="${i.event_region == 'Gangwon'}">강원</c:when>
+        	<c:when test="${i.event_region == 'Gyeongsang'}">경상</c:when>
+        	<c:when test="${i.event_region == 'Jeolla'}">전라</c:when>
+        	<c:when test="${i.event_region == 'Chungcheong'}">충청</c:when>
+        	<c:when test="${i.event_region == 'Jeju'}">제주</c:when>
+        	<c:when test="${i.event_region == 'Abroad'}">해외</c:when>
+        </c:choose>
+
+        </p>
         <p class="card-text"><fmt:formatDate value="${i.event_date}" pattern="yy/MM/dd HH:mm"/></p>
         <!-- <p class="card-text"><small class="text-muted">${i.event_date}</small></p>  -->
       </div>

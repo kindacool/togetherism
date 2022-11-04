@@ -25,7 +25,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">모임 가입하기</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">사진 등록</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -64,19 +64,9 @@
       <div class="card-body">
         <div class='cover'>
         <p class="card-text">${p.photo_content}</p>
-<%--   		 <div class="dropdown">
-            <button type="button" data-bs-toggle="dropdown" aria-expanded="false" style="background-color:white; border:0; outline:0">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
-                <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
-              </svg>
-            </button>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">수정</a></li>
-              <li><a class="dropdown-item" href="<%=request.getContextPath() %>/photo_delete.do?photo_num=${p.photo_num}&photo_member_email=${p.photo_member_email}&club_num=${club_num}">삭제</a></li>
-            </ul>
-          </div> --%>
-          <a href="<%=request.getContextPath() %>/photo_delete.do?photo_num=${p.photo_num}&club_num=${club_num}">삭제</a>
-
+         <div>
+          <a href="<%=request.getContextPath() %>/photo_delete.do?photo_num=${p.photo_num}&club_num=${club_num}" style="text-decoration: none">삭제</a>
+		</div>
         </div>
       </div>
 <!--       <div class="card-footer">

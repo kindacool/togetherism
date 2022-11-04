@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import together.model.ClubDTO;
 import together.model.EventDTO;
 
 @Repository
@@ -44,5 +45,15 @@ public class EventDAOImpl implements EventDAO {
 	}
 	public int eventDelete(int event_num) {
 		return sqlSession.delete("eventns.delete",event_num);
+	}
+	
+	// club_num 에 해당하는 모든 이벤트 가져오기
+	public List<EventDTO> getEventListWithCN(int club_num){
+		return sqlSession.selectList("eventns.eventlistall", club_num);
+	}
+	
+	// club table 연동, club 데이터 1개 상세정보 가져오기
+	public ClubDTO getClubCont(int club_num) {
+		return sqlSession.selectOne("eventns.clubcont", club_num);
 	}
 }
