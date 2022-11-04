@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/headerlib.jsp"%>
-    
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,13 +11,19 @@
 <body>
 <c:if test="${result == 1}">
 <script>
-	alert("삭제 성공했습니다."); // 이후 모임페이지 가는걸로 수정
+	alert("사진 삭제 성공");
 	location.href="<%=request.getContextPath()%>/club_ct.do?club_num=${club_num}";
 </script>
 </c:if>
-<c:if test="${result != 1}">
+<c:if test="${result == 2}">
 <script>
-	alert("삭제 실패했습니다.");
+	alert("본인이 올린 사진만 삭제 가능합니다");
+	history.go(-1);
+</script>
+</c:if>
+<c:if test="${result == 3}">
+<script>
+	alert("삭제에 실패했습니다");
 	history.go(-1);
 </script>
 </c:if>

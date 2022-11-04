@@ -83,7 +83,6 @@ public class EventController {
 		int fileSize = (int) mf.getSize(); // 단위 : Byte
 		System.out.println(fileName);
 		
-		int err = 0;
 		String file[] = new String[2];
 		String newfilename = "";
 		

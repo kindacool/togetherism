@@ -68,26 +68,26 @@
     		<c:if test="${status.last }">
         		<c:choose>
             		<c:when test="${token eq 'jpg' }">
-            			<img src="<%=request.getContextPath() %>/upload/${i.event_file}" class="card-img" alt="${i.event_file}"/>
+            			<img src="<%=request.getContextPath() %>/upload/${i.event_file}" class="card-img" style="width:100%; height:100%" alt="${i.event_file}"/>
             		</c:when>
             		<c:when test="${token eq 'png'}">
-            			<img src="<%=request.getContextPath() %>/upload/${i.event_file}" class="card-img" alt="${i.event_file}"/>
+            			<img src="<%=request.getContextPath() %>/upload/${i.event_file}" class="card-img" style="width:100%; height:100%" alt="${i.event_file}"/>
             		</c:when>
-            		<c:when test="${token eq 'jifi'}">
-            			<img src="<%=request.getContextPath() %>/upload/${i.event_file}" class="card-img" alt="${i.event_file}"/>
+            		<c:when test="${token eq 'jfif'}">
+            			<img src="<%=request.getContextPath() %>/upload/${i.event_file}" class="card-img" style="width:100%; height:100%" alt="${i.event_file}"/>
             		</c:when>
             		<c:when test="${token eq 'gif'}">
-            			<img src="<%=request.getContextPath() %>/upload/${i.event_file}" class="card-img" alt="${i.event_file}"/>
+            			<img src="<%=request.getContextPath() %>/upload/${i.event_file}" class="card-img" style="width:100%; height:100%" alt="${i.event_file}"/>
             		</c:when>
             		<c:otherwise>
-            			<img src="<%=request.getContextPath()%>/images/togetherimage.jpg" class="card-img" alt="defalutimage">
+            			<img src="<%=request.getContextPath()%>/images/togetherimage.jpg" class="card-img" style="width:100%; height:100%" alt="defalutimage">
             		</c:otherwise>
         		</c:choose>
         	</c:if>
 		</c:forTokens>
 	</c:if>
 	<c:if test="${empty i.event_file}">
-		<img src="<%=request.getContextPath()%>/images/togetherimage.jpg" class="card-img" alt="defalutimage">
+		<img src="<%=request.getContextPath()%>/images/togetherimage.jpg" class="card-img" style="width:100%; height:100%" alt="defalutimage">
 	</c:if>
 
     </div>

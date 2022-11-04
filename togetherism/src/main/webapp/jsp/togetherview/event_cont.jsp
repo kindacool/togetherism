@@ -36,7 +36,9 @@ position : map.getCenter()
 //지도에 마커를 표시합니다
 marker.setMap(map);
 </script>
+
 <table>
+
 			<tr>
 				<td>이벤트</td>
 				<td>${event.event_title}</td>
@@ -54,7 +56,6 @@ marker.setMap(map);
 				<td>${eventInfobr}</td>
 			</tr>
 			<tr>
-				<td><input type="file" name="event_file0"></td>
 				<c:if test="${not empty event.event_file}">
     			<c:set var="filename" value="${event.event_file}" />
 				<c:set var="fileNm" value="${fn:toLowerCase(filename)}" />
@@ -68,14 +69,14 @@ marker.setMap(map);
             				<c:when test="${token eq 'png'}">
             						<img src="<%=request.getContextPath() %>/upload/${event.event_file}" style="height:100px; weight:100px;"alt="${event.event_file}"/>
             				</c:when>
-            				<c:when test="${token eq 'jifi'}">
+            				<c:when test="${token eq 'jfif'}">
             						<img src="<%=request.getContextPath() %>/upload/${event.event_file}" style="height:100px; weight:100px;" alt="${event.event_file}"/>
             				</c:when>
             				<c:when test="${token eq 'gif'}">
             						<img src="<%=request.getContextPath() %>/upload/${event.event_file}" style="height:100px; weight:100px;" alt="${event.event_file}"/>
             				</c:when>
             				<c:otherwise>
-            					<img src="images/togetherimage.jpg" style="height:100px; weight:100px;" alt="defalutimage">
+            					<img src="<%=request.getContextPath()%>/images/togetherimage.jpg" style="height:100px; weight:100px;" alt="defalutimage">
             					<a href="<%=request.getContextPath()%>/file_down.do?file_name=${event.event_file}">${event.event_file}</a>
             				</c:otherwise>
         				</c:choose>
@@ -83,8 +84,9 @@ marker.setMap(map);
 				</c:forTokens>
 				</c:if>
 	<c:if test="${empty event.event_file}">
-		<img src="<%=request.getContextPath()%>/images/togetherimage.jpg" style="height:100px; weight:100px;" alt="defalutimage">
-		첨부파일이 없습니다!
+		<div class="alert alert-warning" role="alert" style="width: 640px;">
+ 			첨부파일이 없습니다
+		</div>
 	</c:if>
 			</tr>
 </table>

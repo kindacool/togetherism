@@ -74,7 +74,7 @@ public class Club_Member_JoinServiceImpl implements Club_Member_JoinService {
 		club_Member_JoinDAO.getUpdateViewCount(club_cum);
 	}
 	
-	// member 테이블과 club_member_join 조인, merge 후 수정, 특정 클럽의 멤버 리스트 가져오기
+	// member 테이블과 club_member_join 조인, 특정 클럽의 멤버 리스트 가져오기
 	public List<ClubMemberInfo> getMemberList(int club_num){
 		return club_Member_JoinDAO.getMemberList(club_num);
 	}

@@ -10,8 +10,10 @@
 </head>
 <script>
 $(document).ready(function(){
-//버튼 클릭시 ajax 실행  
+ //버튼 클릭시 ajax 실행  
 
+	$('#container').html("${clubInfobr}");
+	
 	// 모임내 이벤트 리스트
 	$("#event_list").click(function(){
 		$('#container').load('<%=request.getContextPath()%>/event_list.do?club_num=${club.club_num}&preview=Y'); // 나중엔 모임번호는 리스트에서 넘어옴, 지금은 임의로 2 로 설정
@@ -22,14 +24,21 @@ $(document).ready(function(){
 	});
 	// 모임 상세 정보
 	$("#club_info").click(function(){
-		$('#container').html("${clubInfobr}") // 나중엔 모임번호는 리스트에서 넘어옴, 지금은 임의로 22 로 설정
+		$('#container').html("${clubInfobr}");
 	});
 	
+	// 사진첩
+	$("#photo_board").click(function(){
+		$('#container').load('<%=request.getContextPath()%>/photo_list.do?club_num=${club.club_num}');
+	});
+
+
 });
+
 
 </script>
 <body>
-
+<input type='text' id='copyText' style='position:absolute; left:-9999px'>
 <table>
 	<tr>
 		<td>모임명</td>

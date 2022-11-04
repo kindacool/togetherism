@@ -32,7 +32,7 @@ public class Club_Member_JoinController {
 		int result = 0;
 		// 중복 가입 검사 : 모임가입테이블은 중복가입이 가능하므로 중복가입을 방지
 		// 1. 세션 구하기 (현재는 Merge 가 안되었으므로 임의로 정함)
-		String sess = "test1@gmail.com";
+		String sess = "test2@gmail.com";
 		cmjdto.setMember_email(sess);
 
 		// 넘어오는 값 확인
@@ -62,12 +62,6 @@ public class Club_Member_JoinController {
 				return "togetherview/join_result";
 			} else {
 
-//			// member 테이블 작업, merge 후 수정
-//			// 먼저 세션값인 이메일을 통해 Member 테이블 검색해서 멤버 프로필, 멤버 닉네임 가져오기
-//			// 가져와서 Setter 메소드로 cmjdto 객체에 세팅
-//			MemberDTO member = club_Member_JoinService.getMember(cmjdto.getMember_email());
-//			cmjdto.setMember_image(member.getMember_image());
-//			cmjdto.setMember_nickname(member.getMember_nickname());
 				cmjdto.setClub_host_yn("N"); // 여기선 일반 회원 가입이므로 N 로 설정
 
 				// 그 cmjdto 로 club_member_join 테이블에 insert 하기
@@ -105,8 +99,10 @@ public class Club_Member_JoinController {
 	// club 테이블 작업, merge 이후 수정하기
 	// 모임 상세정보 가져오기
 	@RequestMapping(value = "/club_ct.do", method = RequestMethod.GET)
-	public String clubCont(@RequestParam("club_num") int club_num, Model model) throws Exception {
-
+	public String clubCont(@RequestParam("club_num") int club_num, 
+			Model model) throws Exception {
+		
+		
 		ClubDTO club = club_Member_JoinService.getClubCont(club_num);
 		model.addAttribute("club", club);
 
@@ -117,7 +113,7 @@ public class Club_Member_JoinController {
 		// 모임 상세페이지로 이동할땐 조회수를 1 증가시켜야함
 		// 뒤로가기 했을때도 실행되어 조회수 증가하는건 나중에 처리하기, 목록에서 눌렀을때만 조회수 증가되도록 해보자
 		club_Member_JoinService.getUpdateViewCount(club_num);
-
+	
 		return "togetherview/club_cont";
 	}
 

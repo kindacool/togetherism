@@ -76,7 +76,7 @@ public class Club_Member_JoinDAOImpl implements Club_Member_JoinDAO{
 		sqlSession.update("club_member_joinns.updatevc", club_cum);
 	}
 	
-	// member 테이블과 연동할 것, merge 후 수정, 특정 클럽의 멤버 리스트 가져오기
+	// member 테이블과 club_member_join 조인, 특정 클럽의 멤버 리스트 가져오기
 	public List<ClubMemberInfo> getMemberList(int club_num){
 		return sqlSession.selectList("club_member_joinns.memberlist",club_num);
 	}
