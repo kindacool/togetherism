@@ -281,10 +281,12 @@ public class NoticeController {
 	public String notice_modifyFile (int notice_num, Model model) {
 		
 		int result = noticeService.fileDelete(notice_num);
-		System.out.println("notice_file 컬럼 null 처리 완료");
+		if(result == 1) System.out.println("notice_file 컬럼 null 처리 완료");
 		
 		model.addAttribute("result", result);
 		
+//		return "redirect:notice_modifyForm.do?notice_num="+notice_num;
 		return "togetherview/notice_fileResult";
 	}
+
 }

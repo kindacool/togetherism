@@ -12,13 +12,17 @@
 <script src="./js/notice_writeForm.js"></script>
 <script>
 	$(function(){
-		$('#imgdelbtn').click(function(){
+		$("#imgdelbtn").click(function(){
 			if(confirm("첨부한 이미지를 삭제하시겠습니까?")){
-				self.location.href="notice_modifyFile.do?notice_num=${noticeDto.notice_num}"
-				alert("첨부한 이미지가 삭제 되었습니다")
-			}
-		})
-	});
+				var data = { "notice_num" : ${noticeDto.notice_num} }
+				$.post("notice_modifyFile.do", data, function(result){
+					if(result == 1){
+						$(".fileDelete").text("");
+					} // if end
+				}); // post end
+			} // if end
+	   });	// click end
+   });
 </script>
 </head>
 <body>
@@ -55,19 +59,21 @@
 					<input type="file" name="notice_file1" class="form-control form-control-sm" style="width: 500px">
 				</td>
 				
+			<c:if test="${empty noticeDto.notice_file }">	
+				&nbsp;
+			</c:if>
+				
 			<!-- 첨부한 파일이 있을 경우 -->
 			<c:if test="${ not empty noticeDto.notice_file }">
-			<tr>
-			<div="fileDelete">
+			<tr class="fileDelete">
 				<th align="right" style="width: 200px"> 기존 첨부파일 </th>
 				<td align="left" style="width: 500px">
 					<input id=img class="form-control" type="text" value="${noticeDto.notice_file }" aria-label="readonly input example" readonly style="width: 500px">
 					<input type="button" id=imgdelbtn class="btn btn-outline-danger" style="width: 100" value="이미지 삭제">
 				</td>
-			</div>
 			</tr>
 			</c:if>
-			</div>
+		
 		</p>
 			<div>
 			<table class="table table-borderless w-auto">

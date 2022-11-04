@@ -53,7 +53,7 @@ $(function(){
 				<c:if test="${noticeDto.notice_file != null }">
 					<tr>
 						<td colspan=2>
-							첨부파일 : <a href="./jsp/togetherview/notice/file_down.jsp?file_name=${noticeDto.notice_file }" style="text-decoration:none">${noticeDto.notice_file }</a>
+							첨부파일 : <a href="./jsp/togetherview/file_down.jsp?file_name=${noticeDto.notice_file }" style="text-decoration:none">${noticeDto.notice_file }</a>
 						</td>
 					</tr>
 				</c:if>

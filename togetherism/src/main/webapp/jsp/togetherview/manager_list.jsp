@@ -84,7 +84,7 @@
 	<table class="table table-borderless w-auto">
 		<tr>
 			<td style="width: 350px" >
-			<button class="btn btn-warning" onClick="location.href='notice_list.do' ">공지사항</button></td>
+			<button class="btn btn-success" onClick="location.href='manager_main.do' ">메인화면</button></td>
 			<td align="right" style="width: 350px">
 			<input type="button" class="btn btn-warning" value="기능없음">
 			</td>

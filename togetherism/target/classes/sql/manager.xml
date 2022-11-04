@@ -20,6 +20,16 @@
 		
 	</resultMap>
 	
+	<!-- 관리자 계정 정보 가져오기 -->
+	<select id="getManager" resultType="manager">
+		select * from manager where manager_email = #{manager_email,jdbcType=VARCHAR}	
+	</select>
+	
+	<!-- 총 회원 수 구하기 -->
+	<select id="memberCount" resultType="int">
+		select count (*) from member
+	</select>
+	
 	<!-- 전체 회원 목록  -->
 	<select id="memberList" parameterType="int" resultType="member">
 		<![CDATA[
@@ -40,9 +50,5 @@
 		member_del_reason = #{member_del_reason} where member_email = #{member_email}
 	</update>
 	
-	<!-- 총 회원 수 구하기 -->
-	<select id="memberCount" resultType="int">
-		select count (*) from member
-	</select>
 
 </mapper>

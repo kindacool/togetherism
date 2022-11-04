@@ -3,13 +3,16 @@ package together.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.avalon.framework.service.ServiceManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import together.model.ManagerDTO;
 import together.model.MemberDTO;
 import together.service.ManagerServiceImpl;
 
@@ -17,6 +20,79 @@ import together.service.ManagerServiceImpl;
 public class ManagerController {
 	@Autowired
 	ManagerServiceImpl managerService;
+	
+	//관리자 로그인 폼 진입
+	@RequestMapping("admin.do")
+	public String manager_loginForm () {
+		System.out.println("관리자 로그인 폼 진입");
+		return "togetherview/manager_loginForm";
+	}
+	
+	//관리자 로그인 정보 확인
+	@RequestMapping(value= "manager_login.do", method=RequestMethod.POST)
+	public String manager_login(String manager_email, 
+								String manager_pw, 
+								HttpSession session,
+								Model model ) {
+		
+		System.out.println("관리자 로그인 실행 메소드 진입");
+		
+		//관리자 계정 정보 가져오기
+		ManagerDTO managerDto = managerService.getManager(manager_email);
+		int result = 0;
+		System.out.println(managerDto);
+		
+		//폼에서 입력한 계정 정보와 DB에서 가져온 계정 정보 비교
+		if ( managerDto == null) {	// DB에 정보가 없을 때
+			result = -1;
+			model.addAttribute("result", result);
+			
+			System.out.println("관리자 계정 없음");
+			return "togetherview/manager_login_fail";
+		} else { 					// DB에 정보가 있을 때
+			
+			if (managerDto.getManager_pw().equals(manager_pw)) {	// 비밀번호 일치
+				
+				System.out.println("관리자 로그인 성공");
+				session.setAttribute("manager_email", manager_email);
+				
+				model.addAttribute("managerDto", managerDto);
+				
+				return "togetherview/manager_main";
+//				return "redirect:manager_main.do";
+			} else {
+				
+				System.out.println("관리자 로그인 실패");
+				result = 1;
+				model.addAttribute("result",result);
+				
+				return "togetherview/manager_login_fail";
+			}
+		} // if - else end
+	}
+	
+//	@RequestMapping(value="manager_main.do", method=RequestMethod.POST)
+	@RequestMapping("manager_main.do")
+	public String manger_main (HttpSession session) {
+		
+		String manager_email = (String) session.getAttribute("manager_email");
+		
+		System.out.println("메인화면 진입");
+		
+		return "togetherview/manager_main";
+	}
+	
+	//관리자 로그아웃
+	@RequestMapping("manager_logout.do")
+	public String manager_logout (HttpSession session) {
+		
+		session.invalidate();
+		
+		System.out.println("로그아웃 성공");
+		
+		return "redirect:admin.do";
+	}
+
 	
 	//회원관리 리스트 진입
 	@RequestMapping("manager_list.do")

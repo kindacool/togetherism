@@ -54,7 +54,7 @@
 	<table class="table table-borderless w-auto">
 		<tr>
 			<td style="width:350px">
-			<button class="btn btn-danger" onClick="location.href='manager_list.do' ">회원관리</button>
+			<button class="btn btn-success" onClick="location.href='manager_main.do' ">메인화면</button>
 			<td align="right" style="width: 350px">
 			<button class="btn btn-warning" onClick="location.href='notice_writeForm.do' ">글쓰기</button></td>
 		</tr>
