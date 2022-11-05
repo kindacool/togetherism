@@ -23,6 +23,8 @@ $(document).ready(function(){
  	$('#container').html("${clubInfobr}");
  	if(${club.club_region == 'Abroad'}){
 		$(".hide").hide();
+ 	} else if(${empty eventlist}){
+ 		$(".hide").hide();
  	}
  
 	// 모임내 이벤트 리스트

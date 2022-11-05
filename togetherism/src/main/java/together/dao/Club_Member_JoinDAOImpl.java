@@ -1,6 +1,7 @@
 package together.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,6 +80,17 @@ public class Club_Member_JoinDAOImpl implements Club_Member_JoinDAO{
 	// member 테이블과 club_member_join 조인, 특정 클럽의 멤버 리스트 가져오기
 	public List<ClubMemberInfo> getMemberList(int club_num){
 		return sqlSession.selectList("club_member_joinns.memberlist",club_num);
+	}
+	
+
+	// club 테이블과 연동할 것, merge 후 수정, 모임 리스트 개수 구하기
+	public int getClubListCount(Map<String, Object> map) {
+		return sqlSession.selectOne("club_member_joinns.listcount",map);
+	}
+	
+	// club 테이블과 연동할 것, merge 후 수정, 모임 리스트 가져오기
+	public List<ClubDTO> getClubListAll(Map<String, Object> map){
+		return sqlSession.selectList("club_member_joinns.clublistall",map);
 	}
 	
 }

@@ -1,8 +1,12 @@
 package together.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +25,7 @@ import together.model.EventDTO;
 import together.model.MemberDTO;
 import together.service.Club_Member_JoinService;
 import together.service.EventService;
+import together.service.PagingPgm;
 
 @Controller
 public class Club_Member_JoinController {
@@ -209,6 +214,66 @@ public class Club_Member_JoinController {
 			model.addAttribute("clist", clist);
 		}
 		return "togetherview/my_club";
+	}
+	
+	// 모임 리스트
+	// CLUB 테이블 , merge 후 수정
+	@RequestMapping(value="/club_list.do", method = RequestMethod.GET)
+	public String clubList(Model model, 
+			@RequestParam(value="club_region", required = false) String club_region,
+			@RequestParam(value="keyword", required = false) String keyword,
+			HttpServletRequest request) throws Exception {
+		
+		List<ClubDTO> clublist = new ArrayList<ClubDTO>();
+		
+		int clubPage = 1;
+		int limit = 10;
+		
+		if(request.getParameter("clubPage") != null) {
+			clubPage = Integer.parseInt(request.getParameter("clubPage"));
+		}
+		
+		// 페이지 번호 확인
+		System.out.println("페이지 : " + clubPage);
+		// 넘어온 값들 확인
+		System.out.println("키워드 : " + keyword);
+		System.out.println("지역 : " + club_region);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("keyword", keyword);
+		map.put("club_region", club_region);
+		
+		// 모임 개수 구하기, 전체/키워드/지역별
+		int listcount = club_Member_JoinService.getClubListCount(map);
+		System.out.println("listcount : " + listcount);
+		
+		int startRow = (clubPage - 1) * limit + 1; // 1, 11, 21, 31
+		int endRow = startRow + limit - 1; // 10, 20, 30, 40
+		
+		// 나머지 파생변수들을 구함
+		PagingPgm pp = new PagingPgm(listcount, limit, clubPage);
+		map.put("startRow",startRow);
+		map.put("endRow",endRow);
+		int no = listcount - startRow + 1;		// 화면 출력 번호
+				
+		// 모임 리스트 구하기
+		clublist = club_Member_JoinService.getClubListAll(map);
+		System.out.println(clublist);
+		
+		// 가져온 모임 리스트
+		model.addAttribute("clublist", clublist);
+		// 화면 출력 번호
+		model.addAttribute("no", no);
+		// 데이터 갯수, 화면에 출력할 데이터 갯수, 블랙덩 페이지 갯수, 현재 페이지 번호,
+		// 각 블럭의 시작 페이지, 각 블럭의 끝 페이지, 총 페이지수 
+		model.addAttribute("pp", pp);
+		// 각 케이스별 페이징 처리를 위해 전달
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("club_region", club_region);
+
+		model.addAttribute("clubPage", clubPage);		
+		return "togetherview/club_list"; // 이후 리스트 출력하는 페이지로 가는걸로 수정
+	
 	}
 
 }

@@ -73,6 +73,48 @@ from club_member_join a
 inner join member b 
 on (a.member_email = b.member_email and a.club_num = #{club_num})
 </select>
+
+	
+<select id="listcount" parameterType="Map" resultType="int">
+select count(*) from club
+	<where>
+		<if test="keyword != null">
+		<!-- 키워드가 있을땐, 복합 검색(제목, 내용, 장소 등 모든) -->
+		club_host_email like '%'||#{keyword}||'%' or
+		club_name like '%'||#{keyword}||'%' or
+		club_region like '%'||#{keyword}||'%' or
+		club_keyword like '%'||#{keyword}||'%' or
+		club_info like '%'||#{keyword}||'%' or
+		club_interest like '%'||#{keyword}||'%'
+		</if>
+		<if test="club_region != null">
+		<!-- 넘어온 지역이 있을땐, 특정 지역에 대한 모임을 검색 -->
+		club_region = #{club_region}
+		</if>
+	</where>
+</select>
+
+<select id="clublistall" parameterType="Map" resultType="club">
+select * from (select a.*, rowNum rn from (
+	select * from club
+	<where>
+		<if test="keyword != null">
+		<!-- 키워드가 있을땐, 복합 검색(제목, 내용, 장소 등 모든) -->
+		club_host_email like '%'||#{keyword}||'%' or
+		club_name like '%'||#{keyword}||'%' or
+		club_region like '%'||#{keyword}||'%' or
+		club_keyword like '%'||#{keyword}||'%' or
+		club_info like '%'||#{keyword}||'%' or
+		club_interest like '%'||#{keyword}||'%'
+		</if>
+		<if test="club_region != null">
+		<!-- 넘어온 지역이 있을땐, 특정 지역에 대한 모임을 검색 -->
+		club_region = #{club_region}
+		</if>
+	</where>
+	order by club_reg_date desc) a)
+	where rn between #{startRow} and #{endRow}
+</select>
 </mapper>
 
 

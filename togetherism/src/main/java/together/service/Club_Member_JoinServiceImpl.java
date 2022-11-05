@@ -1,6 +1,7 @@
 package together.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -78,4 +79,16 @@ public class Club_Member_JoinServiceImpl implements Club_Member_JoinService {
 	public List<ClubMemberInfo> getMemberList(int club_num){
 		return club_Member_JoinDAO.getMemberList(club_num);
 	}
+	
+	// club 테이블과 연동할 것, merge 후 수정, 모임 리스트 개수 구하기
+	public int getClubListCount(Map<String, Object> map) {
+		return club_Member_JoinDAO.getClubListCount(map);
+	}
+	
+	// club 테이블과 연동할 것, merge 후 수정, 모임 리스트 가져오기
+	public List<ClubDTO> getClubListAll(Map<String, Object> map){
+		return club_Member_JoinDAO.getClubListAll(map);
+	}
+	
+	
 }
