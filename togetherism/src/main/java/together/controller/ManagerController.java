@@ -189,7 +189,7 @@ public class ManagerController {
 		model.addAttribute("mail_subject", mail_subject);
 		model.addAttribute("mail_content", mail_content);
 		
-		return "togetherview/before_mail";
+		return "togetherview/qna_beforeMail";
 	}
 	
 	//Q&A 페이지에서 메일 전송 요청
