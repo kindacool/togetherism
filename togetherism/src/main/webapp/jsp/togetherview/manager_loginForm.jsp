@@ -1,27 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
+<%@ include file="../include/top.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8" />
 <title class="title">관리자 로그인</title>
-<link
-   href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
-   rel="stylesheet"
-   integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
-   crossorigin="anonymous" />
-<link rel="stylesheet"
-   href="<%=request.getContextPath()%>/css/member_login.css" />
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-<script
-   src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-   integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-   crossorigin="anonymous"></script>
-<!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script> -->
-<script
-   src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
-
-
 <script>
 function check(){
    if($.trim($("#manager_email").val())==""){
@@ -44,7 +28,7 @@ function pwd_find(){
 }
 
 </script>
-
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/member_login.css" />
 </head>
 <body>
 <div class="logo text-left">

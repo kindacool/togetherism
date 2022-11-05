@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+<%@ include file="../include/top.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -86,7 +82,7 @@
 			<td style="width: 350px" >
 			<button class="btn btn-success" onClick="location.href='manager_main.do' ">메인화면</button></td>
 			<td align="right" style="width: 350px">
-			<input type="button" class="btn btn-warning" value="기능없음">
+			<input type="button" class="btn btn-warning" value="Q&A" onClick="location.href='qna.do' ">
 			</td>
 		</tr>
 	</table>
