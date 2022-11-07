@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ include file="../include/headerlib.jsp"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,6 +25,13 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
+<c:if test="${result == 2}">
+<script>
+alert("모임장만 이벤트를 등록할 수 있습니다");
+history.go(-1);
+</script>
+</c:if>
+<c:if test="${empty result}">
 	<form name="event_form"
 		action="<%=request.getContextPath()%>/event_create.do" method="post"
 		enctype="multipart/form-data">
@@ -160,5 +169,6 @@ $(document).ready(function(){
 		</table>
 
 	</form>
+</c:if>
 </body>
 </html>

@@ -46,7 +46,7 @@ public class Photo_BoardController {
 		// 세션을 구하기
 		// 세션을 구해서 club_member_join 테이블에서 확인해서 모임 멤버인 경우만 사진첩 insert 가능
 		// 세션이 없으므로 임의로 설정
-		String sess = "test2@gmail.com";
+		String sess = "cheese@gmail.com";
 		pbdto.setPhoto_member_email(sess);
 		int result = 0;
 
@@ -187,7 +187,7 @@ public class Photo_BoardController {
 		// 세션을 구하기
 		// 세션을 구해서 사진 등록자와 일치하는 경우에만 삭제 가능, 
 		// 세션이 없으므로 임의로 설정
-		String sess = "test2@gmail.com";
+		String sess = "cheese@gmail.com";
 		Photo_BoardDTO old = this.photo_BoardService.getPhotoCont(pbdto.getPhoto_num());
 		//또한 모임장과 일치하는 경우에도 삭제 가능하도록 하기
 		// club 테이블과 연동해서 모임장 이메일 구해오기
@@ -197,14 +197,15 @@ public class Photo_BoardController {
 		System.out.println(pbdto.getClub_num());
 		System.out.println(old.getPhoto_member_email());
 		System.out.println(pbdto.getPhoto_num());
+		System.out.println(clubdto.getClub_host_email());
 
-		if (!sess.equals(old.getPhoto_member_email()) || !sess.equals(clubdto.getClub_host_email())) { 
+		if (!sess.equals(old.getPhoto_member_email()) && !sess.equals(clubdto.getClub_host_email())) { 
 			// 로그인되어있는 사용자가 사진 작성자가 아닐때 그리고 모임장도 아닐떄는
 			// 삭제 불가능
 			result = 2;
 			model.addAttribute("result", result);
 			return "togetherview/photo_delete_result";
-		} else { // 로그인되어있는 사용자가 사진 작성자 일때
+		} else { // 로그인되어있는 사용자가 사진 작성자 일때 또는 모임장일떄는 삭제 가능
 			result = photo_BoardService.photoDelete(pbdto.getPhoto_num());
 
 			if(result == 1) {

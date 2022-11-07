@@ -15,13 +15,20 @@
 
 </head>
 <body>
+<c:if test="${result == 2}">
+<script>
+alert("모임장만 수정 가능합니다");
+history.go(-1);
+</script>
+</c:if>
+<c:if test="${empty result}">
 	<form name="event_form"
 		action="<%=request.getContextPath()%>/event_edit.do" method="post"
 		enctype="multipart/form-data">
 		<input type="hidden" value="${event.club_num}" name="club_num">
 		<input type="hidden" value="${event.event_num}" name="event_num">
 		<input type="hidden" value="${eventPage}" name="eventPage">
-		<input type="hidden" value="x@g.com" name="club_host_email"> <!-- Merge 이후 넘어올 값 -->
+		<input type="hidden" value="${event.club_host_email}" name="club_host_email"> <!-- Merge 이후 넘어올 값 -->
 		<input type="hidden" id="event_spot_lat" name="event_spot_lat" value="">
 		<input type="hidden" id="event_spot_long" name="event_spot_long" value="">
 
@@ -162,5 +169,6 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 		</table>
 
 	</form>
+</c:if>
 </body>
 </html>

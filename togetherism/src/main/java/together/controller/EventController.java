@@ -35,6 +35,7 @@ import org.w3c.dom.events.Event;
 
 import together.model.ClubDTO;
 import together.model.EventDTO;
+import together.service.Club_Member_JoinService;
 import together.service.EventService;
 import together.service.PagingPgm;
 import together.service.SampleService;
@@ -44,24 +45,37 @@ public class EventController {
 
 	@Autowired
 	private EventService eventService;
+	@Autowired
+	private Club_Member_JoinService club_Member_JoinService;
 	
 	// 이벤트 만들기 폼으로 이동
 	@RequestMapping(value = "/event_createform.do", method = RequestMethod.GET)
 	public String eventCreateForm(@RequestParam("club_num") int club_num, Model model) {
 		// 1. 세션을 구하기
-		// 2. 세션을 구해서 club_member_join 테이블에서 확인해서 모임장이면 만들기 가능
-		// 또는 club 테이블에서 확인도 가능함
-		// 그리고 모임장이면 모임장 이메일을 구해서 model 객체에 저장
-		// 일단 임의로 설정
-		model.addAttribute("club_host_email", "x@g.com");
-		model.addAttribute("club_num", club_num);
+		// 2. 세션을 구해서 club 테이블에서 확인해서 모임장이면 수정 가능
+		String sess = "cheese@gmail.com";
+		ClubDTO clubdto = club_Member_JoinService.getClubCont(club_num);
+					
+		if(!(clubdto.getClub_host_email().equals(sess))) {
+			// 모임장이 아니면 모임장만 수정 가능합니다 메세지 뿌리기
+			int result = 2;
+			model.addAttribute("result", result);
+			return "togetherview/event_createform";
+		} else {
+			// 그리고 모임장이면 수정 가능
+			// 그리고 모임장이면 모임장 이메일을 구해서 model 객체에 저장
+			model.addAttribute("club_host_email", clubdto.getClub_host_email());
+			model.addAttribute("club_num", club_num);
+			
+			// 모임의 지역이 수도권이면 이벤트 만들때 맵이 수도권을 중간으로 해서 보여주는 작업을 위해
+			ClubDTO clubdto_region = eventService.getClubCont(club_num);
+			String club_region = clubdto_region.getClub_region();
+			
+			model.addAttribute("club_region", club_region);
+			return "togetherview/event_createform";
 		
-		// 모임의 지역이 수도권이면 이벤트 만들때 맵이 수도권을 중간으로 해서 보여주는 작업을 위해
-		ClubDTO clubdto = eventService.getClubCont(club_num);
-		String club_region = clubdto.getClub_region();
-		
-		model.addAttribute("club_region", club_region);
-		return "togetherview/event_createform";
+		}
+
 	}
 
 	// 이벤트 만들기
@@ -229,13 +243,42 @@ public class EventController {
 			return "togetherview/event_cont";
 			// 추후 세션 구해서 모임장인지 일반회원인지 구분
 		} else if (state.equals("edit")) {// 수정폼
-			return "togetherview/event_editform";
+			// 1. 세션을 구하기
+			// 2. 세션을 구해서 club 테이블에서 확인해서 모임장이면 수정 가능
+			String sess = "cheese@gmail.com";
+			ClubDTO clubdto = club_Member_JoinService.getClubCont(event.getClub_num());
+			
+			if(!clubdto.getClub_host_email().equals(sess)) {
+				// 모임장이 아니면 모임장만 수정 가능합니다 메세지 뿌리기
+				int result = 2;
+				model.addAttribute("result", result);
+				return "togetherview/event_editform";
+			} else {
+				// 그리고 모임장이면 수정 가능
+				return "togetherview/event_editform";
+			}
 		} else if (state.equals("del")) {// 삭제폼
-			redirectAttributes.addAttribute("eventPage", eventPage);
-			redirectAttributes.addAttribute("event_num", event_num);
-			redirectAttributes.addAttribute("club_num", club_num);
-			//redirectAttributes.addAttribute("event", event);
-			return "redirect:event_del.do";
+			
+			// 1. 세션을 구하기
+			// 2. 세션을 구해서 club 테이블에서 확인해서 모임장이면 수정 가능
+			String sess = "cheese@gmail.com";
+			ClubDTO clubdto = club_Member_JoinService.getClubCont(event.getClub_num());
+						
+			if(!(clubdto.getClub_host_email().equals(sess))) {
+				// 모임장이 아니면 모임장만 수정 가능합니다 메세지 뿌리기
+				int result = 2;
+				model.addAttribute("result", result);
+				return "togetherview/event_del_result";
+			} else {
+				// 그리고 모임장이면 수정 가능
+				redirectAttributes.addAttribute("eventPage", eventPage);
+				redirectAttributes.addAttribute("event_num", event_num);
+				redirectAttributes.addAttribute("club_num", club_num);
+				//redirectAttributes.addAttribute("event", event);
+				return "redirect:event_del.do";
+
+			}
+						
 		}
 		return null;
 		
@@ -250,82 +293,79 @@ public class EventController {
 		
 		System.out.println("Controller arrived");
 		System.out.println("이벤트 수정 " + event.getEvent_title());
-
-		// 1. 세션을 구하기
-		// 2. 세션을 구해서 club_member_join 테이블에서 확인해서 모임장이면 수정 가능
-		// 또는 club 테이블에서 확인도 가능함
-		// 그리고 모임장이면 모임장 이메일을 구해서 model 객체에 저장
-		
-		// 날짜 처리
-		String event_date_date = (String)request.getParameter("event_date_date");
-		String event_date_time = (String)request.getParameter("event_date_time");
-		
-		String event_date = event_date_date + " " + event_date_time;
-		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		Date to_event_date = transFormat.parse(event_date);
-		
-		event.setEvent_date(to_event_date);
-//		System.out.println(to_event_date);
-		
-		// 첨부파일 처리 수정
-		String fileName = mf.getOriginalFilename();
-		int fileSize = (int) mf.getSize(); // 단위 : Byte
-		System.out.println(fileName);
-		
-		int err = 0;
-		String file[] = new String[2];
-		String newfilename = "";
-		
-		if(fileName != "") { // 첨부파일이 전송된 경우
-			//파일 중복문제 해결
-			String extension = fileName.substring(fileName.lastIndexOf("."), fileName.length());
-			System.out.println("extension: " + extension);
 			
-			UUID uuid = UUID.randomUUID();
+			// 날짜 처리
+			String event_date_date = (String)request.getParameter("event_date_date");
+			String event_date_time = (String)request.getParameter("event_date_time");
 			
-			newfilename = uuid.toString() + extension;
-			System.out.println("newfilename; " + newfilename);
+			String event_date = event_date_date + " " + event_date_time;
+			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+			Date to_event_date = transFormat.parse(event_date);
 			
-			StringTokenizer st = new StringTokenizer(fileName, ".");
-			file[0] = st.nextToken(); // 파일명
-			file[1] = st.nextToken(); // 확장자
+			event.setEvent_date(to_event_date);
+//			System.out.println(to_event_date);
 			
-			if(fileSize > 1000000) { // 1MB
-				err = 1;
-				model.addAttribute("err", err);
+			// 첨부파일 처리 수정
+			String fileName = mf.getOriginalFilename();
+			int fileSize = (int) mf.getSize(); // 단위 : Byte
+			System.out.println(fileName);
+			
+			int err = 0;
+			String file[] = new String[2];
+			String newfilename = "";
+			
+			if(fileName != "") { // 첨부파일이 전송된 경우
+				//파일 중복문제 해결
+				String extension = fileName.substring(fileName.lastIndexOf("."), fileName.length());
+				System.out.println("extension: " + extension);
 				
-				return "togetherview/event_file_upload_result";
+				UUID uuid = UUID.randomUUID();
+				
+				newfilename = uuid.toString() + extension;
+				System.out.println("newfilename; " + newfilename);
+				
+				StringTokenizer st = new StringTokenizer(fileName, ".");
+				file[0] = st.nextToken(); // 파일명
+				file[1] = st.nextToken(); // 확장자
+				
+				if(fileSize > 1000000) { // 1MB
+					err = 1;
+					model.addAttribute("err", err);
+					
+					return "togetherview/event_file_upload_result";
+				}
 			}
-		}
+			
+			if(fileName != "") { // 첨부파일이 전송된 경우
+			// 첨부파일 업로드
+			// mf.transferTo(new File("/path/"+fileName));
+			String path = session.getServletContext().getRealPath("/upload");
+			System.out.println("path : " + path);
+			
+			
+			FileOutputStream fos = new FileOutputStream(path + "/" + newfilename);
+			fos.write(mf.getBytes());
+			fos.close();
+			
+			event.setEvent_file(newfilename);
+			System.out.println(event.getEvent_file());
+			}
+			
+			EventDTO old = this.eventService.getEventCont(event.getEvent_num());
+			if (fileSize > 0 ) { 		// 첨부 파일이 수정되면
+				event.setEvent_file(newfilename);			
+			} else { 					// 첨부파일이 수정되지 않으면
+				event.setEvent_file(old.getEvent_file());
+			}
+			
+			int result = eventService.eventUpdate(event);
+			model.addAttribute("club_num", event.getClub_num());
+			model.addAttribute("event_num", event.getEvent_num());
+			model.addAttribute("eventPage", eventPage);
+			model.addAttribute("result", result);
+			return "togetherview/event_edit_result";
 		
-		if(fileName != "") { // 첨부파일이 전송된 경우
-		// 첨부파일 업로드
-		// mf.transferTo(new File("/path/"+fileName));
-		String path = session.getServletContext().getRealPath("/upload");
-		System.out.println("path : " + path);
 		
-		
-		FileOutputStream fos = new FileOutputStream(path + "/" + newfilename);
-		fos.write(mf.getBytes());
-		fos.close();
-		
-		event.setEvent_file(newfilename);
-		System.out.println(event.getEvent_file());
-		}
-		
-		EventDTO old = this.eventService.getEventCont(event.getEvent_num());
-		if (fileSize > 0 ) { 		// 첨부 파일이 수정되면
-			event.setEvent_file(newfilename);			
-		} else { 					// 첨부파일이 수정되지 않으면
-			event.setEvent_file(old.getEvent_file());
-		}
-		
-		int result = eventService.eventUpdate(event);
-		model.addAttribute("club_num", event.getClub_num());
-		model.addAttribute("event_num", event.getEvent_num());
-		model.addAttribute("eventPage", eventPage);
-		model.addAttribute("result", result);
-		return "togetherview/event_edit_result";
 	}
 	
 	// 이벤트 삭제

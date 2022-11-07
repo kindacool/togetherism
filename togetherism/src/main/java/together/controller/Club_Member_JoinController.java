@@ -42,7 +42,7 @@ public class Club_Member_JoinController {
 		int result = 0;
 		// 중복 가입 검사 : 모임가입테이블은 중복가입이 가능하므로 중복가입을 방지
 		// 1. 세션 구하기 (현재는 Merge 가 안되었으므로 임의로 정함)
-		String sess = "test2@gmail.com";
+		String sess = "cheese@gmail.com";
 		cmjdto.setMember_email(sess);
 
 		// 넘어오는 값 확인
@@ -138,7 +138,7 @@ public class Club_Member_JoinController {
 	public String joinedClub(Model model) throws Exception {
 
 		// 1. 세션 구하기 (현재는 Merge 가 안되었으므로 임의로 정함)
-		String sess = "test1@gmail.com";
+		String sess = "cheese@gmail.com";
 		// 구한 세션으로 해당 사람이 가입된 모든 cmjlist DTO 가져오기
 		List<Club_Member_JoinDTO> cmjlist = club_Member_JoinService.getJoinedClub(sess);
 		System.out.println(cmjlist);
@@ -159,7 +159,7 @@ public class Club_Member_JoinController {
 	@RequestMapping(value = "/leave_club.do", method = RequestMethod.GET)
 	public String leaveClub(Model model, @ModelAttribute Club_Member_JoinDTO cmjdto) throws Exception {
 		// 1. 세션 구하기 (현재는 Merge 가 안되었으므로 임의로 정함)
-		String sess = "test1@gmail.com";
+		String sess = "cheese@gmail.com";
 		cmjdto.setMember_email(sess);
 		int result = 0;
 
@@ -199,7 +199,7 @@ public class Club_Member_JoinController {
 	public String myClub(Model model) throws Exception {
 
 		// 1. 세션 구하기 (현재는 Merge 가 안되었으므로 임의로 정함)
-		String sess = "test1@gmail.com";
+		String sess = "cheese@gmail.com";
 		// 구한 세션으로 해당 사람이 운영하는 모든 cmjlist DTO 가져오기
 		List<Club_Member_JoinDTO> cmjlist = club_Member_JoinService.getMyClub(sess);
 		System.out.println(cmjlist);
