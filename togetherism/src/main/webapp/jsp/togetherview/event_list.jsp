@@ -16,8 +16,37 @@
 		<input type="text" name="keyword">
 		<input type="submit" value="검색">
 	</form>
-</c:if>
-<c:if test="${club_num != 0}">
+	<%-- 검색 결과 페이지 일떄--%>
+	<c:choose>
+	<c:when test="${not empty keyword}">
+	<h5>${keyword} 이벤트 검색 결과</h5>
+	<a href="<%=request.getContextPath()%>/club_list.do?keyword=${keyword}">Groups</a>
+	<a href="<%=request.getContextPath()%>/event_list.do?keyword=${keyword}">Events</a>
+	</c:when>
+	<%-- 특정 지역 모임 페이지 일때 --%>
+	<c:when test="${not empty club_region}">
+   	<c:choose>
+     	<c:when test="${event_region == 'Seoul_Metropolitan'}"><h5>수도권 지역 이벤트</h5></c:when>
+     	<c:when test="${event_region == 'Gangwon'}"><h5>강원 지역 이벤트</h5></c:when>
+     	<c:when test="${event_region == 'Gyeongsang'}"><h5>경상 지역 이벤트</h5></c:when>
+     	<c:when test="${event_region == 'Jeolla'}"><h5>전라 지역 이벤트</h5></c:when>
+     	<c:when test="${event_region == 'Chungcheong'}"><h5>충청 지역 이벤트</h5></c:when>
+     	<c:when test="${event_region == 'Jeju'}"><h5>제주 지역 이벤트</h5></c:when>
+     	<c:when test="${event_region == 'Abroad'}"><h5>해외 지역 이벤트</h5></c:when>
+    	</c:choose>
+	<a href="<%=request.getContextPath()%>/club_list.do?club_region=${club_region}">Groups</a>
+	<a href="<%=request.getContextPath()%>/event_list.do?event_region=${event_region}">Events</a>
+	</c:when>	
+	<%-- 전체 목록의 페이지 일때 --%>
+	<c:otherwise>
+	<h5>전체 이벤트 보기</h5>
+	<a href="<%=request.getContextPath()%>/club_list.do">Groups</a>
+	<a href="<%=request.getContextPath()%>/event_list.do">Events</a>
+	</c:otherwise>
+	</c:choose> 
+	</c:if>
+	
+<c:if test="${club_num != 0}"> <!-- 모임 페이지 내에서 모임내 이벤트를 볼때 -->
 		<a href="<%=request.getContextPath()%>/event_createform.do?club_num=${club_num}">이벤트 생성하기</a>
 	<c:if test="${not empty preview}"> <!--  모임 내에서 이벤트를 볼때 preview 상태면 더보기 출력 -->
 		<a href="<%=request.getContextPath()%>/event_list.do?club_num=${club_num}"> 더보기 </a>
@@ -25,6 +54,7 @@
 	<c:if test="${empty preview}"> <!--  모임 내에서 이벤트를 볼때 preview 상태가 아니면 모임으로 돌아가기 출력-->
 		<a href="<%=request.getContextPath()%>/club_ct.do?club_num=${club_num}"> 해당 모임으로 돌아가기 </a>
 	</c:if>
+	<h5>이 모임의 이벤트(정모)</h5>
 </c:if>
 
 <!-- 이벤트가 없을때 처리 -->

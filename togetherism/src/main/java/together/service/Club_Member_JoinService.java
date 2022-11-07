@@ -57,4 +57,7 @@ public interface Club_Member_JoinService {
 	
 	// club 테이블과 연동할 것, merge 후 수정, 모임 리스트 가져오기
 	public List<ClubDTO> getClubListAll(Map<String, Object> map);
+	
+	// club 테이블과 연동할 것, merge 후 수정, 모임 프리뷰 리스트 가져오기
+	public List<ClubDTO> getClubListPreview(String preview);
 }

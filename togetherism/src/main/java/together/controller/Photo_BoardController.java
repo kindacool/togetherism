@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import together.model.ClubDTO;
 import together.model.Club_Member_JoinDTO;
 import together.model.EventDTO;
 import together.model.Photo_BoardDTO;
@@ -189,12 +190,16 @@ public class Photo_BoardController {
 		String sess = "test2@gmail.com";
 		Photo_BoardDTO old = this.photo_BoardService.getPhotoCont(pbdto.getPhoto_num());
 		//또한 모임장과 일치하는 경우에도 삭제 가능하도록 하기
+		// club 테이블과 연동해서 모임장 이메일 구해오기
+		ClubDTO clubdto = club_Member_JoinService.getClubCont(old.getClub_num());
+		
 		// 넘어온 값 확인
 		System.out.println(pbdto.getClub_num());
 		System.out.println(old.getPhoto_member_email());
 		System.out.println(pbdto.getPhoto_num());
 
-		if (!sess.equals(old.getPhoto_member_email())) { // 로그인되어있는 사용자가 사진 작성자가 아닐때
+		if (!sess.equals(old.getPhoto_member_email()) || !sess.equals(clubdto.getClub_host_email())) { 
+			// 로그인되어있는 사용자가 사진 작성자가 아닐때 그리고 모임장도 아닐떄는
 			// 삭제 불가능
 			result = 2;
 			model.addAttribute("result", result);

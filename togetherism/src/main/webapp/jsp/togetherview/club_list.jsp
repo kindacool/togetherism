@@ -16,7 +16,40 @@
 	<input type="text" name="keyword">
 	<input type="submit" value="검색">
 </form>
-	
+
+<%-- 검색 결과 페이지 일떄--%>
+<c:choose>
+<c:when test="${not empty keyword}">
+<h5>${keyword} 모임 검색 결과</h5>
+<a href="<%=request.getContextPath()%>/club_list.do?keyword=${keyword}">Groups</a>
+<a href="<%=request.getContextPath()%>/event_list.do?keyword=${keyword}">Events</a>
+<a href="#">모임 만들기</a>
+</c:when>
+<%-- 특정 지역 모임 페이지 일때 --%>
+<c:when test="${not empty club_region}">
+   <c:choose>
+     <c:when test="${club_region == 'Seoul_Metropolitan'}"><h5>수도권 지역 모임</h5></c:when>
+     <c:when test="${club_region == 'Gangwon'}"><h5>강원 지역 모임</h5></c:when>
+     <c:when test="${club_region == 'Gyeongsang'}"><h5>경상 지역 모임</h5></c:when>
+     <c:when test="${club_region == 'Jeolla'}"><h5>전라 지역 모임</h5></c:when>
+     <c:when test="${club_region == 'Chungcheong'}"><h5>충청 지역 모임</h5></c:when>
+     <c:when test="${club_region == 'Jeju'}"><h5>제주 지역 모임</h5></c:when>
+     <c:when test="${club_region == 'Abroad'}"><h5>해외 지역 모임</h5></c:when>
+    </c:choose>
+<a href="<%=request.getContextPath()%>/club_list.do?club_region=${club_region}">Groups</a>
+<a href="<%=request.getContextPath()%>/event_list.do?event_region=${event_region}">Events</a>
+<a href="#">모임 만들기</a>
+</c:when>	
+<%-- 전체 목록의 페이지 일때 --%>
+<c:otherwise>
+<h5>전체 모임 보기</h5>
+<a href="<%=request.getContextPath()%>/club_list.do">Groups</a>
+<a href="<%=request.getContextPath()%>/event_list.do">Events</a>
+<a href="#">모임 만들기</a>
+</c:otherwise>
+</c:choose>
+
+
 <!-- 모임이 없을때 처리 -->
 <c:if test="${empty clublist}">
  	<c:choose>

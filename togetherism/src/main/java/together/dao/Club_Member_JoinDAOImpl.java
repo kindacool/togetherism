@@ -93,4 +93,9 @@ public class Club_Member_JoinDAOImpl implements Club_Member_JoinDAO{
 		return sqlSession.selectList("club_member_joinns.clublistall",map);
 	}
 	
+	// club 테이블과 연동할 것, merge 후 수정, 모임 프리뷰 리스트 가져오기
+	public List<ClubDTO> getClubListPreview(String preview){
+		return sqlSession.selectList("club_member_joinns.clublistpre",preview);
+	}
+	
 }

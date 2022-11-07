@@ -90,5 +90,8 @@ public class Club_Member_JoinServiceImpl implements Club_Member_JoinService {
 		return club_Member_JoinDAO.getClubListAll(map);
 	}
 	
-	
+	// club 테이블과 연동할 것, merge 후 수정, 모임 프리뷰 리스트 가져오기
+	public List<ClubDTO> getClubListPreview(String preview){
+		return club_Member_JoinDAO.getClubListPreview(preview);
+	}
 }

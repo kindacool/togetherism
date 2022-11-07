@@ -222,6 +222,7 @@ public class Club_Member_JoinController {
 	public String clubList(Model model, 
 			@RequestParam(value="club_region", required = false) String club_region,
 			@RequestParam(value="keyword", required = false) String keyword,
+			@RequestParam(value="preview", required = false) String preview,
 			HttpServletRequest request) throws Exception {
 		
 		List<ClubDTO> clublist = new ArrayList<ClubDTO>();
@@ -238,6 +239,12 @@ public class Club_Member_JoinController {
 		// 넘어온 값들 확인
 		System.out.println("키워드 : " + keyword);
 		System.out.println("지역 : " + club_region);
+		System.out.println("프리뷰 : " + preview);
+		
+		if(preview != null) {
+			limit = 3;
+			model.addAttribute("preview", preview);
+		}
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("keyword", keyword);
@@ -272,7 +279,33 @@ public class Club_Member_JoinController {
 		model.addAttribute("club_region", club_region);
 
 		model.addAttribute("clubPage", clubPage);		
-		return "togetherview/club_list"; // 이후 리스트 출력하는 페이지로 가는걸로 수정
+		return "togetherview/club_list";
+	
+	}
+	
+	// preview 모임 리스트
+	// CLUB 테이블 , merge 후 수정
+	@RequestMapping(value="/club_pre_list.do", method = RequestMethod.GET)
+	public String clubList(Model model, 
+			@RequestParam(value="preview", required = false) String preview,
+			HttpServletRequest request) throws Exception {
+		
+		List<ClubDTO> clubprelist = new ArrayList<ClubDTO>();
+		
+		// 넘어온 값들 확인
+		System.out.println("프리뷰 : " + preview); // not, new, pre
+		
+		// 1 ~ 9 번까지만 가져오기 , preview 가 pre 일땐 1 ~ 3 까지
+				
+		// 모임 리스트 구하기
+		clubprelist = club_Member_JoinService.getClubListPreview(preview);
+		System.out.println("prelist : " +clubprelist);
+		
+		// 가져온 모임 리스트
+		model.addAttribute("clubprelist", clubprelist);
+		model.addAttribute("preview", preview);
+		
+		return "togetherview/club_pre_list"; // 이후 리스트 출력하는 페이지로 가는걸로 수정
 	
 	}
 
