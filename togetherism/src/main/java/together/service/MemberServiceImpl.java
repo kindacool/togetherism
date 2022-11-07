@@ -1,9 +1,12 @@
 package together.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import together.dao.MemberDAOImpl;
+import together.model.Club_Member_JoinDTO;
 import together.model.MemberDTO;
 
 @Service
@@ -64,6 +67,33 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		memberDao.deleteMember(member);
 		
+	}
+
+
+	@Override
+	public List<Club_Member_JoinDTO> checkHost(String email) throws Exception {
+		// TODO Auto-generated method stub
+		return memberDao.checkHost(email);
+	}
+
+
+	@Override
+	public void deleteJoinclub(String email) throws Exception {
+		memberDao.deleteJoinclub(email);
+	}
+
+
+	@Override
+	public void deleteHeart(String email) throws Exception {
+		// TODO Auto-generated method stub
+		memberDao.deleteHeart(email);
+	}
+
+
+	@Override
+	public void deleteEventattend(String email) throws Exception {
+		// TODO Auto-generated method stub
+		memberDao.deleteEventattend(email);
 	}
 
 

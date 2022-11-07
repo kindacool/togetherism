@@ -3,6 +3,29 @@
 
 <mapper namespace="event_user_attendns">
 
+    <!-- 모임 가입 여부 검색-->
+    <select id="join_check" parameterType="club_member_join" resultType="club_member_join">
+     	select * from club_member_join where club_num=#{club_num} and member_email=#{member_email}
+    </select>
+
+    <!-- 이벤트 참여 검색 -->
+    <select id="attend_check" parameterType="event_user_attend" resultType="event_user_attend" >
+     	select * from event_user_attend where event_num=#{event_num} and member_email=#{member_email}
+    </select>
+    
+    <!-- 이벤트 참여 -->
+  	<insert id="attend_insert" parameterType="event_user_attend">
+		insert into event_user_attend
+		(attend_num, event_num, member_email)
+		values
+		(event_user_attend_seq.nextval, #{event_num},#{member_email})
+	</insert>
+	
+	<!-- 이벤트 참여 취소-->
+	<delete id="attend_delete">
+		delete from event_user_attend where event_num=#{event_num} and member_email=#{member_email}
+	</delete>
+    
 </mapper>
 
 

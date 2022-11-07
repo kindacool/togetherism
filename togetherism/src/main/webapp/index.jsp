@@ -8,6 +8,7 @@
 </head>
 <body>
 <script>
+//	location.href = "event_user_attend_check.do";
 	location.href = "member_login.do";
 //	location.href = "testselect.do"; // 이건 이후에 메인 페이지로 변환
 	//soo띄어쓰기

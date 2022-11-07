@@ -28,7 +28,7 @@
   <h2 class="del_title">회원 탈퇴</h2>
   <form method="post" action="<%=request.getContextPath() %>/member_delete_ok.do" 
   					  onsubmit="return check()">
-    <table id="del_t">
+    <table id="del_t" align="center">
      <tr>
       <th>회원 이메일</th>
       <td>
@@ -55,6 +55,13 @@
       <textarea name="member_del_reason" id="member_del_reason" rows="7" 
       			cols="30" class="input_box" placeholder="공백포함 40자 이내로 입력해주세요."></textarea>
       </td>
+     </tr>
+     
+     <tr>
+     	<th colspan=2>
+     	 	회원 탈퇴를 진행하실 경우, 기존에 가입했던 모임, 좋아요, 이벤트 참석 이력은 모두 삭제되는 점 참고 부탁드립니다.<br>
+     	 	아울러 모임장인 모임이 존재할 경우, 해당 모임을 삭제 후 회원 탈퇴가 가능합니다.
+     	</th>
      </tr>
     </table>
     

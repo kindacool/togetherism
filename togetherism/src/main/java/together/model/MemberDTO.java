@@ -22,4 +22,8 @@ public class MemberDTO {
 	private Date member_del_date;
 	private String member_del_reason;
 	
+	private String search;
+	private String keyword;
+
+	
 }
