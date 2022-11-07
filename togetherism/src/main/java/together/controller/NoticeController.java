@@ -28,7 +28,7 @@ public class NoticeController {
 	
 	//공지사항 작성 폼 진입
 	@RequestMapping("notice_writeForm.do")
-	public String notice_writeForm () {
+	public String notice_writeForm () throws Exception {
 		System.out.println("공지사항 작성폼 컨트롤러 진입");
 		return "togetherview/notice_writeForm";
 	}
@@ -104,7 +104,8 @@ public class NoticeController {
 	
 	//공지사항 게시판 목록
 	@RequestMapping("notice_list.do")
-	public String notice_list (HttpServletRequest request, Model model) {
+	public String notice_list (HttpServletRequest request, 
+							   Model model) throws Exception {
 		System.out.println("공지사항 게시판 목록 컨트롤러 진입");
 		
 		//page : 현재 페이지, limit : 한 화면에 출력할 페이지 개수
@@ -144,7 +145,8 @@ public class NoticeController {
 
 	//공지사항 글 상세 페이지
 	@RequestMapping("notice_content.do")
-	public String notice_content(int notice_num, int page, Model model) {
+	public String notice_content(int notice_num, int page, 
+								 Model model) throws Exception {
 		
 		System.out.println("글 상세 내용 컨트롤러 진입");
 
@@ -163,7 +165,8 @@ public class NoticeController {
 	
 	//공지사항 글 수정 폼 진입
 	@RequestMapping("notice_modifyForm.do")
-	public String notice_modifyForm(int notice_num, int page, Model model) {
+	public String notice_modifyForm(int notice_num, int page, 
+									Model model) throws Exception {
 		
 		// 글 번호 notice_num을 매개로 글 정보 하나를 구해 오는 메소드
 		NoticeDTO noticeDto = noticeService.getNotice(notice_num);
@@ -261,7 +264,8 @@ public class NoticeController {
 	
 	//공지사항 삭제
 	@RequestMapping("notice_delete.do")
-	public String notice_deleteReally (int notice_num, Model model) {
+	public String notice_deleteReally (int notice_num, 
+									   Model model) throws Exception {
 		
 		System.out.println("글 삭제 컨트롤러 진입");
 		
@@ -278,7 +282,8 @@ public class NoticeController {
 //	public String notice_modifyFile (@RequestParam("modifyFile") String img, int notice_num, Model model) {
 	
 	@RequestMapping("notice_modifyFile.do")
-	public String notice_modifyFile (int notice_num, Model model) {
+	public String notice_modifyFile (int notice_num, 
+									 Model model) throws Exception {
 		
 		int result = noticeService.fileDelete(notice_num);
 		if(result == 1) System.out.println("notice_file 컬럼 null 처리 완료");

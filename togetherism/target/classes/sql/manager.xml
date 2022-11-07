@@ -39,9 +39,36 @@
 		]]>
 	</select>
 	
+	<!-- 검색 결과 회원 목록 -->
+	<select id="getSearch" resultType="member">
+		select * from member
+		<where>
+			<if test="keyword != null and search != null">
+				${search} like '%'||#{keyword}||'%'
+			</if>
+		</where>
+	</select>
+	
+	<!-- 검색 결과 개수 -->
+	<select id="getSearchcount" resultType="int">
+		select count (*) from member
+		<where>
+			<if test="keyword != null and search != null">
+				${search} like '%'||#{keyword}||'%'
+			</if>
+		</where>
+	</select>
+	
+	<!-- 검색 결과 개수 -->
+	
 	<!-- 회원 1명 상세정보 -->
 	<select id="getMember" parameterType="int" resultType="member">
 		select * from member where member_email = #{member_email}
+	</select>
+	
+	<!-- 회원 1명의 신고횟수 -->
+	<select id="reportCount" resultType="int">
+		select count (*) from report where member_email= #{member_email}
 	</select>
 	
 	<!-- 회원 삭제 -->

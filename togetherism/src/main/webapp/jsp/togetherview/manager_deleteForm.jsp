@@ -30,7 +30,7 @@
 		<tr>
 			<th style="width: 300px"> 신고 횟수 </th>
 			<td style="width: 400px">
-			<input type="text" class="form-control-plaintext" name="member_nickname" value="report 테이블에서 가져오기" readonly>
+			<input type="text" class="form-control-plaintext" name="member_nickname" value="${reportCount }" readonly>
 		</tr>
 		<tr>
 			<th style="width: 300px"> 강제탈퇴 사유 </th>

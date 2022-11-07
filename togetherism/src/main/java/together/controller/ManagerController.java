@@ -12,11 +12,13 @@ import org.apache.commons.mail.HtmlEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import together.model.ManagerDTO;
 import together.model.MemberDTO;
+import together.model.ReportDTO;
 import together.service.ManagerServiceImpl;
 
 @Controller
@@ -26,7 +28,7 @@ public class ManagerController {
 	
 	//관리자 로그인 폼 진입
 	@RequestMapping("admin.do")
-	public String manager_loginForm () {
+	public String manager_loginForm () throws Exception {
 		System.out.println("관리자 로그인 폼 진입");
 		return "togetherview/manager_loginForm";
 	}
@@ -36,7 +38,7 @@ public class ManagerController {
 	public String manager_login(String manager_email, 
 								String manager_pw, 
 								HttpSession session,
-								Model model ) {
+								Model model ) throws Exception {
 		
 		System.out.println("관리자 로그인 실행 메소드 진입");
 		
@@ -74,12 +76,12 @@ public class ManagerController {
 		} // if - else end
 	}
 	
-//	@RequestMapping(value="manager_main.do", method=RequestMethod.POST)
+	//관리자로그인 후 메인 화면 진입
 	@RequestMapping("manager_main.do")
-	public String manger_main (HttpSession session) {
+	public String manger_main (HttpSession session) throws Exception {
 		
+		//로그인 세션 유지
 		String manager_email = (String) session.getAttribute("manager_email");
-		
 		System.out.println("메인화면 진입");
 		
 		return "togetherview/manager_main";
@@ -87,10 +89,10 @@ public class ManagerController {
 	
 	//관리자 로그아웃
 	@RequestMapping("manager_logout.do")
-	public String manager_logout (HttpSession session) {
+	public String manager_logout (HttpSession session) throws Exception {
 		
+		//세션 종료
 		session.invalidate();
-		
 		System.out.println("로그아웃 성공");
 		
 		return "redirect:admin.do";
@@ -99,7 +101,8 @@ public class ManagerController {
 	
 	//회원관리 리스트 진입
 	@RequestMapping("manager_list.do")
-	public String manager_list(HttpServletRequest request, Model model) {
+	public String manager_list(HttpServletRequest request, 
+							   Model model) throws Exception {
 		
 		//page : 현재 페이지, limit : 한 화면에 출력할 목록
 		int page = 1;
@@ -109,13 +112,17 @@ public class ManagerController {
 			page = Integer.parseInt(request.getParameter("page"));
 		}
 		
-		//총 데이터 개수
+		//전체 가입회원 수
 		int memberCount = managerService.memberCount();
 		System.out.println("총 회원수: "+memberCount);
 		
-		//회원 목록 전체
+		//회원 데이터 전체
 		List<MemberDTO> memberList = managerService.memberList(page);
 		System.out.println("회원 목록 구해오기 성공");
+		
+		//검색
+//		MemberDTO memberDto = new MemberDTO();
+//		List<MemberDTO> searchList = managerService.getSearch(memberDto);
 		
 		//1 블럭당 페이지 개수
 		int pageCount = memberCount / limit + ((memberCount%limit == 0) ? 0 : 1);
@@ -136,9 +143,58 @@ public class ManagerController {
 		return "togetherview/manager_list";
 	}
 	
+	//검색 페이지 출력
+	@RequestMapping("manager_listSearch.do")
+	public String manager_listSearch (MemberDTO memberDto,
+									  HttpServletRequest request,
+									  Model model) throws Exception {
+		
+		//검색 결과 회원 목록 출력
+		List<MemberDTO> searchList = managerService.getSearch(memberDto);
+		System.out.println("검색한 회원 목록 구해오기 성공");
+		
+		//검색 결과 회원 수
+		int searchCount = searchList.size();
+		System.out.println("검색 결과 구해오기 성공 : "+ searchCount);
+		
+		//신고 많은 순으로 내림차순 메소드 작성하기
+		
+		String search = memberDto.getSearch();
+		String keyword = memberDto.getKeyword();
+		System.out.println("분류 : "+memberDto.getSearch());
+		System.out.println("키워드 : "+memberDto.getKeyword());
+		
+		//page : 현재 페이지, limit : 한 화면에 출력할 목록
+		int page = 1;
+		int limit = 10;
+		
+		if (request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+		
+		//1 블럭당 페이지 개수
+		int pageCount = searchCount / limit + ((searchCount%limit == 0) ? 0 : 1);
+		int startPage = ((page - 1) / 10) * limit + 1;	// 1, 11, 21,
+		int endPage = startPage + 10 - 1;
+		
+		if (endPage > pageCount) endPage = pageCount;
+		
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("search", search);
+		model.addAttribute("page", page);
+		model.addAttribute("searchList", searchList);
+		model.addAttribute("searchCount", searchCount);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		
+		return "togetherview/manager_listSearch";
+	}
+	
 	//회원 1명의 상세정보
 	@RequestMapping("manager_deleteForm.do")
-	public String manager_memberView (MemberDTO member_email, Model model) {
+	public String manager_memberView (MemberDTO member_email, 
+									  Model model) throws Exception {
 		
 		System.out.println("회원 상세정보 컨트롤러 진입");
 		
@@ -146,27 +202,33 @@ public class ManagerController {
 		MemberDTO memberDto = managerService.getMember(member_email);
 		System.out.println("회원 상세정보 구해오기 성공");
 		
+		//회원이메일을 매개로 특정 회원의 신고 횟수 구해오기 메소드
+		int reportCount = managerService.reportCount(member_email);
+		System.out.println("신고 횟수 구해오기 성공");
+		
 		model.addAttribute("memberDto", memberDto);
+		model.addAttribute("reportCount", reportCount);
 		
 		return "togetherview/manager_deleteForm";
 	}
 	
 	//회원 1명 강제탈퇴 시키기 (member_del_yn 컬럼 값 변경)
 	@RequestMapping("manager_delete.do")
-	public String manager_delete (MemberDTO memberDto, Model model) {
+	public String manager_delete (MemberDTO memberDto, 
+								  Model model) throws Exception {
 		
 		System.out.println("회원 삭제 메소드 진입");
 		
 		//회원이메일을 매개로 member_del_yn 컬럼 값을 'y'로 변경하는 메소드
 		managerService.memberDelete(memberDto);
-		System.out.println("삭제 메소드 호출 성공");
+		System.out.println("회원 강제탈퇴 성공");
 		
 		return "togetherview/manager_delete";
 	}
 	
 	//Q&A 페이지 진입
 	@RequestMapping("qna.do")
-	public String qna () {
+	public String qna () throws Exception {
 		System.out.println("Q&A 페이지 진입");
 		
 		return "togetherview/qna";
@@ -179,7 +241,7 @@ public class ManagerController {
 							   String member_email,
 							   String mail_subject,
 							   String mail_content,
-							   Model model) {
+							   Model model) throws Exception {
 		
 		System.out.println(qna_category);
 		
@@ -200,7 +262,7 @@ public class ManagerController {
 						String mail_subject,
 						String mail_content,
 						HttpServletResponse response, 
-						Model model) throws Exception{
+						Model model) throws Exception {
 		
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
@@ -212,6 +274,7 @@ public class ManagerController {
 		System.out.println("메일주소:"+member_email);
 		System.out.println("제목:"+mail_subject);
 		
+		//문의 내용 줄바꿈
 		String mail_content1 = mail_content.replace("\n", "<br>");
 		
 		/*
@@ -301,6 +364,5 @@ public class ManagerController {
 		model.addAttribute("mail_content1", mail_content1);
 		
 		return "togetherview/qna_mailResult";
-//		return "redirect:togetherview/qna_mail";
 	}
 }
