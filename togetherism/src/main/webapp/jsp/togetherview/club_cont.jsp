@@ -70,12 +70,32 @@ $(document).ready(function(){
 		<td>${club.club_host_email}</td>
 	</tr>
 	<tr>
+		<td>모임장 이름</td>
+		<td>${memberdto.member_nickname}</td>
+	</tr>
+	<tr>
+		<td>모임장 사진</td>
+		<td>
+	<img src="<%=request.getContextPath() %>/upload/${memberdto.member_image}" style="height:100px; weight:100px;" alt="${memberdto.member_image}"/>
+		</td>
+	</tr>
+	<tr>
 		<td>클럽 간단 소개</td>
 		<td>${club.club_keyword}</td>
 	</tr>
 	<tr>
-		<td>지역</td>
-		<td>${club.club_region}</td>
+				<td>이벤트 지역</td>
+				<td>
+		<c:choose>
+        	<c:when test="${club.club_region == 'Seoul_Metropolitan'}">수도권</c:when>
+        	<c:when test="${club.club_region == 'Gangwon'}">강원</c:when>
+        	<c:when test="${club.club_region == 'Gyeongsang'}">경상</c:when>
+        	<c:when test="${club.club_region == 'Jeolla'}">전라</c:when>
+        	<c:when test="${club.club_region == 'Chungcheong'}">충청</c:when>
+        	<c:when test="${club.club_region == 'Jeju'}">제주</c:when>
+        	<c:when test="${club.club_region == 'Abroad'}">해외</c:when>
+        </c:choose>
+				</td>
 	</tr>
 	<tr>
 		<td>관심사</td>
@@ -139,7 +159,7 @@ $(document).ready(function(){
 
 <c:if test="${empty eventlist}">
 <div class="alert alert-warning hide" role="alert" style="width: 640px;">
- 	현재 이 모임에서 이벤트(정모)를 개설한 적이 없습니다
+ 	현재 이 모임에 등록된 이벤트(정모)가 없습니다
 </div>
 </c:if>
 <!-- 맵 작업 코드 -->

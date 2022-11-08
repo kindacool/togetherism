@@ -27,8 +27,8 @@ select * from club_member_join where club_num = #{club_num} and club_host_yn = '
 select * from club where club_num = #{club_num}
 </select>
 
-<select id="joinedclub" resultType="club_member_join" parameterType="String">
-select * from club_member_join where member_email = #{sess}
+<select id="joinedclub" resultType="club" parameterType="String">
+select * from club where club_num in (select club_num from club_member_join where member_email = #{sess})
 </select>
 
 <select id="clublist" resultType="club" parameterType="club_member_join">

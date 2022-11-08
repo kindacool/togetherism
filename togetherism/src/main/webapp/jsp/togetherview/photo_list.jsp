@@ -14,6 +14,14 @@
         justify-content: space-between;
     }
 </style>
+<script>
+function delete_ok(a,b){
+    if (!confirm("정말 삭제 하시겠습니까")) {
+    } else {
+        location.href="<%=request.getContextPath() %>/photo_delete.do?photo_num=" + a + "&club_num=" + b;
+    }
+}
+</script>
 </head>
 <body>
 
@@ -65,7 +73,7 @@
         <div class='cover'>
         <p class="card-text">${p.photo_content}</p>
          <div>
-          <a href="<%=request.getContextPath() %>/photo_delete.do?photo_num=${p.photo_num}&club_num=${club_num}" style="text-decoration: none">삭제</a>
+         <a href="javascript:void(0);" onclick="delete_ok(${p.photo_num}, ${club_num});" style="text-decoration: none">삭제</a>
 		</div>
         </div>
       </div>

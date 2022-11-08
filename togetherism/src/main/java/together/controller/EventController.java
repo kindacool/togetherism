@@ -235,18 +235,25 @@ public class EventController {
 		model.addAttribute("event", event);
 		model.addAttribute("club_num", club_num);
 
+		// 1. 세션을 구하기
+		// 2. 세션을 구해서 club 테이블에서 확인해서 모임장이면 수정 가능
+		String sess = "cheese@gmail.com";
+		ClubDTO clubdto = club_Member_JoinService.getClubCont(event.getClub_num());
+		
+		
 		if (state.equals("cont")) {// 내용보기일때
 			// 글내용중 엔터키 친부분을 웹상에 보이게 할때 다음줄로 개행
 			String eventInfobr = event.getEvent_info().replace("\n", "<br>");
 			model.addAttribute("eventInfobr", eventInfobr);
 			
+			if(clubdto.getClub_host_email().equals(sess)) {
+				String club_host_yn = "Y";
+				model.addAttribute("club_host_yn", club_host_yn);
+			}
+			
 			return "togetherview/event_cont";
 			// 추후 세션 구해서 모임장인지 일반회원인지 구분
 		} else if (state.equals("edit")) {// 수정폼
-			// 1. 세션을 구하기
-			// 2. 세션을 구해서 club 테이블에서 확인해서 모임장이면 수정 가능
-			String sess = "cheese@gmail.com";
-			ClubDTO clubdto = club_Member_JoinService.getClubCont(event.getClub_num());
 			
 			if(!clubdto.getClub_host_email().equals(sess)) {
 				// 모임장이 아니면 모임장만 수정 가능합니다 메세지 뿌리기
@@ -259,11 +266,6 @@ public class EventController {
 			}
 		} else if (state.equals("del")) {// 삭제폼
 			
-			// 1. 세션을 구하기
-			// 2. 세션을 구해서 club 테이블에서 확인해서 모임장이면 수정 가능
-			String sess = "cheese@gmail.com";
-			ClubDTO clubdto = club_Member_JoinService.getClubCont(event.getClub_num());
-						
 			if(!(clubdto.getClub_host_email().equals(sess))) {
 				// 모임장이 아니면 모임장만 수정 가능합니다 메세지 뿌리기
 				int result = 2;

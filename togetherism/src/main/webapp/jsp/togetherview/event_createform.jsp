@@ -146,13 +146,20 @@ history.go(-1);
 
 			<td>이벤트 지역</td>
 			<select name="event_region">
-			<option value="Seoul_Metropolitan">수도권</option>
-			<option value="Gangwon">강원</option>
-            <option value="Gyeongsang">경상</option>
-            <option value="Jeolla">전라</option>
-            <option value="Chungcheong">충청</option>
-            <option value="Jeju">제주</option>
-            <option value="Abroad" id="event_region_abroad">해외</option>
+			<option value="Seoul_Metropolitan" <c:if test="${club_region == 'Seoul_Metropolitan'}">selected
+            </c:if>>수도권</option>
+			<option value="Gangwon" <c:if test="${club_region == 'Gangwon'}">selected
+            </c:if>>강원</option>
+			<option value="Gyeongsang" <c:if test="${club_region == 'Gyeongsang'}">selected
+            </c:if>>경상</option>
+			<option value="Jeolla" <c:if test="${club_region == 'Jeolla'}">selected
+            </c:if>>전라</option>
+			<option value="Chungcheong" <c:if test="${club_region == 'Chungcheong'}">selected
+            </c:if>>충청</option>
+			<option value="Jeju" <c:if test="${club_region == 'Jeju'}">selected
+            </c:if>>제주</option>
+			<option value="Abroad" <c:if test="${club_region == 'Abroad'}">selected
+            </c:if>>해외</option>
 			</select>
 			<tr>
 				<td>이벤트 설명</td>

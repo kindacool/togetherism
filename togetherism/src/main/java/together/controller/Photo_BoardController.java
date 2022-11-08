@@ -229,6 +229,5 @@ public class Photo_BoardController {
 
 		}
 	}
-	
 }
 

@@ -44,7 +44,7 @@ public class Club_Member_JoinServiceImpl implements Club_Member_JoinService {
 		return club_Member_JoinDAO.getClubCont(club_num);
 	}
 	
-	public List<Club_Member_JoinDTO> getJoinedClub(String sess){
+	public List<ClubDTO> getJoinedClub(String sess){
 		return club_Member_JoinDAO.getJoinedClub(sess);
 	}
 	

@@ -29,7 +29,7 @@ public interface Club_Member_JoinDAO {
 	public ClubDTO getClubCont(int club_num);
 	
 	// 내가 가입한 모임 목록을 가져오기
-	public List<Club_Member_JoinDTO> getJoinedClub(String sess);
+	public List<ClubDTO> getJoinedClub(String sess);
 	
 	// club 테이블과 연동할 것, merge 후 수정, 특정 클럽번호들의 클럽 리스트 가져오기
 	public List<ClubDTO> getClubList(List<Club_Member_JoinDTO> cmjlist);

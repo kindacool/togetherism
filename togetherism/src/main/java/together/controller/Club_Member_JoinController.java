@@ -130,6 +130,11 @@ public class Club_Member_JoinController {
 		
 		System.out.println(eventlist);
 		
+		// 해당 모임의 모임장에 대한 정보도 가져오기
+		// 객체 club 에서 모임장 이메일을 가져와서 member 테이블에서 검색
+		MemberDTO memberdto = club_Member_JoinService.getMember(club.getClub_host_email());
+		model.addAttribute("memberdto", memberdto);
+		
 		return "togetherview/club_cont";
 	}
 
@@ -140,16 +145,14 @@ public class Club_Member_JoinController {
 		// 1. 세션 구하기 (현재는 Merge 가 안되었으므로 임의로 정함)
 		String sess = "cheese@gmail.com";
 		// 구한 세션으로 해당 사람이 가입된 모든 cmjlist DTO 가져오기
-		List<Club_Member_JoinDTO> cmjlist = club_Member_JoinService.getJoinedClub(sess);
-		System.out.println(cmjlist);
+		List<ClubDTO> clist = club_Member_JoinService.getJoinedClub(sess);
+		System.out.println(clist);
 
-		if (cmjlist.isEmpty()) { // 가입된 모임이 없다
+		if (clist.isEmpty()) { // 가입된 모임이 없다
 			int result = 2;
 			model.addAttribute("result", result);
 		} else { // 가입된 모임이 있다
 			// club 테이블 작업, merge 이후 수정하기
-			List<ClubDTO> clist = club_Member_JoinService.getClubList(cmjlist);
-			System.out.println(clist);
 			model.addAttribute("clist", clist);
 		}
 		return "togetherview/joined_club";

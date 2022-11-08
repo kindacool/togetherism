@@ -45,7 +45,7 @@ public class Club_Member_JoinDAOImpl implements Club_Member_JoinDAO{
 		return sqlSession.selectOne("club_member_joinns.clubcont",club_num);
 	}
 	
-	public List<Club_Member_JoinDTO> getJoinedClub(String sess){
+	public List<ClubDTO> getJoinedClub(String sess){
 		return sqlSession.selectList("club_member_joinns.joinedclub",sess);
 	}
 	

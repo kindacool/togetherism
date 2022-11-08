@@ -19,7 +19,22 @@ $(document).ready(function(){
 		alert("해외 지역 이벤트는 지도를 지원하지 않음을 유의해주세요");
 	}
 });
+
+function delete_ok() {
+    if (!confirm("정말 삭제하시겠습니까")) {
+    } else {
+        location.href="<%=request.getContextPath()%>/event_cont.do?club_num=${club_num}&event_num=${event.event_num}&eventPage=${eventPage}&state=del";
+    }
+}
+function edit_ok(){
+    if (!confirm("수정하시겠습니까")) {
+    } else {
+        location.href="<%=request.getContextPath()%>/event_cont.do?club_num=${club_num}&event_num=${event.event_num}&eventPage=${eventPage}&state=edit";
+    }
+}
+
 </script>
+
 <title>Insert title here</title>
 </head>
 <body>
@@ -111,11 +126,10 @@ marker.setMap(map);
 
 <!-- 하단 버튼 -->
 <c:if test="${club_num != 0}">
-<!-- 수정, 삭제시 세션값을 구해서, 그 세션값으로 모임-가입 테이블 검색 후 그게 모임장인 경우에만 가능하도록 추후 수정 -->
-<input type="button" value="수정" 
-		onclick="location='event_cont.do?club_num=${club_num}&event_num=${event.event_num}&eventPage=${eventPage}&state=edit'" />
-<input type="button" value="삭제"
-		onclick="location='event_cont.do?club_num=${club_num}&event_num=${event.event_num}&eventPage=${eventPage}&state=del'" />
+<c:if test="${club_host_yn eq 'Y'}"> <%-- 모임장인 경우만 수정, 삭제 버튼이 보인다 --%>
+<button onclick="edit_ok()">수정</button>
+<button onclick="delete_ok()">삭제</button>
+</c:if>
 <input type="button" value="해당 모임의 이벤트 목록"
 		onclick="location='event_list.do?club_num=${club_num}&eventPage=${eventPage}'" />
 </c:if>

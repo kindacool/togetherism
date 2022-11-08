@@ -62,22 +62,22 @@
  	<c:choose>
 	<c:when test="${club_num != 0}">
 		<div class="alert alert-warning" role="alert" style="width: 640px;">
- 			현재 이 모임에 생성된 이벤트가 없습니다! <a href="request.getContextPath()%>/event_createform.do?club_num=${club_num}" class="alert-link">만들러가기</a>
+ 			현재 이 모임에 생성된 이벤트가 없습니다! <a href="<%=request.getContextPath()%>/event_createform.do?club_num=${club_num}" class="alert-link">만들러가기</a>
 		</div>
 	</c:when>
 	<c:when test="${not empty keyword}">
 		<div class="alert alert-warning" role="alert" style="width: 640px;">
- 			검색된 이벤트가 없습니다! <a href="request.getContextPath()%>/event_createform.do?club_num=${club_num}" class="alert-link">만들러가기</a>
+ 			검색된 이벤트가 없습니다! <a href="<%=request.getContextPath()%>/event_createform.do?club_num=${club_num}" class="alert-link">만들러가기</a>
 		</div>
 	</c:when>
 	<c:when test="${not empty event_region}">
 		<div class="alert alert-warning" role="alert" style="width: 640px;">
- 			해당 지역에 이벤트가 없습니다! <a href="request.getContextPath()%>/event_createform.do?club_num=${club_num}" class="alert-link">만들러가기</a>
+ 			해당 지역에 이벤트가 없습니다! <a href="<%=request.getContextPath()%>/event_createform.do?club_num=${club_num}" class="alert-link">만들러가기</a>
 		</div>
 	</c:when>
 	<c:otherwise>
 		<div class="alert alert-warning" role="alert" style="width: 640px;">
- 			이벤트가 없습니다! <a href="request.getContextPath()%>/event_createform.do?club_num=${club_num}" class="alert-link">만들러가기</a>
+ 			이벤트가 없습니다! <a href="<%=request.getContextPath()%>/event_createform.do?club_num=${club_num}" class="alert-link">만들러가기</a>
 		</div>
 	</c:otherwise>
 	</c:choose>
