@@ -1,5 +1,7 @@
 package together.model;
 
+import java.sql.Date;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +15,7 @@ public class Club_Member_JoinDTO {
 	   private String member_image;
 	   private String join_hello;
 	   private String club_host_yn;
+	   private Date join_date;
 	   
 	  
 }

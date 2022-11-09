@@ -97,5 +97,12 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 
+	@Override
+	public void reduceClubmemeber(String email) throws Exception {
+		// TODO Auto-generated method stub
+		memberDao.reduceClubmemeber(email);
+	}
+
+
 	
 }

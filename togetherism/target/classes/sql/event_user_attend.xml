@@ -25,7 +25,19 @@
 	<delete id="attend_delete">
 		delete from event_user_attend where event_num=#{event_num} and member_email=#{member_email}
 	</delete>
-    
+	
+	<!-- 참여한 이벤트 리스트 페이징 처리-->
+	<select id="attend_mylist" parameterType="hashMap" resultType="event">
+		select * from (select rownum rnum, eventt.* from 
+    	(select * from event where event_num in 
+        (select event_num from event_user_attend where member_email=#{email})
+    	order by event_date desc) eventt ) where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	<!-- 참여한 이벤트 갯수-->
+	<select id="attend_mylistcount" parameterType="String" resultType="int">
+		select count(*) from event_user_attend where member_email=#{email}
+	</select>
 </mapper>
 
 

@@ -30,4 +30,6 @@ public interface MemberDAO {
 	public void deleteHeart(String email) throws Exception;
 	
 	public void deleteEventattend(String email) throws Exception;
+	
+	public void reduceClubmemeber(String email) throws Exception;
 }

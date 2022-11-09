@@ -1,6 +1,9 @@
 package together.dao;
 
+import java.util.HashMap;
+import java.util.List;
 import together.model.Club_Member_JoinDTO;
+import together.model.EventDTO;
 import together.model.Event_User_AttendDTO;
 
 public interface Event_User_AttendDAO {
@@ -12,4 +15,8 @@ public interface Event_User_AttendDAO {
 	public int attendInsert(Event_User_AttendDTO euadto) throws Exception;
 	
 	public int attendDelete(Event_User_AttendDTO euadto) throws Exception;
+	
+	public List<EventDTO> attendMylist(HashMap<String, Object> hm) throws Exception;
+	
+	public int attendMylistCount(String email) throws Exception;
 }

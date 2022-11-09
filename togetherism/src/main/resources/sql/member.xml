@@ -53,17 +53,23 @@
     
     <!-- 모임가입 테이블 모임 가입 정보 삭제 -->
     <delete id="club_member_join_delete" parameterType="String" >
-		delete * from club_member_join_delete where member_email=#{email}    
+		delete from club_member_join where member_email=#{email}    
     </delete>
+    
+    <!-- 탈퇴하는 회원이 가입한 모임들의 현재 정원을 -1명 시키기-->
+    <update id="reduce_Clubmemeber" parameterType="String">
+    	update club set club_member_count = club_member_count where club_num in
+    		(select club_num from club_member_join where member_email=#{email})
+    </update>
     
     <!-- 좋아요 테이블 좋아요 정보 삭제 -->
     <delete id="heart_delete" parameterType="String">
-		delete * from heart where member_email=#{email}    
+		delete from heart where member_email=#{email}    
     </delete>
     
     <!-- 이벤트 참석 테이블 참석 정보 삭제 -->
     <delete id="event_attend_delete" parameterType="String">
-		delete * from event_user_attend where member_email=#{email}    
+		delete from event_user_attend where member_email=#{email}    
     </delete>
 	
 	<!-- 회원정보 삭제 -->

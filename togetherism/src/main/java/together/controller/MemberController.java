@@ -390,13 +390,13 @@ public class MemberController {
 		
 		List<Club_Member_JoinDTO> hostyn = memberService.checkHost(email);
 		
-		
+		System.out.println(hostyn);
 		
 		//비번 비교를 위해 정보 불러옴
 		MemberDTO old = memberService.userCheck(email);
 		
 
-		if (hostyn != null) {		// 모임장일 경우
+		if (!(hostyn.isEmpty())) {		// 모임장일 경우
 			model.addAttribute("result", result);
 			return "togetherview/member_deleteResult";
 			
@@ -416,10 +416,13 @@ public class MemberController {
 				//1. 모임가입 삭제
 				memberService.deleteJoinclub(email);
 				
-				//2. 좋아요 삭제
+				//2. 탈퇴하는 회원이 가입한 모임들의 현재 정원을 -1명 시키기
+				memberService.reduceClubmemeber(email);
+				
+				//3. 좋아요 삭제
 				memberService.deleteHeart(email);
 				
-				//3. 이벤트 참석 삭제
+				//4. 이벤트 참석 삭제
 				memberService.deleteEventattend(email);
 				
 
