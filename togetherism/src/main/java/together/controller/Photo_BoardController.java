@@ -135,7 +135,10 @@ public class Photo_BoardController {
 
 	// 사진첩 리스트
 	@RequestMapping(value = "/photo_list.do", method = RequestMethod.GET)
-	public String photoCreate(@RequestParam("club_num") int club_num, HttpServletRequest request, Model model)
+	public String photoCreate(@RequestParam("club_num") int club_num,
+			@RequestParam(value="startRow", required = false) String startRow0, 
+			@RequestParam(value="endRow", required = false) String endRow0, 
+			HttpServletRequest request, Model model)
 			throws Exception {
 
 		List<Photo_BoardDTO> pblist = new ArrayList<Photo_BoardDTO>();
@@ -143,17 +146,30 @@ public class Photo_BoardController {
 		int photoPage = 1;
 		int limit = 100;
 
+		int startRow = 0;
+		int endRow = 0;
+		
 		// 페이지 값이 넘어온 경우엔 그 값을 페이지 번호로 지정
 		if (request.getParameter("photoPage") != null) {
 			photoPage = Integer.parseInt(request.getParameter("photoPage"));
 		}
-
+		
+		// startRow, endRow 가 넘어오지 않으면 바로 로딩했을때 
+		if(startRow0 == null && endRow0 == null) {
+			startRow = 1;
+			endRow = 4;
+		} else if(startRow0 != null && endRow0 != null){ // startRow, endRow 가 넘어왔을땐 그 데이터 가져오기
+			startRow = Integer.parseInt(startRow0);
+			endRow = Integer.parseInt(endRow0);
+			photoPage = endRow/4;
+		}
+		System.out.println(startRow);
+		System.out.println(endRow);
+		
 		// 총 사진 수를 받아옴.
 		int listcount = photo_BoardService.getPhotoListCount(club_num);
 		System.out.println("총 이벤트 수 " + listcount);
 
-		int startRow = (photoPage - 1) * limit + 1;
-		int endRow = startRow + limit - 1;
 
 		// 나머지 파생변수들을 구함
 		PagingPgm pp = new PagingPgm(listcount, limit, photoPage);
@@ -175,7 +191,7 @@ public class Photo_BoardController {
 		model.addAttribute("pp", pp);
 		model.addAttribute("club_num", club_num);
 		model.addAttribute("photoPage", photoPage); // ajax 페이징 처리 나중에 하기 위해 가져감
-
+		
 		return "togetherview/photo_list";
 	}
 

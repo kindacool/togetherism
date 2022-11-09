@@ -21,6 +21,7 @@ $(document).ready(function(){
 
  	// 초기상태
  	$('#container').html("${clubInfobr}");
+ 	$("#photoPaging").hide();
  	if(${club.club_region == 'Abroad'}){
 		$(".hide").hide();
  	} else if(${empty eventlist}){
@@ -31,12 +32,14 @@ $(document).ready(function(){
 	$("#event_list").click(function(){
 		$('#container').load('<%=request.getContextPath()%>/event_list.do?club_num=${club.club_num}&preview=Y'); // 나중엔 모임번호는 리스트에서 넘어옴, 지금은 임의로 2 로 설정
 		$(".hide").hide();
+		$("#photoPaging").hide();
 	});
 	
 	// 가입된 회원
 	$("#join_member").click(function(){
 		$('#container').load('<%=request.getContextPath()%>/club_member.do?club_num=${club.club_num}'); // 나중엔 모임번호는 리스트에서 넘어옴, 지금은 임의로 22 로 설정
 		$(".hide").hide();
+		$("#photoPaging").hide();
 	});
 	// 모임 상세 정보
 	$("#club_info").click(function(){
@@ -44,8 +47,10 @@ $(document).ready(function(){
 
 	 	if(${club.club_region == 'Abroad'}){
 			$(".hide").hide();
+			$("#photoPaging").hide();
 	 	} else{
 			$(".hide").show();
+			$("#photoPaging").hide();
 	 	}
 	});
 	
@@ -54,9 +59,16 @@ $(document).ready(function(){
 		$('#container').load('<%=request.getContextPath()%>/photo_list.do?club_num=${club.club_num}');
 		$('#map').hide();
 		$(".hide").hide();
+		$("#photoPaging").show();
 	});
 	
 });
+function pPage(startRow, endRow, club_num){
+	$('#map').hide();
+	$(".hide").hide();
+	$("#photoPaging").show();
+	$('#container').load("<%=request.getContextPath()%>/photo_list.do?club_num=" + club_num + "&startRow=" + startRow + "&endRow=" + endRow);
+}
 
 </script>
 <body>
@@ -233,5 +245,17 @@ for (var i = 0; i < positions.length; i ++) {
 }
 </script>
 </c:if>
+
+<!-- 사진첩 ajax 페이지네이션 -->
+<nav aria-label="Page navigation example" id="photoPaging">
+  <ul class="pagination">
+  	
+<c:forEach var="v" begin="1" end="${pt}">
+<li class="page-item"><a href="javascript:void(0);" class="page-link" onclick="pPage(${4*(v-1) + 1}, ${v* 4} ,${club.club_num});">${v}</a></li>
+</c:forEach>
+  </ul>
+</nav>
+
+
 </body>
 </html>

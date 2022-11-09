@@ -23,4 +23,5 @@ public interface Photo_BoardService {
 	
 	// 사진 수정
 	public int photoUpdate(Photo_BoardDTO pbdto);
+	
 }

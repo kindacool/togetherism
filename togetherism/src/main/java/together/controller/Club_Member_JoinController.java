@@ -28,6 +28,7 @@ import together.model.MemberDTO;
 import together.service.Club_Member_JoinService;
 import together.service.EventService;
 import together.service.PagingPgm;
+import together.service.Photo_BoardService;
 
 @Controller
 public class Club_Member_JoinController {
@@ -36,6 +37,8 @@ public class Club_Member_JoinController {
 	private Club_Member_JoinService club_Member_JoinService;
 	@Autowired
 	private EventService eventService;
+	@Autowired
+	private Photo_BoardService photo_boardService;
 
 	// 일반 회원 모임 가입
 	@RequestMapping(value = "/club_join.do", method = RequestMethod.GET)
@@ -117,6 +120,7 @@ public class Club_Member_JoinController {
 		ClubDTO club = club_Member_JoinService.getClubCont(club_num);
 		model.addAttribute("club", club);
 
+		if(club != null) {
 		String clubInfobr = club.getClub_info().replace("\n", "<br>");
 		model.addAttribute("clubInfobr", clubInfobr);
 
@@ -137,6 +141,13 @@ public class Club_Member_JoinController {
 		MemberDTO memberdto = club_Member_JoinService.getMember(club.getClub_host_email());
 		model.addAttribute("memberdto", memberdto);
 		
+		// 해당 모임의 사진 개수 구하기, ajax 로 사진첩 페이징 처리를 하기 위함
+		int photoCount = photo_boardService.getPhotoListCount(club_num);
+		model.addAttribute("photoCount", photoCount);
+		
+		int pt = photoCount / 4 + 1;
+		model.addAttribute("pt", pt); // ajax 페이징 처리 하기 위해 가져감
+		}
 		return "togetherview/club_cont";
 	}
 
