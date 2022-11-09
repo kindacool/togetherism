@@ -1,5 +1,7 @@
 package together.controller;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -109,7 +111,7 @@ public class Club_Member_JoinController {
 	// club 테이블 작업, merge 이후 수정하기
 	// 모임 상세정보 가져오기
 	@RequestMapping(value = "/club_ct.do", method = RequestMethod.GET)
-	public String clubCont(@RequestParam("club_num") int club_num, 
+	public String clubCont(@RequestParam("club_num") int club_num,
 			Model model) throws Exception {
 		
 		ClubDTO club = club_Member_JoinService.getClubCont(club_num);
@@ -140,22 +142,55 @@ public class Club_Member_JoinController {
 
 	// 내가 가입한 모임
 	@RequestMapping(value = "/joined_club.do", method = RequestMethod.GET)
-	public String joinedClub(Model model) throws Exception {
+	public String joinedClub(Model model, HttpServletRequest request) throws Exception {
 
 		// 1. 세션 구하기 (현재는 Merge 가 안되었으므로 임의로 정함)
 		String sess = "cheese@gmail.com";
-		// 구한 세션으로 해당 사람이 가입된 모든 cmjlist DTO 가져오기
-		List<ClubDTO> clist = club_Member_JoinService.getJoinedClub(sess);
-		System.out.println(clist);
-
-		if (clist.isEmpty()) { // 가입된 모임이 없다
-			int result = 2;
-			model.addAttribute("result", result);
-		} else { // 가입된 모임이 있다
-			// club 테이블 작업, merge 이후 수정하기
-			model.addAttribute("clist", clist);
+		
+		List<ClubDTO> joinedClubList = new ArrayList<ClubDTO>();
+		
+		int joinedClubPage = 1;
+		int limit = 10;
+		
+		// 페이지 값이 넘어온 경우엔 그 값을 페이지 번호로 지정
+		if (request.getParameter("joinedClubPage") != null) {
+			joinedClubPage = Integer.parseInt(request.getParameter("joinedClubPage"));
 		}
-		return "togetherview/joined_club";
+		
+		// 페이지 번호 확인
+		System.out.println("페이지 : " + joinedClubPage);
+
+		// 총 이벤트 수를 받아옴.
+		int listcount = club_Member_JoinService.getjoinedClubListCount(sess);
+		System.out.println("총 이벤트 수 " + listcount);
+		
+		int startRow = (joinedClubPage - 1) * limit + 1; // 1, 11, 21, 31
+		int endRow = startRow + limit - 1; // 10, 20, 30, 40
+		
+		// 나머지 파생변수들을 구함
+		PagingPgm pp = new PagingPgm(listcount, limit, joinedClubPage);
+		Map<String, Object> map = new HashMap<String, Object>();
+		int no = listcount - startRow + 1;		// 화면 출력 번호
+		
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		map.put("sess",sess);
+		joinedClubList = club_Member_JoinService.getJoinedClub(map); // 리스트를 받아옴.
+		System.out.println(joinedClubList);
+		
+		// club 테이블 작업, merge 이후 수정하기
+		// 가져온 이벤트 리스트
+		model.addAttribute("joinedClubList", joinedClubList);
+		// 화면 출력 번호
+		model.addAttribute("no", no);
+		// 데이터 갯수, 화면에 출력할 데이터 갯수, 블랙덩 페이지 갯수, 현재 페이지 번호,
+		// 각 블럭의 시작 페이지, 각 블럭의 끝 페이지, 총 페이지수 
+		model.addAttribute("pp", pp);
+		// 각 케이스별 페이징 처리를 위해 전달
+		model.addAttribute("joinedClubPage", joinedClubPage);
+
+		
+		return "togetherview/joined_club_list";
 	}
 
 	// 모임 탈퇴
@@ -199,24 +234,60 @@ public class Club_Member_JoinController {
 
 	// 내가 운영하는 모임 리스트
 	@RequestMapping(value = "/my_club.do", method = RequestMethod.GET)
-	public String myClub(Model model) throws Exception {
+	public String myClub(Model model, HttpServletRequest request) throws Exception {
 
 		// 1. 세션 구하기 (현재는 Merge 가 안되었으므로 임의로 정함)
 		String sess = "cheese@gmail.com";
-		// 구한 세션으로 해당 사람이 운영하는 모든 cmjlist DTO 가져오기
-		List<Club_Member_JoinDTO> cmjlist = club_Member_JoinService.getMyClub(sess);
-		System.out.println(cmjlist);
-
-		if (cmjlist.isEmpty()) { // 내가 운영하는 모임이 없다
-			int result = 2;
-			model.addAttribute("result", result);
-		} else { // 내가 운영하는 모임이 있다
-			// club 테이블 작업, merge 이후 수정하기
-			List<ClubDTO> clist = club_Member_JoinService.getClubList(cmjlist);
-			System.out.println(clist);
-			model.addAttribute("clist", clist);
+	
+		List<Club_Member_JoinDTO> myClubList = new ArrayList<Club_Member_JoinDTO>();
+		
+		int myClubPage = 1;
+		int limit = 10;
+		
+		// 페이지 값이 넘어온 경우엔 그 값을 페이지 번호로 지정
+		if (request.getParameter("myClubPage") != null) {
+			myClubPage = Integer.parseInt(request.getParameter("myClubPage"));
 		}
-		return "togetherview/my_club";
+		
+		// 페이지 번호 확인
+		System.out.println("페이지 : " + myClubPage);
+
+		// 총 이벤트 수를 받아옴.
+		int listcount = club_Member_JoinService.getmyClubListCount(sess);
+		System.out.println("총 이벤트 수 " + listcount);
+		
+		
+		int startRow = (myClubPage - 1) * limit + 1; // 1, 11, 21, 31
+		int endRow = startRow + limit - 1; // 10, 20, 30, 40
+		
+		// 나머지 파생변수들을 구함
+		PagingPgm pp = new PagingPgm(listcount, limit, myClubPage);
+		Map<String, Object> map = new HashMap<String, Object>();
+		int no = listcount - startRow + 1;		// 화면 출력 번호
+		
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		map.put("sess",sess);
+		myClubList = club_Member_JoinService.getMyClub(map); // 리스트를 받아옴 1
+		System.out.println(myClubList);
+		model.addAttribute("myClubList", myClubList);
+
+		// club 테이블 작업, merge 이후 수정하기
+		List<ClubDTO> joinedClist = club_Member_JoinService.getClubList(myClubList); // 리스트를 받아옴 2
+			
+		// club 테이블 작업, merge 이후 수정하기
+		// 가져온 이벤트 리스트
+		model.addAttribute("joinedClist", joinedClist);
+		// 화면 출력 번호
+		model.addAttribute("no", no);
+		// 데이터 갯수, 화면에 출력할 데이터 갯수, 블랙덩 페이지 갯수, 현재 페이지 번호,
+		// 각 블럭의 시작 페이지, 각 블럭의 끝 페이지, 총 페이지수 
+		model.addAttribute("pp", pp);
+		// 각 케이스별 페이징 처리를 위해 전달
+		model.addAttribute("myClubPage", myClubPage);
+			
+
+		return "togetherview/my_club_list";
 	}
 	
 	// 모임 리스트

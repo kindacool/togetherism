@@ -295,7 +295,7 @@ public class EventController {
 		
 		System.out.println("Controller arrived");
 		System.out.println("이벤트 수정 " + event.getEvent_title());
-			
+			int result = 0;
 			// 날짜 처리
 			String event_date_date = (String)request.getParameter("event_date_date");
 			String event_date_time = (String)request.getParameter("event_date_time");
@@ -312,7 +312,6 @@ public class EventController {
 			int fileSize = (int) mf.getSize(); // 단위 : Byte
 			System.out.println(fileName);
 			
-			int err = 0;
 			String file[] = new String[2];
 			String newfilename = "";
 			
@@ -331,10 +330,10 @@ public class EventController {
 				file[1] = st.nextToken(); // 확장자
 				
 				if(fileSize > 1000000) { // 1MB
-					err = 1;
-					model.addAttribute("err", err);
+					result = 3;
+					model.addAttribute("result", result);
 					
-					return "togetherview/event_file_upload_result";
+					return "togetherview/event_edit_result";
 				}
 			}
 			
@@ -349,8 +348,6 @@ public class EventController {
 			fos.write(mf.getBytes());
 			fos.close();
 			
-			event.setEvent_file(newfilename);
-			System.out.println(event.getEvent_file());
 			}
 			
 			EventDTO old = this.eventService.getEventCont(event.getEvent_num());
@@ -360,7 +357,7 @@ public class EventController {
 				event.setEvent_file(old.getEvent_file());
 			}
 			
-			int result = eventService.eventUpdate(event);
+			result = eventService.eventUpdate(event);
 			model.addAttribute("club_num", event.getClub_num());
 			model.addAttribute("event_num", event.getEvent_num());
 			model.addAttribute("eventPage", eventPage);

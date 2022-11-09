@@ -44,8 +44,8 @@ public class Club_Member_JoinServiceImpl implements Club_Member_JoinService {
 		return club_Member_JoinDAO.getClubCont(club_num);
 	}
 	
-	public List<ClubDTO> getJoinedClub(String sess){
-		return club_Member_JoinDAO.getJoinedClub(sess);
+	public List<ClubDTO> getJoinedClub(Map<String, Object> map){
+		return club_Member_JoinDAO.getJoinedClub(map);
 	}
 	
 	// club 테이블과 연동할 것, merge 후 수정, 특정 클럽번호들의 클럽 리스트 가져오기
@@ -66,8 +66,8 @@ public class Club_Member_JoinServiceImpl implements Club_Member_JoinService {
 		club_Member_JoinDAO.minusMemberCount(club_num);
 	}
 	
-	public List<Club_Member_JoinDTO> getMyClub(String sess){
-		return club_Member_JoinDAO.getMyClub(sess);
+	public List<Club_Member_JoinDTO> getMyClub(Map<String, Object> map){
+		return club_Member_JoinDAO.getMyClub(map);
 	}
 	
 	// club 테이블과 연동할 것, merge 후 수정, 상세페이지 이동시 모임의 조회수 증가
@@ -93,5 +93,15 @@ public class Club_Member_JoinServiceImpl implements Club_Member_JoinService {
 	// club 테이블과 연동할 것, merge 후 수정, 모임 프리뷰 리스트 가져오기
 	public List<ClubDTO> getClubListPreview(String preview){
 		return club_Member_JoinDAO.getClubListPreview(preview);
+	}
+	
+	// 내가 가입된 모임 리스트 출력 : 내가 가입된 모임 리스트 개수
+	public int getjoinedClubListCount(String sess) {
+		return club_Member_JoinDAO.getjoinedClubListCount(sess);
+	}
+	
+	// 내가 운영하는 모임 리스트 출력 : 내가 운영하는 모임 리스트 개수
+	public int getmyClubListCount(String sess) {
+		return club_Member_JoinDAO.getmyClubListCount(sess);
 	}
 }

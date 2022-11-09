@@ -29,7 +29,7 @@ public interface Club_Member_JoinService {
 	public ClubDTO getClubCont(int club_num);
 	
 	// 내가 가입한 모임 목록을 가져오기
-	public List<ClubDTO> getJoinedClub(String sess);
+	public List<ClubDTO> getJoinedClub(Map<String, Object> map);
 	
 	// club 테이블과 연동할 것, merge 후 수정, 특정 클럽번호들의 클럽 리스트 가져오기
 	public List<ClubDTO> getClubList(List<Club_Member_JoinDTO> cmjlist);
@@ -44,7 +44,7 @@ public interface Club_Member_JoinService {
 	public void minusMemberCount(int club_num);
 	
 	// 내가 운영하는 모임의 리스트 구하기
-	public List<Club_Member_JoinDTO> getMyClub(String sess);
+	public List<Club_Member_JoinDTO> getMyClub(Map<String, Object> map);
 	
 	// club 테이블과 연동할 것, merge 후 수정, 상세페이지 이동시 모임의 조회수 증가
 	public void getUpdateViewCount(int club_cum);
@@ -60,4 +60,10 @@ public interface Club_Member_JoinService {
 	
 	// club 테이블과 연동할 것, merge 후 수정, 모임 프리뷰 리스트 가져오기
 	public List<ClubDTO> getClubListPreview(String preview);
+	
+	// 내가 가입된 모임 리스트 출력 : 내가 가입된 모임 리스트 개수
+	public int getjoinedClubListCount(String sess);
+	
+	// 내가 운영하는 모임 리스트 출력 : 내가 운영하는 모임 리스트 개수
+	public int getmyClubListCount(String sess);
 }

@@ -38,4 +38,9 @@ public class Photo_BoardDAOImpl implements Photo_BoardDAO{
 	public Photo_BoardDTO getPhotoCont(int photo_num) {
 		return sqlSession.selectOne("photo_boardns.cont", photo_num);
 	}
+	
+	// 사진 수정
+	public int photoUpdate(Photo_BoardDTO pbdto) {
+		return sqlSession.update("photo_boardns.update",pbdto);
+	}
 }

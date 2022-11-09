@@ -12,7 +12,7 @@ select * from member where member_email = #{member_email}
 </select>
 
 <insert id="join" parameterType="club_member_join">
-insert into club_member_join values(club_member_join_seq.nextval,#{member_email}, #{club_num}, #{join_hello}, #{club_host_yn})
+insert into club_member_join values(club_member_join_seq.nextval,#{member_email}, #{club_num}, #{join_hello}, #{club_host_yn}, sysdate)
 </insert>
 
 <update id="updatecount" parameterType="int">
@@ -27,8 +27,11 @@ select * from club_member_join where club_num = #{club_num} and club_host_yn = '
 select * from club where club_num = #{club_num}
 </select>
 
-<select id="joinedclub" resultType="club" parameterType="String">
-select * from club where club_num in (select club_num from club_member_join where member_email = #{sess})
+<select id="joinedclub" resultType="club" parameterType="Map">
+select * from (select rownum rnum, a.* from
+(select * from club where club_num in (select club_num from club_member_join where member_email = #{sess}) 
+order by club_reg_date) a)
+where rnum &gt;= #{startRow} and rnum &lt;= #{endRow}
 </select>
 
 <select id="clublist" resultType="club" parameterType="club_member_join">
@@ -54,7 +57,9 @@ update club set club_member_count = club_member_count - 1 where club_num = #{clu
 </update>
 
 <select id="myclub" resultType="club_member_join" parameterType="String">
-select * from club_member_join where member_email = #{sess} and club_host_yn='Y'
+select * from (select rownum rnum, a.* from
+(select * from club_member_join where member_email = #{sess} and club_host_yn='Y' order by join_date desc) a)
+where rnum between #{startRow} and #{endRow}
 </select>
 
 <update id="updatevc" parameterType="int">
@@ -65,13 +70,14 @@ update club set club_viewcount = club_viewcount + 1 where club_num = #{club_num}
 	<result property="join_hello" column="join_hello" />
 	<result property="member_image" column="member_image" />
 	<result property="member_nickname" column="member_nickname" />
+	<result property="club_host_yn" column="club_host_yn" />
 </resultMap>
 
 <select id="memberlist" parameterType="int" resultMap="joinresult">
-select a.join_hello, b.member_image, b.member_nickname 
+select a.join_hello, b.member_image, b.member_nickname, a.club_host_yn  
 from club_member_join a 
 inner join member b 
-on (a.member_email = b.member_email and a.club_num = #{club_num})
+on (a.member_email = b.member_email and a.club_num = #{club_num}) order by a.join_date
 </select>
 
 	
@@ -130,6 +136,14 @@ select * from (select a.*, rowNum rn from (
 	club_member_count desc)	a) where rn between 1 and 3
 		</when>
 	</choose>	
+</select>
+
+<select id="joinedclubcount" resultType="int" parameterType="String">
+select count(*) from club where club_num in (select club_num from club_member_join where member_email = #{sess})
+</select>
+
+<select id="myclubcount" resultType="int" parameterType="String">
+select count(*) from club_member_join where member_email = #{sess} and club_host_yn='Y'
 </select>
 </mapper>
 

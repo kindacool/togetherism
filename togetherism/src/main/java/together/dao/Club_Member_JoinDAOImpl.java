@@ -45,8 +45,8 @@ public class Club_Member_JoinDAOImpl implements Club_Member_JoinDAO{
 		return sqlSession.selectOne("club_member_joinns.clubcont",club_num);
 	}
 	
-	public List<ClubDTO> getJoinedClub(String sess){
-		return sqlSession.selectList("club_member_joinns.joinedclub",sess);
+	public List<ClubDTO> getJoinedClub(Map<String, Object> map){
+		return sqlSession.selectList("club_member_joinns.joinedclub",map);
 	}
 	
 	// club 테이블과 연동할 것, merge 후 수정, 특정 클럽번호들의 클럽 리스트 가져오기
@@ -68,8 +68,8 @@ public class Club_Member_JoinDAOImpl implements Club_Member_JoinDAO{
 		sqlSession.update("club_member_joinns.minuscount",club_num);
 	}
 	
-	public List<Club_Member_JoinDTO> getMyClub(String sess){
-		return sqlSession.selectList("club_member_joinns.myclub", sess);
+	public List<Club_Member_JoinDTO> getMyClub(Map<String, Object> map){
+		return sqlSession.selectList("club_member_joinns.myclub", map);
 	}
 	
 	// club 테이블과 연동할 것, merge 후 수정, 상세페이지 이동시 모임의 조회수 증가
@@ -98,4 +98,12 @@ public class Club_Member_JoinDAOImpl implements Club_Member_JoinDAO{
 		return sqlSession.selectList("club_member_joinns.clublistpre",preview);
 	}
 	
+	// 내가 가입된 모임 리스트 출력 : 내가 가입된 모임 리스트 개수
+	public int getjoinedClubListCount(String sess) {
+		return sqlSession.selectOne("club_member_joinns.joinedclubcount",sess);
+	}
+	// 내가 운영하는 모임 리스트 출력 : 내가 운영하는 모임 리스트 개수
+	public int getmyClubListCount(String sess) {
+		return sqlSession.selectOne("club_member_joinns.myclubcount",sess);
+	}
 }

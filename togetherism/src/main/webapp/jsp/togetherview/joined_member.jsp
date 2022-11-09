@@ -24,7 +24,7 @@
                 alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">
-                    ${m.member_nickname}
+                    <c:if test="${m.club_host_yn eq 'Y'}"><img src="<%=request.getContextPath()%>/images/crown.png" style="width:20px;height:20px" alt="모임장"></c:if>${m.member_nickname}
                   </h5> 
             </div>
             <p>

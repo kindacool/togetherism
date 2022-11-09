@@ -55,11 +55,17 @@ $(document).ready(function(){
 		$('#map').hide();
 		$(".hide").hide();
 	});
-
+	
 });
 
 </script>
 <body>
+<c:if test="${empty club}">
+<div class="alert alert-warning" role="alert" style="width: 640px;">
+ 	없거나 삭제된 모임입니다
+</div>
+</c:if>
+<c:if test="${not empty club}">
 <table>
 	<tr>
 		<td>모임명</td>
@@ -226,6 +232,6 @@ for (var i = 0; i < positions.length; i ++) {
     });
 }
 </script>
-
+</c:if>
 </body>
 </html>

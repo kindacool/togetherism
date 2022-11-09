@@ -229,5 +229,95 @@ public class Photo_BoardController {
 
 		}
 	}
+	// 사진 수정
+	@RequestMapping(value = "/photo_edit.do", method = RequestMethod.POST)
+	public String photoEdit(@RequestParam("photo_file0") MultipartFile mf, @ModelAttribute Photo_BoardDTO pbdto,
+			Model model, HttpSession session) throws Exception {
+		
+		// 세션을 구하기
+		// 세션을 구해서 club_member_join 테이블에서 확인해서 모임 멤버인 경우만 사진첩 insert 가능
+		// 세션이 없으므로 임의로 설정
+		String sess = "cheese@gmail.com";
+		pbdto.setPhoto_member_email(sess);
+		int result = 0;
+		
+		// 넘어온 값 확인
+		System.out.println("모임 번호: " + pbdto.getClub_num());
+		System.out.println("사진 글귀: " + pbdto.getPhoto_content());
+		System.out.println("사진 번호: " + pbdto.getPhoto_num());
+		System.out.println("사진을 수정한 사람 : " + pbdto.getPhoto_member_email());
+		
+		Photo_BoardDTO old = this.photo_BoardService.getPhotoCont(pbdto.getPhoto_num());
+		//사진을 등록했던 사람만 수정 가능
+		
+		if (!sess.equals(old.getPhoto_member_email())) { 
+			// 로그인되어있는 사용자가 사진 작성자가 아닐때
+			// 삭제 불가능
+			result = 2;
+			model.addAttribute("result", result);
+			return "togetherview/photo_edit_result";
+		} else {
+			// 현재 사용자가 사진 작성자일때
+			// 사진 삭제 가능
+			
+			// 첨부파일 처리 수정
+			String fileName = mf.getOriginalFilename();
+			int fileSize = (int) mf.getSize(); // 단위 : Byte
+			System.out.println(fileName);
+			
+			String file[] = new String[2];
+			String newfilename = "";
+			
+			if(fileName != "") { // 첨부파일이 전송된 경우
+				//파일 중복문제 해결
+				String extension = fileName.substring(fileName.lastIndexOf("."), fileName.length());
+				System.out.println("extension: " + extension);
+				
+				UUID uuid = UUID.randomUUID();
+				
+				newfilename = uuid.toString() + extension;
+				System.out.println("newfilename; " + newfilename);
+				
+				StringTokenizer st = new StringTokenizer(fileName, ".");
+				file[0] = st.nextToken(); // 파일명
+				file[1] = st.nextToken(); // 확장자
+				
+				if(fileSize > 1000000) { // 1MB
+					result = 3;
+					model.addAttribute("result", result);
+					
+					return "togetherview/photo_edit_result";
+				}
+			}
+			
+			if(fileName != "") { // 첨부파일이 전송된 경우
+				// 첨부파일 업로드
+				// mf.transferTo(new File("/path/"+fileName));
+				String path = session.getServletContext().getRealPath("/upload");
+				System.out.println("path : " + path);
+						
+				FileOutputStream fos = new FileOutputStream(path + "/" + newfilename);
+				fos.write(mf.getBytes());
+				fos.close();
+				}
+				
+				Photo_BoardDTO oldpt = this.photo_BoardService.getPhotoCont(pbdto.getPhoto_num());
+				if (fileSize > 0 ) { 		// 첨부 파일이 수정되면
+					pbdto.setPhoto_file(newfilename);	
+				} else { 					// 첨부파일이 수정되지 않으면
+					pbdto.setPhoto_file(oldpt.getPhoto_file());
+				}
+				
+				result = photo_BoardService.photoUpdate(pbdto);
+				
+				model.addAttribute("club_num", pbdto.getClub_num());
+				model.addAttribute("result", result);
+				return "togetherview/photo_edit_result";
+		}
+		
+		
+	}
+
+	
 }
 

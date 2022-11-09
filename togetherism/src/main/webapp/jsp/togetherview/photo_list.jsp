@@ -21,6 +21,7 @@ function delete_ok(a,b){
         location.href="<%=request.getContextPath() %>/photo_delete.do?photo_num=" + a + "&club_num=" + b;
     }
 }
+
 </script>
 </head>
 <body>
@@ -74,6 +75,46 @@ function delete_ok(a,b){
         <p class="card-text">${p.photo_content}</p>
          <div>
          <a href="javascript:void(0);" onclick="delete_ok(${p.photo_num}, ${club_num});" style="text-decoration: none">삭제</a>
+         <a href="javascript:void(0);"  data-bs-toggle="modal" data-bs-target="#photoEditModal" data-bs-whatever="@mdo" style="text-decoration: none">수정</a>
+		
+		<!-- 수정폼 모달 -->
+		<form action="<%=request.getContextPath()%>/photo_edit.do" method="post" enctype="multipart/form-data">
+<input type="hidden" name="club_num" value="${club_num}">
+<input type="hidden" name="photo_num" value="${p.photo_num}">
+
+<div class="modal fade" id="photoEditModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">사진 수정</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">현재사진</label>
+             <img src="<%=request.getContextPath() %>/upload/${p.photo_file}" style="width:100px; height:100px">
+            
+          </div>
+          <div class="mb-3"> <!-- 이후 유효성검사 -->
+            <label for="recipient-name" class="col-form-label">사진</label>
+            <input type="file" class="form-control" name="photo_file0" id="recipient-name">
+          </div>
+          <div class="mb-3"> <!-- 이후 유효성검사 -->
+            <label for="recipient-name" class="col-form-label">글귀</label>
+            <input type="text" class="form-control" name="photo_content" id="recipient-name" value="${p.photo_content}">
+          </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소하기</button>
+        <button type="submit" class="btn btn-primary">사진 올리기</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+		<!--  -->
 		</div>
         </div>
       </div>
@@ -85,6 +126,7 @@ function delete_ok(a,b){
 </c:forEach>
 </div>
 </c:if>
+
 
 </body>
 </html>
