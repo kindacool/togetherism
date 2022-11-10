@@ -12,13 +12,13 @@ import org.apache.commons.mail.HtmlEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+//import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import together.model.ClubDTO;
 import together.model.ManagerDTO;
 import together.model.MemberDTO;
-import together.model.ReportDTO;
 import together.service.ManagerServiceImpl;
 
 @Controller
@@ -44,28 +44,31 @@ public class ManagerController {
 		
 		//관리자 계정 정보 가져오기
 		ManagerDTO managerDto = managerService.getManager(manager_email);
-		int result = 0;
 		System.out.println(managerDto);
 		
 		//폼에서 입력한 계정 정보와 DB에서 가져온 계정 정보 비교
+		int result = 0;
+		
 		if ( managerDto == null) {	// DB에 정보가 없을 때
 			result = -1;
 			model.addAttribute("result", result);
 			
 			System.out.println("관리자 계정 없음");
 			return "togetherview/manager_login_fail";
+			
 		} else { 					// DB에 정보가 있을 때
 			
 			if (managerDto.getManager_pw().equals(manager_pw)) {	// 비밀번호 일치
 				
 				System.out.println("관리자 로그인 성공");
 				session.setAttribute("manager_email", manager_email);
+				System.out.println("세션 공유 시작");
 				
 				model.addAttribute("managerDto", managerDto);
 				
 				return "togetherview/manager_main";
-//				return "redirect:manager_main.do";
-			} else {
+				
+			} else {												// 비밀번호 불일치
 				
 				System.out.println("관리자 로그인 실패");
 				result = 1;
@@ -98,9 +101,48 @@ public class ManagerController {
 		return "redirect:admin.do";
 	}
 
-	
-	//회원관리 리스트 진입
+	//현재 활동중인 회원 리스트
 	@RequestMapping("manager_list.do")
+	public String mamager_member_n (HttpServletRequest request,
+									Model model) throws Exception {
+		
+		//page : 현재 페이지, limit : 한 화면에 출력할 목록
+		int page = 1;
+		int limit = 10;
+		
+		if (request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+		
+		//현재 활동중인 회원의 수
+		int nowMember = managerService.nowMemeber();
+		System.out.println("현재 활동중인 회원수: "+nowMember);
+		
+		//현재 활동중인 회원 목록 가져오기
+		List<MemberDTO> nowmemberList = managerService.nowmemberList(page);
+		System.out.println("현재 활동중인 회원 목록 구해오기 성공");
+		
+		//1 블럭당 페이지 개수
+		int pageCount = nowMember / limit + ((nowMember%limit == 0) ? 0 : 1);
+		int startPage = ((page - 1) / 10) * limit + 1;	// 1, 11, 21,
+		int endPage = startPage + 10 - 1;
+		
+		if (endPage > pageCount) endPage = pageCount;
+		
+		model.addAttribute("page", page);
+		model.addAttribute("nowMember", nowMember);
+		model.addAttribute("nowmemberList", nowmemberList);
+		model.addAttribute("pageCount", pageCount);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		
+		System.out.println("현재 활동중인 회원 목록 출력 성공");
+
+		return "togetherview/manager_list";
+	}
+	
+	//탈퇴한 회원을 포함한 전체 회원 리스트
+	@RequestMapping("manager_delMemberlist.do")
 	public String manager_list(HttpServletRequest request, 
 							   Model model) throws Exception {
 		
@@ -112,17 +154,13 @@ public class ManagerController {
 			page = Integer.parseInt(request.getParameter("page"));
 		}
 		
-		//전체 가입회원 수
+		//탈퇴한 회원을 포함한 전체 회원의 수
 		int memberCount = managerService.memberCount();
-		System.out.println("총 회원수: "+memberCount);
+		System.out.println("탈퇴한 회원을 포함한 전체 회원의 수: "+memberCount);
 		
-		//회원 데이터 전체
+		//탈퇴한 회원을 포함한 전체 회원 목록 가져오기
 		List<MemberDTO> memberList = managerService.memberList(page);
-		System.out.println("회원 목록 구해오기 성공");
-		
-		//검색
-//		MemberDTO memberDto = new MemberDTO();
-//		List<MemberDTO> searchList = managerService.getSearch(memberDto);
+		System.out.println("탈퇴한 회원을 포함한 전체 회원 목록 구해오기 성공");
 		
 		//1 블럭당 페이지 개수
 		int pageCount = memberCount / limit + ((memberCount%limit == 0) ? 0 : 1);
@@ -138,9 +176,11 @@ public class ManagerController {
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);
 		
-		System.out.println("전체 회원 목록 출력 성공");
+		System.out.println("탈퇴한 회원을 포함한 전체 회원 목록 출력 성공");
 		
-		return "togetherview/manager_list";
+//		if(page == 1)
+		
+		return "togetherview/manager_delMemberlist";
 	}
 	
 	//검색 페이지 출력
@@ -149,15 +189,13 @@ public class ManagerController {
 									  HttpServletRequest request,
 									  Model model) throws Exception {
 		
-		//검색 결과 회원 목록 출력
+		//이메일, 닉네임 검색 목록 가져오기
 		List<MemberDTO> searchList = managerService.getSearch(memberDto);
 		System.out.println("검색한 회원 목록 구해오기 성공");
 		
 		//검색 결과 회원 수
 		int searchCount = searchList.size();
 		System.out.println("검색 결과 구해오기 성공 : "+ searchCount);
-		
-		//신고 많은 순으로 내림차순 메소드 작성하기
 		
 		String search = memberDto.getSearch();
 		String keyword = memberDto.getKeyword();
@@ -179,8 +217,8 @@ public class ManagerController {
 		
 		if (endPage > pageCount) endPage = pageCount;
 		
-		model.addAttribute("keyword", keyword);
 		model.addAttribute("search", search);
+		model.addAttribute("keyword", keyword);
 		model.addAttribute("page", page);
 		model.addAttribute("searchList", searchList);
 		model.addAttribute("searchCount", searchCount);
@@ -198,16 +236,29 @@ public class ManagerController {
 		
 		System.out.println("회원 상세정보 컨트롤러 진입");
 		
-		//회원이메일을 매개로 1명의 상세정보 구해오기 메소드
+		//특정 회원 1명의 정보 가져오기
 		MemberDTO memberDto = managerService.getMember(member_email);
 		System.out.println("회원 상세정보 구해오기 성공");
 		
-		//회원이메일을 매개로 특정 회원의 신고 횟수 구해오기 메소드
+		//특정 회원 1명의 신고 횟수 가져오기
 		int reportCount = managerService.reportCount(member_email);
 		System.out.println("신고 횟수 구해오기 성공");
 		
+		//특정 회원의 모임장 리스트 가져오기
+		List<ClubDTO> clubDto = managerService.getClub(member_email); 
+		System.out.println("개설한 모임 목록 구해오기 성공");
+		
+		//개설한 (모임장인) 모임의 수
+		int clubList = clubDto.size();
+		System.out.println("개설한 모임의 수 :"+clubDto.size());
+		for (int i=0; i<clubList; i++) {
+			System.out.println("개설한 모임 목록 :"+clubDto.get(i).getClub_name());
+		}
+		
 		model.addAttribute("memberDto", memberDto);
+		model.addAttribute("clubDto", clubDto);
 		model.addAttribute("reportCount", reportCount);
+		model.addAttribute("clubList", clubList);
 		
 		return "togetherview/manager_deleteForm";
 	}
@@ -219,7 +270,7 @@ public class ManagerController {
 		
 		System.out.println("회원 삭제 메소드 진입");
 		
-		//회원이메일을 매개로 member_del_yn 컬럼 값을 'y'로 변경하는 메소드
+		//특정 회원 강제 탈퇴
 		managerService.memberDelete(memberDto);
 		System.out.println("회원 강제탈퇴 성공");
 		
@@ -242,8 +293,6 @@ public class ManagerController {
 							   String mail_subject,
 							   String mail_content,
 							   Model model) throws Exception {
-		
-		System.out.println(qna_category);
 		
 		model.addAttribute("qna_category", qna_category);
 		model.addAttribute("member_nickname", member_nickname);
@@ -306,8 +355,8 @@ public class ManagerController {
 
 			email.setAuthentication(hostSMTPid, hostSMTPpwd);
 			email.setTLS(true);
-			email.addTo(mail, charSet);
-			email.setFrom(fromEmail, fromName, charSet);
+			email.addTo(fromEmail, fromName, charSet);
+			email.setFrom(fromEmail, member_nickname, charSet);
 			email.setSubject(subject);
 			email.setHtmlMsg(content);		// 발송 완료 메일 본문
 			email.send();
@@ -347,7 +396,7 @@ public class ManagerController {
 
 			email.setAuthentication(admin_hostSMTPid, admin_hostSMTPpwd);
 			email.setTLS(true);
-			email.addTo(admin_mail, admin_charSet);
+			email.addTo(admin_mail, member_nickname, admin_charSet);
 			email.setFrom(admin_fromEmail, admin_fromName, admin_charSet);
 			email.setSubject(admin_subject);
 			email.setHtmlMsg(admin_content);		// 발송 완료 메일 본문

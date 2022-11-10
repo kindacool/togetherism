@@ -6,9 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>공지사항 수정</title>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="./js/notice_writeForm.js"></script>
 <script>
-	$(function(){
+/* 	$(function(){
 		$("#imgdelbtn").click(function(){
 			if(confirm("첨부한 이미지를 삭제하시겠습니까?")){
 				var data = { "notice_num" : ${noticeDto.notice_num} }
@@ -19,7 +20,21 @@
 				}); // post end
 			} // if end
 	   });	// click end
-   });
+   }); */
+	
+	$(function() {
+		$("#imgdelbtn").click(function(){
+			if(confirm("첨부한 이미지를 삭제하시겠습니까?")) {
+				var data = { "notice_num" : ${noticeDto.notice_num} }
+				
+				$.post("notice_modifyFile.do", data, function(result) {
+					if(result == 1 ) {
+						$(".fileDelete").text("");
+					}
+				});// post end
+			} 
+		}); // click end
+	}); //main function end
 </script>
 </head>
 <body>
@@ -66,7 +81,7 @@
 				<th align="right" style="width: 200px"> 기존 첨부파일 </th>
 				<td align="left" style="width: 500px">
 					<input id=img class="form-control" type="text" value="${noticeDto.notice_file }" aria-label="readonly input example" readonly style="width: 500px">
-					<input type="button" id=imgdelbtn class="btn btn-outline-danger" style="width: 100" value="이미지 삭제">
+					<input type="button" id="imgdelbtn" class="btn btn-outline-danger" value="이미지 삭제">
 				</td>
 			</tr>
 			</c:if>
@@ -75,7 +90,7 @@
 			<div>
 			<table class="table table-borderless w-auto">
 				<tr>
-					<td style=width:700>
+					<td style="width:700"; align="center";>
 						<button type="submit" class="btn btn-primary">수정</button>
 						<button type="reset" class="btn btn-warning" onClick="history.go(-1)">취소</button>
 					</td>

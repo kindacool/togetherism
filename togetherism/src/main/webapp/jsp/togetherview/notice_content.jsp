@@ -51,11 +51,11 @@ $(function(){
 				</c:if>
 		</thread>
 		<tbody>
-			<td colspan=2 >
+			<td colspan=2 ><br><br>
 				${notice_content }
 				<c:if test="${noticeDto.notice_file != null }">
-					<br><br><br><img src="./upload/${noticeDto.notice_file }" width="50%" height="50%">
-				</c:if>
+					<br><br><br><img src="./upload/${noticeDto.notice_file }" width="30%" height="30%">
+				</c:if><br><br><br>
 			</td>
 		</tbody>
 	</table>
@@ -63,8 +63,12 @@ $(function(){
 </p>
 <div align="center">
 	<button class="btn btn-warning" onClick="location.href='notice_list.do?notice_num=${noticeDto.notice_num }&page=${page}' "> 목록 </button>
-	<button class="btn btn-primary" onClick="location.href='notice_modifyForm.do?notice_num=${noticeDto.notice_num}&page=${page}' "> 수정 </button>
-	<button class="btn btn-danger" id="delbtn"> 삭제 </button>
+	<c:if test="${not empty sessionScope.manager_email }">
+		<button class="btn btn-primary" onClick="location.href='notice_modifyForm.do?notice_num=${noticeDto.notice_num}&page=${page}' "> 수정 </button>
+		<button class="btn btn-danger" id="delbtn"> 삭제 </button>
+	</c:if>
+	<c:if test="${empty sessionScope.manager_email }"></c:if>
+	
 </div>
 </body>
 </html>

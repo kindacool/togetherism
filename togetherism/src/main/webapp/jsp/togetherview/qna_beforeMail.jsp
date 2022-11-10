@@ -19,7 +19,9 @@
 <form action="mail.do" method="post">
 <input type="hidden" value="${qna_category }">
 <br><br><br><br><br>
-
+		<div class="container">
+			<p><h1>메일 문의 미리보기<br></h1></p>
+		</div>
 <div class="container">
 	<p><table class="table table-borderless w-auto">
 		<tr>

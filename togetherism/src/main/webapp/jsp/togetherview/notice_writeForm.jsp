@@ -33,7 +33,6 @@
 				<th align="right" style="width: 200px"> 내용 </th>
 				<td align="left" style="width: 500px">
 					<textarea name="notice_content" id="notice_content" class="form-control" rows="10" cols="10"></textarea>
-					<!-- <script src="./js/ckeditor.js"/> -->
 				</td>
 			</tr>
 			<tr>

@@ -2,35 +2,23 @@
  <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="managerns">
-
-	<resultMap id="memberResult"				type="member">
-		
-		<result property="member_email"			column="member_email"/>
-		<result property="member_nickname"		column="member_nickname"/>
-		<result property="member_pw"			column="member_pw"/>
-		<result property="member_image"			column="member_image"/>
-		<result property="member_mobile1"		column="member_mobile1"/>
-		<result property="member_mobile2"		column="member_mobile2"/>
-		<result property="member_mobile3"		column="member_mobile3"/>
-		<result property="member_region"		column="member_region"/>
-		<result property="member_reg_date"		column="member_reg_date"/>
-		<result property="member_del_yn"		column="member_del_yn"/>
-		<result property="member_del_date"		column="member_del_date"/>
-		<result property="member_del_reason"	column="member_del_reason"/>
-		
-	</resultMap>
 	
-	<!-- 관리자 계정 정보 가져오기 -->
+	<!-- 관리자 1명의 정보 가져오기 -->
 	<select id="getManager" resultType="manager">
 		select * from manager where manager_email = #{manager_email,jdbcType=VARCHAR}	
 	</select>
 	
-	<!-- 총 회원 수 구하기 -->
+	<!-- 관리자 전체 정보 가져오기 -->
+	<select id="getManagerlist" parameterType="String" resultType="manager">
+		select * from manager
+	</select>
+	
+	<!-- 전체 회원의 수 -->
 	<select id="memberCount" resultType="int">
 		select count (*) from member
 	</select>
 	
-	<!-- 전체 회원 목록  -->
+	<!-- 전체 회원 목록 가져오기  -->
 	<select id="memberList" parameterType="int" resultType="member">
 		<![CDATA[
 		select * from (select rownum rnum, member.* from (
@@ -39,7 +27,7 @@
 		]]>
 	</select>
 	
-	<!-- 검색 결과 회원 목록 -->
+	<!-- 이메일, 닉네임 검색 목록 가져오기 -->
 	<select id="getSearch" resultType="member">
 		select * from member
 		<where>
@@ -49,29 +37,36 @@
 		</where>
 	</select>
 	
-	<!-- 검색 결과 개수 -->
-	<select id="getSearchcount" resultType="int">
-		select count (*) from member
-		<where>
-			<if test="keyword != null and search != null">
-				${search} like '%'||#{keyword}||'%'
-			</if>
-		</where>
+	<!-- 현재 활동중인 회원의 수 -->
+	<select id="nowMember" resultType="int">
+		select count(member_del_yn) from member where member_del_yn = 'N'
 	</select>
 	
-	<!-- 검색 결과 개수 -->
+	<!-- 현재 활동중인 회원 목록 가져오기  -->
+	<select id="nowmemberList" parameterType="int" resultType="member">
+		<![CDATA[
+		select * from (select rownum rnum, member.* from (
+		select * from member where member_del_yn = 'N' order by member_reg_date desc) member )
+		where rnum >= ((#{page} - 1) * 10 + 1 ) and rnum <= (#{page} * 10)
+		]]>
+	</select>
 	
-	<!-- 회원 1명 상세정보 -->
+	<!-- 특정 회원 1명의 정보 가져오기 -->
 	<select id="getMember" parameterType="int" resultType="member">
 		select * from member where member_email = #{member_email}
 	</select>
 	
-	<!-- 회원 1명의 신고횟수 -->
+	<!-- 특정 회원 1명의 신고 횟수 가져오기 -->
 	<select id="reportCount" resultType="int">
 		select count (*) from report where member_email= #{member_email}
 	</select>
 	
-	<!-- 회원 삭제 -->
+	<!-- 특정 회원의 모임장 리스트 가져오기 -->
+	<select id="getClub" resultType="club">
+		select * from club where club_host_email = #{member_email}
+	</select>
+	
+	<!-- 특정 회원 강제 탈퇴 -->
 	<update id="memberDelete" parameterType="member">
 		update member set member_del_yn = 'Y', member_del_date = sysdate,
 		member_del_reason = #{member_del_reason} where member_email = #{member_email}

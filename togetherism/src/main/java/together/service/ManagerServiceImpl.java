@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import together.dao.ManagerDAOImpl;
+import together.model.ClubDTO;
 import together.model.ManagerDTO;
 import together.model.MemberDTO;
 import together.model.ReportDTO;
@@ -16,9 +17,15 @@ public class ManagerServiceImpl implements ManagerService {
 	@Autowired
 	ManagerDAOImpl managerDao;
 	
-	//관리자 계정 정보 가져오기
+	//관리자 1명의 정보 가져오기
+	@Override
 	public ManagerDTO getManager (String manager_email) {
 		return managerDao.getManager(manager_email);
+	}
+	
+	//관리자 전체 정보 가져오기
+	public List<ManagerDTO> getManagerlist (String sessionValue) {
+		return managerDao.getManagerlist(sessionValue);
 	}
 	
 	//전체 회원의 수
@@ -36,9 +43,14 @@ public class ManagerServiceImpl implements ManagerService {
 		return managerDao.getSearch(memberDto);
 	}
 	
-	//검색 목록 숫자 구하기
-	public int getSearchcount () {
-		return managerDao.getSearchcount();
+	//현재 활동중인 회원의 수
+	public int nowMemeber() {
+		return managerDao.nowMemeber();
+	}
+	
+	//현재 활동중인 회원 목록 가져오기
+	public List<MemberDTO> nowmemberList(int page) {
+		return managerDao.nowmemberList(page);
 	}
 	
 	//특정 회원 1명의 정보 가져오기
@@ -49,6 +61,11 @@ public class ManagerServiceImpl implements ManagerService {
 	//특정 회원 1명의 신고 횟수 가져오기
 	public int reportCount(MemberDTO member_email) {
 		return managerDao.reportCount(member_email);
+	}
+	
+	//특정 회원의 모임장 리스트 가져오기
+	public List<ClubDTO> getClub(MemberDTO member_email) {
+		return managerDao.getClub(member_email);
 	}
 	
 	//특정 회원 강제 탈퇴

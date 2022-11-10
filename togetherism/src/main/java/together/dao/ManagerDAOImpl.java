@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import together.model.ClubDTO;
 import together.model.ManagerDTO;
 import together.model.MemberDTO;
 import together.model.ReportDTO;
@@ -16,9 +17,14 @@ public class ManagerDAOImpl implements ManagerDAO {
 	@Autowired
 	SqlSession sqlSession;
 	
-	//관리자 계정 정보 가져오기
+	//관리자 1명의 정보 가져오기
 	public ManagerDTO getManager (String manager_email) {
 		return sqlSession.selectOne("managerns.getManager", manager_email);
+	}
+	
+	//관리자 전체 정보 가져오기
+	public List<ManagerDTO> getManagerlist (String sessionValue) {
+		return sqlSession.selectList("manager.getManagerlist", sessionValue);
 	}
 	
 	//전체 회원의 수
@@ -31,14 +37,19 @@ public class ManagerDAOImpl implements ManagerDAO {
 		return sqlSession.selectList("managerns.memberList", page);
 	}
 	
-	//검색 목록 가져오기
+	//이메일, 닉네임 검색 목록 가져오기
 	public List<MemberDTO> getSearch(MemberDTO memberDto) {
 		return sqlSession.selectList("managerns.getSearch", memberDto);
 	}
 	
-	//검색 목록 숫자 구하기
-	public int getSearchcount () {
-		return sqlSession.selectOne("managerns.getSearchcount");
+	//현재 활동중인 회원의 수
+	public int nowMemeber() {
+		return sqlSession.selectOne("managerns.nowMember");
+	}
+	
+	//현재 활동중인 회원 목록 가져오기
+	public List<MemberDTO> nowmemberList(int page) {
+		return sqlSession.selectList("managerns.nowmemberList", page);
 	}
 	
 	//특정 회원 1명의 정보 가져오기
@@ -49,6 +60,11 @@ public class ManagerDAOImpl implements ManagerDAO {
 	//특정 회원 1명의 신고 횟수 가져오기
 	public int reportCount(MemberDTO member_email) {
 		return sqlSession.selectOne("managerns.reportCount", member_email);
+	}
+	
+	//특정 회원의 모임장 리스트 가져오기
+	public List<ClubDTO> getClub(MemberDTO member_email) {
+		return sqlSession.selectList("managerns.getClub", member_email);
 	}
 	
 	//특정 회원 강제 탈퇴

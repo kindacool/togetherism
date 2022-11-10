@@ -19,7 +19,7 @@
 	<table class="table table-hover w-auto">
 		<thread class="table-light">
 			<tr>
-				<th align="center" style="width: 100px"> # </th>
+				<th align="center" style="width: 100px">  </th>
 				<th style="width: 400px"> 제목 </th>
 				<th style="width: 200px"> 작성일 </th>
 			</tr>
@@ -52,7 +52,11 @@
 			<td style="width:350px">
 			<button class="btn btn-success" onClick="location.href='manager_main.do' ">메인화면</button>
 			<td align="right" style="width: 350px">
-			<button class="btn btn-warning" onClick="location.href='notice_writeForm.do' ">글쓰기</button></td>
+			<c:if test="${not empty sessionScope.manager_email }">
+				<button class="btn btn-warning" onClick="location.href='notice_writeForm.do' ">글쓰기</button>
+			</c:if>
+			<c:if test="${empty sessionScope.manager_email }"></c:if>
+		   </td>
 		</tr>
 	</table>
 </div>
