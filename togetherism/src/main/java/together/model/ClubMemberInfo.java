@@ -10,5 +10,6 @@ public class ClubMemberInfo {
  private String member_image;
  private String member_nickname;
  private String club_host_yn;
+ private String member_email;
  	
 }

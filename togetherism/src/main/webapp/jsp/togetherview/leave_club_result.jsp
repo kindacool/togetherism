@@ -24,7 +24,7 @@
 <c:if test="${result == 1}">
 <script>
 	alert("모임 탈퇴가 완료되었습니다");
-	location.href="<%=request.getContextPath()%>/club_ct.do?club_num=${club_num}";
+	location.href="<%=request.getContextPath()%>/joined_club.do?club_num=${club_num}";
 </script>
 </c:if>
 </body>

@@ -21,8 +21,17 @@ function delete_ok(a,b){
         location.href="<%=request.getContextPath() %>/photo_delete.do?photo_num=" + a + "&club_num=" + b;
     }
 }
-
+$(document).ready(function(){
+	// 유효성 검사
+ 	$("#checkw").click(function(){
+		if($("#photow").val() == ""){
+			alert("사진을 선택해주세요");
+			return false;
+		}
+	});
+});
 </script>
+
 </head>
 <body>
 
@@ -41,17 +50,17 @@ function delete_ok(a,b){
         <form>
           <div class="mb-3"> <!-- 이후 유효성검사 -->
             <label for="recipient-name" class="col-form-label">사진</label>
-            <input type="file" class="form-control" name="photo_file0" id="recipient-name">
+            <input type="file" class="form-control" name="photo_file0" id="photow">
           </div>
           <div class="mb-3"> <!-- 이후 유효성검사 -->
             <label for="recipient-name" class="col-form-label">글귀</label>
-            <input type="text" class="form-control" name="photo_content" id="recipient-name">
+            <input type="text" class="form-control" name="photo_content" id="contentw">
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소하기</button>
-        <button type="submit" class="btn btn-primary">사진 올리기</button>
+        <button type="submit" class="btn btn-primary" id="checkw">사진 올리기</button>
       </div>
     </div>
   </div>
@@ -98,17 +107,17 @@ function delete_ok(a,b){
           </div>
           <div class="mb-3"> <!-- 이후 유효성검사 -->
             <label for="recipient-name" class="col-form-label">사진</label>
-            <input type="file" class="form-control" name="photo_file0" id="recipient-name">
+            <input type="file" class="form-control" name="photo_file0" id="photoe">
           </div>
           <div class="mb-3"> <!-- 이후 유효성검사 -->
             <label for="recipient-name" class="col-form-label">글귀</label>
-            <input type="text" class="form-control" name="photo_content" id="recipient-name" value="${p.photo_content}">
+            <input type="text" class="form-control" name="photo_content" id="contente" value="${p.photo_content}">
           </div>
         
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소하기</button>
-        <button type="submit" class="btn btn-primary">사진 올리기</button>
+        <button type="submit" class="btn btn-primary" id="checke">사진 올리기</button>
       </div>
     </div>
   </div>

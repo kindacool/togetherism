@@ -16,10 +16,45 @@
 <script>
 
 $(document).ready(function(){
+	// 해외지역 모임일땐 맵 지원 불가 안내
 	if(${club_region == 'Abroad'}){
 		alert("해외 지역은 지도를 지원하지 않음을 유의해주세요");
 		$("#event_region_abroad").attr("selected", "selected");
 	}
+	// 유효성 검사
+ 	$("#check").click(function(){
+		if($("#event_region").val() == ""){
+			alert("이벤트 지역을 선택해주세요");
+			return false;
+		}
+		if($("#event_title").val() == ""){
+			alert("이벤트 명을 입력해주세요");
+			$("#event_title").focus();
+			return false;
+		}
+		if($("#event_date_date").val() == ""){
+			alert("이벤트 날짜를 입력해주세요");
+			return false;
+		}
+		if($("#event_date_time").val() == ""){
+			alert("이벤트 시간을 입력해주세요");
+			return false;
+		}
+		if($("#event_info").val() == ""){
+			alert("이벤트 설명을 입력해주세요");
+			$("#event_info").focus();
+			return false;
+		}
+		if($("#event_spot_lat").val() == ""){
+			alert("지도를 선택해주세요");
+			return false;
+		}
+		if($("#event_spot_long").val() == ""){
+			alert("지도를 선택해주세요");
+			return false;
+		}
+		
+	});
 });
 
 </script>
@@ -130,12 +165,12 @@ history.go(-1);
 			<caption>이벤트 생성 폼</caption>
 			<tr>
 				<td>이벤트</td>
-				<td><input type="text" name="event_title"></td>
+				<td><input type="text" id="event_title" name="event_title"></td>
 			</tr>
 			<tr>
 				<td>이벤트 날짜 및 시간</td>
-				<td><input type="date" name="event_date_date"></td>
-				<td><input type="time" name="event_date_time"></td>
+				<td><input type="date" id="event_date_date" name="event_date_date"></td>
+				<td><input type="time" id="event_date_time" name="event_date_time"></td>
 			</tr>
 
 			<td>이벤트 장소 위도 경도</td>
@@ -145,7 +180,7 @@ history.go(-1);
 			</td>
 
 			<td>이벤트 지역</td>
-			<select name="event_region">
+			<select name="event_region" id="event_region">
 			<option value="Seoul_Metropolitan" <c:if test="${club_region == 'Seoul_Metropolitan'}">selected
             </c:if>>수도권</option>
 			<option value="Gangwon" <c:if test="${club_region == 'Gangwon'}">selected
@@ -163,7 +198,7 @@ history.go(-1);
 			</select>
 			<tr>
 				<td>이벤트 설명</td>
-				<td><textarea name="event_info"></textarea></td>
+				<td><textarea name="event_info" id="event_info"></textarea></td>
 			</tr>
 			<tr>
 				<td>이벤트 첨부파일 및 사진</td>
@@ -171,7 +206,7 @@ history.go(-1);
 			</tr>
 
 			<tr>
-				<td><input type="submit"></td>
+				<td><input type="submit" id="check"></td>
 			</tr>
 		</table>
 

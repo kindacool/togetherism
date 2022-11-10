@@ -47,7 +47,7 @@ public class Club_Member_JoinController {
 		int result = 0;
 		// 중복 가입 검사 : 모임가입테이블은 중복가입이 가능하므로 중복가입을 방지
 		// 1. 세션 구하기 (현재는 Merge 가 안되었으므로 임의로 정함)
-		String sess = "cheese@gmail.com";
+		String sess = "miae@daum.net";
 		cmjdto.setMember_email(sess);
 
 		// 넘어오는 값 확인
@@ -108,6 +108,7 @@ public class Club_Member_JoinController {
 		} else {
 			model.addAttribute("cmilist", cmilist);
 		}
+		model.addAttribute("club_num", club_num);
 		return "togetherview/joined_member";
 	}
 
@@ -156,7 +157,7 @@ public class Club_Member_JoinController {
 	public String joinedClub(Model model, HttpServletRequest request) throws Exception {
 
 		// 1. 세션 구하기 (현재는 Merge 가 안되었으므로 임의로 정함)
-		String sess = "cheese@gmail.com";
+		String sess = "miae@daum.net";
 		
 		List<ClubDTO> joinedClubList = new ArrayList<ClubDTO>();
 		
@@ -208,7 +209,7 @@ public class Club_Member_JoinController {
 	@RequestMapping(value = "/leave_club.do", method = RequestMethod.GET)
 	public String leaveClub(Model model, @ModelAttribute Club_Member_JoinDTO cmjdto) throws Exception {
 		// 1. 세션 구하기 (현재는 Merge 가 안되었으므로 임의로 정함)
-		String sess = "cheese@gmail.com";
+		String sess = "miae@daum.net";
 		cmjdto.setMember_email(sess);
 		int result = 0;
 
@@ -223,7 +224,7 @@ public class Club_Member_JoinController {
 			if (club_host_yn.equals("Y")) { // 모임장이면 탈퇴 불가, 모임 삭제를 해야하므로
 				result = 2;
 				model.addAttribute("result", result);
-				return "toegherview/leave_club_result";
+				return "togetherview/leave_club_result";
 			} else if (club_host_yn.equals("N")) { // 모임장이 아닌경우 탈퇴 진행
 
 				// 구한 세션으로 Club_Member_Join 테이블에서 해당 이메일인 데이터 삭제
@@ -248,7 +249,7 @@ public class Club_Member_JoinController {
 	public String myClub(Model model, HttpServletRequest request) throws Exception {
 
 		// 1. 세션 구하기 (현재는 Merge 가 안되었으므로 임의로 정함)
-		String sess = "cheese@gmail.com";
+		String sess = "miae@daum.net";
 	
 		List<Club_Member_JoinDTO> myClubList = new ArrayList<Club_Member_JoinDTO>();
 		
@@ -393,5 +394,48 @@ public class Club_Member_JoinController {
 		return "togetherview/club_pre_list"; // 이후 리스트 출력하는 페이지로 가는걸로 수정
 	
 	}
+	
+	// 모임장이 멤버 모임 탈퇴시키기
+	@RequestMapping(value="/kick_out.do", method = RequestMethod.GET)
+	public String kickOut(@RequestParam("member_email") String member_email,
+			@RequestParam("club_num") int club_num, Model model) throws Exception {
 
+		int result = 0;
+		model.addAttribute("club_num", club_num);
+		
+		// 1. 세션을 구해서 모임장인지 확인, 모임장만 내보내기 가능
+		String sess = "miae@daum.net";
+
+		// member_email, club_num 을 담은 Club_Member_Join DTO 필요
+		Club_Member_JoinDTO cmjdto = new Club_Member_JoinDTO();
+		cmjdto.setMember_email(sess);
+		cmjdto.setClub_num(club_num);
+		
+		String club_host_yn = club_Member_JoinService.getClubHostYN(cmjdto);
+
+		if(club_host_yn != null && club_host_yn.equals("Y")){ // 모임장이면 내보내기 가능
+
+				// 구한 세션으로 Club_Member_Join 테이블에서 받은이메일인 데이터 삭제
+				// 넘어온 member_email, club_num 을 담은 Club_Member_Join DTO 필요함
+				// 세션 대신 내보낼 멤버의 이메일로 수정
+				cmjdto.setMember_email(member_email);
+				result = club_Member_JoinService.leaveClub(cmjdto);
+				
+				// 이후 club 테이블에서 update SQL문
+				// club 테이블 작업, merge 이후 수정하기
+				club_Member_JoinService.minusMemberCount(cmjdto.getClub_num());
+				
+				model.addAttribute("result", result);
+				model.addAttribute("club_num", cmjdto.getClub_num());
+
+				return "togetherview/kick_out_result";
+				
+			} else {
+				  // 가입한 상태가 아니거나 모임장이 아니면 내보내기 불가능
+					result = 2;
+					model.addAttribute("result", result);
+					return "togetherview/kick_out_result";
+				} 
+				
+		}
 }

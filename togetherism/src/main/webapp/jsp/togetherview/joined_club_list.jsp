@@ -8,8 +8,18 @@
 <meta charset="UTF-8">
 <title>내가 가입한 모임 목록</title>
 <link href="<%=request.getContextPath()%>/css/hidden_text.css" rel="stylesheet" type="text/css" />
+<script>
+function leave(club_num){
+    if (!confirm("탈퇴하시겠습니까")) {
+    } else {
+    	location.href="<%=request.getContextPath()%>/leave_club.do?club_num=" + club_num;
+    }
+}
+</script>
 </head>
+
 <body>
+
 <c:if test="${empty joinedClubList}">
 	<div class="alert alert-warning" role="alert" style="width: 640px;">
  		현재 가입된 모임이 없습니다! <a href="<%=request.getContextPath()%>/club_list.do" class="alert-link">가입하러 가기</a>
@@ -28,6 +38,7 @@
       <div class="card-body">
         <h5 class="card-title hidden"><a href="<%=request.getContextPath()%>/club_ct.do?club_num=${i.club_num}">${i.club_name}</a></h5>
         <p class="card-text hidden">${i.club_info}</p>
+        <p class="card-text"><a href="javascript:void(0);" onClick="leave(${i.club_num});">탈퇴</a></p>
         <p class="card-text">
         <c:choose>
         	<c:when test="${i.club_region == 'Seoul_Metropolitan'}">수도권</c:when>
@@ -71,5 +82,6 @@
 		</c:if>
 </ul>
 </nav>
+
 </body>
 </html>

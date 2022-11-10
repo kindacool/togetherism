@@ -16,11 +16,12 @@
 		</div>
 </c:if>
 <c:if test="${empty result}">
-	<c:forEach var="m" items="${cmilist}">		
-
-	<div class="container">
+<div>
+	<c:forEach var="m" items="${cmilist}">
+	
+		<div class="container" style="float: left; width: 20%">
         <div class="card" style="width: 18rem;">
-            <img class="card-img-top img-circle" src="<%=request.getContextPath() %>/upload/${m.member_image}"
+		<img class="card-img-top img-circle" src="<%=request.getContextPath() %>/upload/${m.member_image}"
                 alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">
@@ -30,9 +31,15 @@
             <p>
             ${m.join_hello}
             </p>
+            <div style="float:left;">
+            <a href="#">신고하기</a>
+            <c:if test="${m.club_host_yn eq 'N'}"><a href="<%=request.getContextPath()%>/kick_out.do?member_email=${m.member_email}&club_num=${club_num}">내보내기</a></c:if>
+        	</div>
         </div>
     </div>
+
 	</c:forEach>
+	</div>
 </c:if>
 </body>
 </html>

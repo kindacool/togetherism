@@ -29,6 +29,7 @@
       <div class="card-body">
         <h5 class="card-title hidden"><a href="<%=request.getContextPath()%>/club_ct.do?club_num=${i.club_num}">${i.club_name}</a></h5>
         <p class="card-text hidden">${i.club_info}</p>
+        <p class="card-text"><a href="<%=request.getContextPath()%>/club_detail.do?club_num=${i.club_num}&state=edit">수정</a><a href="<%=request.getContextPath()%>/club_delete.do?club_num=${i.club_num}">삭제</a></p>
         <p class="card-text">
         <c:choose>
         	<c:when test="${i.club_region == 'Seoul_Metropolitan'}">수도권</c:when>

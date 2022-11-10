@@ -130,10 +130,12 @@ marker.setMap(map);
 <button onclick="edit_ok()">수정</button>
 <button onclick="delete_ok()">삭제</button>
 </c:if>
+<button onclick="location='<%=request.getContextPath()%>/event_user_attend_ok.do?club_num=${club_num}&event_num=${event.event_num}'">이벤트 참석하기</button>
 <input type="button" value="해당 모임의 이벤트 목록"
-		onclick="location='event_list.do?club_num=${club_num}&eventPage=${eventPage}'" />
+		onclick="location='<%=request.getContextPath()%>/event_list.do?club_num=${club_num}&eventPage=${eventPage}'" />
 </c:if>
 <c:if test="${club_num == 0}">
+<button onclick="location='<%=request.getContextPath()%>/event_user_attend_ok.do?club_num=${club_num}&event_num=${event.event_num}'">이벤트 참석하기</button>
 <a href="<%=request.getContextPath()%>/club_ct.do?club_num=${event.club_num}">해당 모임에 가입하기</a>
 </c:if>
 

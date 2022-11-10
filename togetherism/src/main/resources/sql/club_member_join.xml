@@ -71,10 +71,11 @@ update club set club_viewcount = club_viewcount + 1 where club_num = #{club_num}
 	<result property="member_image" column="member_image" />
 	<result property="member_nickname" column="member_nickname" />
 	<result property="club_host_yn" column="club_host_yn" />
+	<result property="member_email" column="member_email" />
 </resultMap>
 
 <select id="memberlist" parameterType="int" resultMap="joinresult">
-select a.join_hello, b.member_image, b.member_nickname, a.club_host_yn  
+select a.join_hello, b.member_image, b.member_nickname, a.club_host_yn, a.member_email   
 from club_member_join a 
 inner join member b 
 on (a.member_email = b.member_email and a.club_num = #{club_num}) order by a.join_date

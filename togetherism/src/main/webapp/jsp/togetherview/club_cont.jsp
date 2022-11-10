@@ -70,7 +70,35 @@ function pPage(startRow, endRow, club_num){
 	$('#container').load("<%=request.getContextPath()%>/photo_list.do?club_num=" + club_num + "&startRow=" + startRow + "&endRow=" + endRow);
 }
 
+function copy_to_clipboard() {    
+	  var copyText = document.getElementById('kakao');
+	  copyText.select();
+	  copyText.setSelectionRange(0, 99999);
+	  document.execCommand("Copy");
+	  alert('복사되었습니다');
+	}
+
 </script>
+<style>
+       .box01{
+            text-align: center;
+        }
+        .box01 input{
+            border: none;
+            font-size: 15px;
+            outline: none;
+            text-align: center;
+        }
+        .box01 button{
+            border:none;
+            width:60px;
+            max-width: 100px;
+            vertical-align: bottom;
+        }
+        .box01 button img{
+            width: 100%;
+        }
+</style>
 <body>
 <c:if test="${empty club}">
 <div class="alert alert-warning" role="alert" style="width: 640px;">
@@ -129,7 +157,14 @@ function pPage(startRow, endRow, club_num){
 	</tr>
 	<tr>
 		<td>카톡주소</td>
-		<td>${club.club_chat}</td>
+		<td>
+		<p class="box01">
+        <input id="kakao" value="${club.club_chat}" readonly>
+        <button onclick="copy_to_clipboard()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-dots-fill" viewBox="0 0 16 16">
+ 		<path d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+		</svg></button></td>
+        
+    </p>       
 	</tr>
 	<tr>
 		<td>이미지</td>

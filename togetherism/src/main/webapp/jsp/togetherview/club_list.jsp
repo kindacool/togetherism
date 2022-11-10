@@ -7,7 +7,29 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="<%=request.getContextPath()%>/css/hidden_text.css" rel="stylesheet" type="text/css" />
+<script>
+$(document).ready(function(){
+	$("div[id^='heart1_div']").hide();
+	// heart 테이블 검색해서 데이터가 있으면 빨간 하트 띄우기
+});
+function heart2(club_num){ // 빈 하트 클릭
+       var data = {"club_num":club_num}
+       $.post("<%=request.getContextPath()%>/insert_heart.do", data, function(result){
+          alert(result);
+          $("#heart2_div" + club_num).hide();
+          $("#heart1_div" + club_num).show();
+       });    
+}
 
+function heart1(club_num){ // 빨간하트 클릭
+         var data = {"club_num":club_num}
+           $.post("<%=request.getContextPath()%>/remove_heart.do", data, function(result){
+               $("#heart2_div" + club_num).hide();
+               $("#heart1_div" + club_num).show();
+           });     
+
+}
+</script>
 </head>
 <body>
 
@@ -23,7 +45,7 @@
 <h5>${keyword} 모임 검색 결과</h5>
 <a href="<%=request.getContextPath()%>/club_list.do?keyword=${keyword}">Groups</a>
 <a href="<%=request.getContextPath()%>/event_list.do?keyword=${keyword}">Events</a>
-<a href="#">모임 만들기</a>
+<a href="<%=request.getContextPath()%>/club.do">모임 만들기</a>
 </c:when>
 <%-- 특정 지역 모임 페이지 일때 --%>
 <c:when test="${not empty club_region}">
@@ -38,14 +60,14 @@
     </c:choose>
 <a href="<%=request.getContextPath()%>/club_list.do?club_region=${club_region}">Groups</a>
 <a href="<%=request.getContextPath()%>/event_list.do?event_region=${event_region}">Events</a>
-<a href="#">모임 만들기</a>
+<a href="<%=request.getContextPath()%>/club.do">모임 만들기</a>
 </c:when>	
 <%-- 전체 목록의 페이지 일때 --%>
 <c:otherwise>
 <h5>전체 모임 보기</h5>
 <a href="<%=request.getContextPath()%>/club_list.do">Groups</a>
 <a href="<%=request.getContextPath()%>/event_list.do">Events</a>
-<a href="#">모임 만들기</a>
+<a href="<%=request.getContextPath()%>/club.do">모임 만들기</a>
 </c:otherwise>
 </c:choose>
 
@@ -55,17 +77,17 @@
  	<c:choose>
 	<c:when test="${not empty keyword}">
 		<div class="alert alert-warning" role="alert" style="width: 640px;">
- 			검색된 모임이 없습니다! <a href="#" class="alert-link">만들러가기</a>
+ 			검색된 모임이 없습니다! <a href="<%=request.getContextPath()%>/club.do" class="alert-link">만들러가기</a>
 		</div>
 	</c:when>
 	<c:when test="${not empty club_region}">
 		<div class="alert alert-warning" role="alert" style="width: 640px;">
- 			해당 지역에 모임이 없습니다! <a href="#" class="alert-link">만들러가기</a>
+ 			해당 지역에 모임이 없습니다! <a href="<%=request.getContextPath()%>/club.do" class="alert-link">만들러가기</a>
 		</div>
 	</c:when>
 	<c:otherwise>
 		<div class="alert alert-warning" role="alert" style="width: 640px;">
- 			모임이 없습니다! <a href="#" class="alert-link">만들러가기</a>
+ 			모임이 없습니다! <a href="<%=request.getContextPath()%>/club.do" class="alert-link">만들러가기</a>
 		</div>
 	</c:otherwise>
 	</c:choose>
@@ -82,6 +104,22 @@
     <div class="col-md-8">
       <div class="card-body">
         <h5 class="card-title hidden"><a href="<%=request.getContextPath()%>/club_ct.do?club_num=${i.club_num}">${i.club_name}</a></h5>
+	   
+	   <div id="heart1_div${i.club_num}">
+      <button id="heart1${i.club_num}" onclick="heart1(${i.club_num});" class="heart_button_fill" type="button" style="border:0; background-color:transparent;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-heart-fill" style="color:red;" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+</svg></button>
+   </div>
+
+   <div id="heart2_div${i.club_num}">
+      <button id="heart2${i.club_num}" onclick="heart2(${i.club_num});" class="heart_button_cancel" type="button" style="border:0; background-color:transparent;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+  <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+</svg></button>
+
+   </div>
+   	</div>
         <p class="card-text hidden">${i.club_info}</p>
         <p class="card-text">
         <c:choose>

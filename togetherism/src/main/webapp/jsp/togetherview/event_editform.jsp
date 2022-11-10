@@ -12,6 +12,45 @@
 <!-- services와 clusterer, drawing 라이브러리 불러오기 -->
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=44a98d8b63fb071cda538e0fedd4970c&libraries=services,clusterer,drawing"></script>
+<script>
+$(document).ready(function(){
+	// 유효성 검사
+ 	$("#check").click(function(){
+		if($("#event_region").val() == ""){
+			alert("이벤트 지역을 선택해주세요");
+			return false;
+		}
+		if($("#event_title").val() == ""){
+			alert("이벤트 명을 입력해주세요");
+			$("#event_title").focus();
+			return false;
+		}
+		if($("#event_date_date").val() == ""){
+			alert("이벤트 날짜를 입력해주세요");
+			return false;
+		}
+		if($("#event_date_time").val() == ""){
+			alert("이벤트 시간을 입력해주세요");
+			return false;
+		}
+		if($("#event_info").val() == ""){
+			alert("이벤트 설명을 입력해주세요");
+			$("#event_info").focus();
+			return false;
+		}
+		if($("event_spot_lat").val() == ""){
+			alert("지도를 설정해주세요");
+			return false;
+		}
+		if($("event_spot_long").val() == ""){
+			alert("지도를 설정해주세요");
+			return false;
+		}
+
+	});
+});
+</script>
+
 
 </head>
 <body>
@@ -29,8 +68,8 @@ history.go(-1);
 		<input type="hidden" value="${event.event_num}" name="event_num">
 		<input type="hidden" value="${eventPage}" name="eventPage">
 		<input type="hidden" value="${event.club_host_email}" name="club_host_email"> <!-- Merge 이후 넘어올 값 -->
-		<input type="hidden" id="event_spot_lat" name="event_spot_lat" value="">
-		<input type="hidden" id="event_spot_long" name="event_spot_long" value="">
+		<input type="hidden" id="event_spot_lat" name="event_spot_lat" value="${event.event_spot_lat}">
+		<input type="hidden" id="event_spot_long" name="event_spot_long" value="${event.event_spot_long}">
 
 		<!-- 맵이 표시될 위치 -->
 		<div id="map" style="width: 500px; height: 400px;"></div>
@@ -90,13 +129,13 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 			<caption>이벤트 생성 폼</caption>
 			<tr>
 				<td>이벤트</td>
-				<td><input type="text" name="event_title" value="${event.event_title}"></td>
+				<td><input type="text" name="event_title" id="event_title" value="${event.event_title}"></td>
 			</tr>
 			<tr>
 				<td>이벤트 날짜 및 시간</td>
 				변경전 날짜 : ${event.event_date}
-				<td><input type="date" name="event_date_date"></td>
-				<td><input type="time" name="event_date_time"></td>
+				<td><input type="date" id="event_date_date" name="event_date_date"></td>
+				<td><input type="time" id="event_date_time" name="event_date_time"></td>
 			</tr>
 
 			<td>이벤트 장소 위도 경도</td>
@@ -106,7 +145,7 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 			</td>
 
 			<td>이벤트 지역</td>
-			<select name="event_region">
+			<select name="event_region" id="event_region">
 			<option value="Seoul_Metropolitan" <c:if test="${event.event_region == 'Seoul_Metropolitan'}">selected
             </c:if>>수도권</option>
 			<option value="Gangwon" <c:if test="${event.event_region == 'Gangwon'}">selected
@@ -124,7 +163,7 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 			</select>
 			<tr>
 				<td>이벤트 설명</td>
-				<td><textarea name="event_info">${event.event_info}</textarea></td>
+				<td><textarea name="event_info" id="event_info">${event.event_info}</textarea></td>
 			</tr>
 			
 			<tr>
@@ -164,7 +203,7 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 			</tr>
 				
 			<tr>
-				<td><input type="submit"></td>
+				<td><input type="submit" id="check"></td>
 			</tr>
 		</table>
 
