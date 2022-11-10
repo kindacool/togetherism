@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import together.dao.ClubDAO;
 import together.model.ClubDTO;
+import together.model.Club_Member_JoinDTO;
 
 @Service
 public class ClubServiceImpl implements ClubService{
@@ -13,6 +14,7 @@ public class ClubServiceImpl implements ClubService{
 	@Autowired
 	private ClubDAO clubDao;
 	
+
 	
 	@Transactional
 	public int checkClubName(String cn) throws Exception{
@@ -22,6 +24,16 @@ public class ClubServiceImpl implements ClubService{
 //	@Transactional
 	public void insertClub(ClubDTO club) throws Exception{
 		clubDao.insertClub(club);
+	}
+	
+	
+// 모임 가입 테이블에 member_email 넣기 
+	public void insertClub_Member_Join(Club_Member_JoinDTO clubmj) throws Exception{
+		clubDao.insertclub_member_join(clubmj);
+	}
+	
+	public ClubDTO bringclubname(String club_name) throws Exception{
+		return clubDao.bringclubname(club_name);
 	}
 	
 //	@Transactional

@@ -9,14 +9,16 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.sun.glass.ui.Size;
+//import com.sun.glass.ui.Size;
 
 import together.model.ClubDTO;
+import together.model.Club_Member_JoinDTO;
 import together.service.ClubService;
 import together.service.ClubServiceImpl;
 
@@ -25,17 +27,23 @@ public class ClubController {
 
 	@Autowired
 	private ClubService clubservice;
+	//모임 폼으로 바로 가는..
+	@RequestMapping(value = "/club.do")
+	public String club() throws Exception{
+		
+		return "togetherview/club";
+	}
 
 	// 모임 등록
 	@RequestMapping(value = "/club_save.do", method = RequestMethod.POST)
-	public String club_save(@RequestParam("club_image1") MultipartFile mf, ClubDTO clubdto, HttpServletRequest request,
+	public String club_save(@RequestParam("club_image1") MultipartFile mf, 
+			ClubDTO clubdto, HttpServletRequest request, HttpSession session,
 			Model model) throws Exception {
-
+		
 		System.out.println("Club 컨트롤러 들어옴");
 
 		String filename = mf.getOriginalFilename();
 		int size = (int) mf.getSize();
-		System.out.println(("여기???111"));
 		String path = request.getRealPath("upload");
 		System.out.println("path:" + path);
 
@@ -77,15 +85,34 @@ public class ClubController {
 
 		clubdto.setClub_image(newfilename);
 
+
 		clubservice.insertClub(clubdto);
+		
+		Club_Member_JoinDTO clubmjdto = new Club_Member_JoinDTO();
+	
+		
+		ClubDTO old = clubservice.bringclubname(clubdto.getClub_name());
+		
+		clubmjdto.setClub_num(old.getClub_num());
+		
+		String session_email = (String) session.getAttribute("email");
+		clubmjdto.setMember_email(session_email);
+		
+		
+		clubservice.insertClub_Member_Join(clubmjdto);
+		model.addAttribute("club_num", clubdto.getClub_num());
 
 		return "togetherview/club_welcome";
 
 	}
+	
+	
+	
 
 	// 내용보기
 	@RequestMapping(value = "/club_detail.do")
-	public String club_cont(@RequestParam("club_num") int club_num, @RequestParam("state") String state, Model model)
+	public String club_cont(@RequestParam("club_num") int club_num, 
+			@RequestParam("state") String state, Model model)
 			throws Exception {
 
 		System.out.println("ClubController 넘어옴");
@@ -188,7 +215,7 @@ public class ClubController {
 	}
 	
 	/* 모임 삭제 */
-	@RequestMapping(value = "/club_delete.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/club_delete.do")
 	public String club_delete(@RequestParam("club_num") int club_num,
 							     Model model) throws Exception {
 		
@@ -202,7 +229,7 @@ public class ClubController {
 		
 		model.addAttribute("clubdto", clubdto);
 		
-		return "togetherview/club_delete";
+		return "togetherview/club_deleteResult";
 	}
 	
 	@RequestMapping(value = "/club_deleteResult.do", method = RequestMethod.GET)

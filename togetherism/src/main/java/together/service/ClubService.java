@@ -1,12 +1,17 @@
 package together.service;
 
 import together.model.ClubDTO;
+import together.model.Club_Member_JoinDTO;
 
 public interface ClubService {
 	
 	public int checkClubName(String cn) throws Exception;
 	
 	public void insertClub(ClubDTO club) throws Exception;
+	
+	public void insertClub_Member_Join(Club_Member_JoinDTO clubmj) throws Exception;
+	
+	public ClubDTO bringclubname(String club_name) throws Exception;
 	
 	public int updateClub(ClubDTO cedit) throws Exception;
 	
