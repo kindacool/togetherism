@@ -11,9 +11,12 @@
 </head>
 <body>
   <form method="post" action="club_delete.do" >
+  <input type="hidden" name="club_num" value="${club_num}"/>
 <%-- 삭제할 모임을 확인해주세요 : ${clubdto.club_name} <br> --%>
 삭제시 모든 정보가 사라지고 복구할 수 없습니다. <br>
 정말 삭제하시겠습니까? <br>
-<button type="button" onClick="location.href='club_deleteResult.do'">네</button><a href="#" onClick="history.go(-1);">뒤로가기</a>
+<button type="submit" >네</button>
+<a href="#" onClick="history.go(-1);">뒤로가기</a>
+</form>
 </body>
 </html>

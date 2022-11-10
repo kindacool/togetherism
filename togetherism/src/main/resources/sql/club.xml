@@ -9,12 +9,22 @@
     insert into club(club_num,club_host_email,club_name,club_image,
     club_region,club_keyword,club_info,club_member_count,club_member_limit,
     club_interest,club_chat,club_reg_date,
-    club_del_yn,club_viewcount)
-    values(club_seq.nextval,'TEST@TEST.COM',#{club_name},#{club_image},#{club_region},
+    club_viewcount)
+    values(club_seq.nextval,'syberia@daum.net',#{club_name},#{club_image},#{club_region},
     #{club_keyword},#{club_info},1,#{club_member_limit},
-    #{club_interest},#{club_chat},SYSDATE,'N',0)
+    #{club_interest},#{club_chat},SYSDATE,0)
     </insert>
-    
+
+	<insert id="insertclub_member_join" parameterType="club_member_join">
+	insert into club_member_join(join_num,member_email,club_num,join_hello,club_host_yn,join_date)
+ 	values(club_member_join_seq.nextval,#{member_email},#{club_num},'모임장','Y',SYSDATE)	
+ 	</insert>
+ 	
+ 	<select id="bringclubname" parameterType="String" resultType="club">
+ 	select * from club where club_name=#{club_name}
+ 	
+ 	</select>
+
     <!--  수정 폼 내용 불러오기 -->
     <select id="club_cont" parameterType="int" resultType="club">
     select * from club where club_num=#{club_num}

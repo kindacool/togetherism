@@ -1,6 +1,7 @@
 package together.service;
 
 public class PagingPgm {
+
 	private int listcount;				// 데이터 갯수
 	private int limit;			// 화면에 출력할 데이터 갯수
 	private int pagePerBlk = 10;    // 블럭당 페이지 갯수 (1개의 블럭당 10개의 페이지)

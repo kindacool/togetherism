@@ -28,7 +28,7 @@ function club_delete_popup(club_num) {
 }
 </script>
 
-<input onClick="club_delete_popup(${club_num})" type="button" value="모임삭제">
+<input onClick="club_delete_popup(${club_num});" type="button" value="모임삭제">
 
 </body>
 </html>

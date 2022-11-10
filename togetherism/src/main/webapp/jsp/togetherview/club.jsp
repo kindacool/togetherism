@@ -1,22 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <title>모임 만들기</title>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/club.css" />
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/css/club.css" />
 <script src="<%=request.getContextPath()%>/js/club.js"></script>
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
 
+</script>
 </head>
 <body>
+	
 	<h1 class="club-title">모임 만들기</h1>
 	<p>새로운 모임을 만들기 전에 이미 같은 지역에 같은 주제의 모임이 있는지 확인해주세요.</p>
-	<form action="<%=request.getContextPath()%>/club_save.do"
-	enctype="multipart/form-data" method="post">
+	<form action="<%=request.getContextPath()%>/club_save.do" onSubmit="return club_check()"
+		enctype="multipart/form-data" method="post">
 		<table id="club">
 			<tr>
 				<th>모임 대표 사진</th>
@@ -25,7 +29,9 @@
 			<tr>
 				<th>모임 명</th>
 				<td><input type="text" name="club_name"
-					placeholder="16자 이내로 입력" /></td>
+					placeholder="16자 이내로 입력" /> <input id="club_name_check" type="button" value="모임명 중복체크"
+					class="input_button" onclick="club_name_check()" /></td>
+
 			</tr>
 
 
@@ -76,9 +82,10 @@
 		</table>
 
 		<div id="club_join_menu">
-			<input type="submit" value="모임 만들기" class="club_create_button" /> 
-			<input
-				type="reset" value="취소" class="input_button"/>
+			<input type="submit" value="모임 만들기" class="club_create_button" /> <input
+				type="reset" value="취소" class="input_button" />
+				</div>
 	</form>
+	
 </body>
 </html>
