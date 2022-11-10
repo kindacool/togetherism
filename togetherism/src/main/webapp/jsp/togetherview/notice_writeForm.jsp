@@ -10,7 +10,8 @@
 </head>
 <body>
 	<form method=post action="notice_write.do" enctype="multipart/form-data">
-	<input type="hidden" value="${noticeDto.notice_reg_date }">
+	<input type="hidden" value="<fmt:formatDate value="${ noticeDto.notice_reg_date }" pattern="yyyy-MM-dd HH:mm:ss"/>">
+	
 		<div class="container">
 			<p><h1>관리자 > 공지사항 작성</h1></p>
 		</div>

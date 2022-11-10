@@ -31,45 +31,14 @@ import together.service.NoticeServiceImpl;
 public class NoticeController {
 	@Autowired
 	private NoticeServiceImpl noticeService;
-	@Autowired
-	private ManagerServiceImpl managerService;
 	
 	//공지사항 작성 폼 진입
 	@RequestMapping("notice_writeForm.do")
 	public String notice_writeForm () throws Exception {
-//	public String notice_writeForm (HttpSession session) throws Exception {
+		
 		System.out.println("공지사항 작성폼 컨트롤러 진입");
-		
-//		System.out.println("세션 값 조회");
-//		SessionScope.getNextId();
-//		String sessionValue = (String) session.getAttribute("manager_email");
-//		System.out.println(sessionValue);
-		
-//		//관리자 1명의 정보 가져오기
-//		ManagerDTO managerDto = managerService.getManager(sessionValue);
-//		
-//		1. 접근한 세션의 member_email / manager_email 여부를 파악한다
-//		  -> member 테이블 / manager 테이블이 별도 존재 하므로 manager 테이블에서 검색하기
-//		2-1. 접근 세션이 member_email 일 경우 manager 테이블에는 정보가 존재하지 않는다.
-//		2-2. 접근 세션이 비회원일 경우에도 manager 테이블에는 정보가 존재하지 않는다.
-//		3. manager_email 인 것이 판별될 경우에만 작성폼, 수정폼, 삭제폼 버튼을 노출시킨다.
-//		4. member_email 은 공지사항 리스트 조회, 공지사항 글 상세 보기만 가능하다.
-//		
-//		if(managerDto.getManager_email() == null ) {
-//			
-//			System.out.println("접근 권한이 없습니다");
-//			return "togetherview/notice_accessDenied";
-//			
-//		} else if (managerDto.getManager_email() != null) {
-//			
-//			System.out.println("관리자 권한이 확인되었습니다");
-//			
-//			return "togetherview/notice_writeForm";
-//			
-//		} // if end
-//		
-//		return null;
-		return "togertherview/notice_writeForm";
+
+		return "togetherview/notice_writeForm";
 	}
 	
 	//공지사항 작성 완료
@@ -122,7 +91,7 @@ public class NoticeController {
 				model.addAttribute("resultFile", resultFile);
 				System.out.println("지정된 확장자가 아닙니다.");
 				
-				return "togetherview/notice/notice_fileError";
+				return "togetherview/notice_fileError";
 			}
 		}
 		
@@ -336,6 +305,37 @@ public class NoticeController {
 		model.addAttribute("result", result);
 		
 		return "togetherview/notice_fileResult";
+	}
+	
+	//공지사항 최신글 3개 가져오기
+	@RequestMapping("notice_recent3.do")
+	public String notice_recent3 (Model model) throws Exception {
+		
+		System.out.println("공지사항 최신글3 컨트롤러 진입");
+		
+		List<NoticeDTO> noticeRecent = noticeService.getNoticeRecent();
+		
+		String noticeRecent0 = noticeRecent.get(0).getNotice_title();
+		String noticeRecent1 = noticeRecent.get(1).getNotice_title();
+		String noticeRecent2 = noticeRecent.get(2).getNotice_title();
+		int noticeRnum0 = noticeRecent.get(0).getNotice_num();
+		int noticeRnum1 = noticeRecent.get(1).getNotice_num();
+		int noticeRnum2 = noticeRecent.get(2).getNotice_num();
+		
+		for (int i=0; i<3; i++) {
+			System.out.println("공지사항 최신글 "+i+1+" : "+noticeRecent.get(i).getNotice_title());
+		}
+		
+		model.addAttribute("noticeRecent0", noticeRecent0);
+		model.addAttribute("noticeRecent1", noticeRecent1);
+		model.addAttribute("noticeRecent2", noticeRecent2);
+		model.addAttribute("noticeRnum0", noticeRnum0);
+		model.addAttribute("noticeRnum1", noticeRnum1);
+		model.addAttribute("noticeRnum2", noticeRnum2);
+		
+		System.out.println("공지사항 최신글3 구하기 성공");
+		
+		return "togetherview/header_notice";
 	}
 
 }

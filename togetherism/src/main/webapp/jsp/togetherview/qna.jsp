@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,104 +16,102 @@
 <script src="./js/qna_mailCheck.js"></script>
 </head>
 <body>
+<jsp:include page="../include/header.jsp"></jsp:include><br><br><br><br><br>
 <div class="container">
 	<p><h1>Q & A </h1></p>
 </div>
 <br><br>
 
 <!-- 투게더리즘 아코디언 시작 -->
-<div class="container">
-  <p><h2>자주 묻는 질문 - 투게더리즘</h2></p>
-</div>
-<div class="container">
-<div class="accordion" id="togetherism" style="width:60%">
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="together1">
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#togethercol1" aria-expanded="true" aria-controls="togethercol1">
-        Q. "투게더리즘"은 어떤 서비스인가요?
-      </button>
-    </h2>
-    <div id="togethercol1" class="accordion-collapse collapse show" aria-labelledby="together1" data-bs-parent="#togetherism">
-      <div class="accordion-body">
-      		"투게더리즘"은 온라인을 통해 인접 지역 사람들과 소통하고 만남으로 이어지는 <br><strong>'오프라인 모임'</strong> 서비스 입니다. <br>
-			인접 지역을 중심으로 개인이 원하는 모임을 찾아 가입해 활동할 수도 있고,<br>
-			직접 모임을 만들어 운영할 수도 있습니다.<br><br>
-			인접 지역 카테고리에 속한 모임을 통해 만난 사람들은 친구가 되어 <br>서로의 관심사와 취향을 알아갈 수 있습니다.<br><br>
-			친구들은 모임장이 주최하는 이벤트를 통해 취미 생활을 공유할 수도 있고,<br> 다양한 활동을 함께 하며 친밀감을 공유할 수 있습니다.
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-<!-- 투게더리즘 아코디언 종료 -->
+<section id="togetherism" class="p-5">
+	<div class="container">
+		<div class="accordion accordion-flush" id="together"><h3>TOGETHERISM</h3>
+			<!-- Item 1 -->
+			<div class="accordion-item">
+				<h2 class="accordion-header">
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#togethercol">
+							Q. "투게더리즘"은 어떤 서비스인가요?</button>
+				</h2>
+				<div id="togethercol" class="accordion-collapse collapse"data-bs-parent="#together">
+					<div class="accordion-body">
+						"투게더리즘"은 온라인을 통해 인접 지역 사람들과 소통하고 만남으로 이어지는 <br><strong>'오프라인 모임'</strong> 서비스 입니다. <br>
+						인접 지역을 중심으로 개인이 원하는 모임을 찾아 가입해 활동할 수도 있고,<br>
+						직접 모임을 만들어 운영할 수도 있습니다.<br><br>
+						인접 지역 카테고리에 속한 모임을 통해 만난 사람들은 친구가 되어 <br>서로의 관심사와 취향을 알아갈 수 있습니다.<br><br>
+						친구들은 모임장이 주최하는 이벤트를 통해 취미 생활을 공유할 수도 있고,<br> 다양한 활동을 함께 하며 친밀감을 공유할 수 있습니다.
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
 <br><br>
 
 <!-- 회원 아코디언 시작 -->
-<div class="container">
-  <p><h2>자주 묻는 질문 - 회원</h2></p>
-</div>
-<div class="container">
-<div class="accordion" id="member" style="width:60%">
-	<div class="accordion-item">
-		<h2 class="accordion-header" id="member1">
-			<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#membercol1" aria-expanded="true" aria-controls="membercol1">
-			Q. 닉네임을 변경하고 싶어요
-			</button>
-		</h2>
-		<div id="membercol1" class="accordion-collapse collapse" aria-labelledby="member1" data-bs-parent="#member">
-			<div class="accordion-body">
-			<Strong> 마이 페이지  > 회원정보 수정 </Strong> 메뉴에서 변경 가능하며,<br>
-			닉네임은 다른 회원과 중복될 수 없습니다.
+<section id="member" class="p-5">
+	<div class="container">
+		<div class="accordion accordion-flush" id="member"><h3>회원 관련 서비스</h3>
+			<!-- Item 1 -->
+			<div class="accordion-item">
+				<h2 class="accordion-header">
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#membercol1">
+							Q. 닉네임을 변경하고 싶어요</button>
+				</h2>
+				<div id="membercol1" class="accordion-collapse collapse"data-bs-parent="#member">
+					<div class="accordion-body">
+						<Strong> 마이 페이지  > 회원정보 수정 </Strong> 메뉴에서 변경 가능하며,<br>
+						닉네임은 다른 회원과 중복될 수 없습니다.
+					</div>
+				</div>
 			</div>
-		</div>
-	</div>
-	<div class="accordion-item">
-		<h2 class="accordion-header" id="member2">
-			<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#membercol2" aria-expanded="false" aria-controls="membercol2">
-			Q. 회원 신고 기준은 무엇인가요?<br>   신고당했을 경우 신고 당한 회원은 이 사실을 알 수 있나요?
-			</button>
-		</h2>
-		<div id="membercol2" class="accordion-collapse collapse" aria-labelledby="member2" data-bs-parent="#member">
-			<div class="accordion-body">
-			신고 메뉴에서 선택할 수 있는 기준은 다음과 같습니다.<br><br>
+			<!-- Item 2 -->
+			<div class="accordion-item">
+				<h2 class="accordion-header">
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#membercol2">
+						Q. 회원 신고 기준은 무엇인가요? 신고당했을 경우 신고 당한 회원은 이 사실을 알 수 있나요?</button>
+				</h2>
+				<div id="membercol2" class="accordion-collapse collapse"data-bs-parent="#member">
+					<div class="accordion-body">
+						신고 메뉴에서 선택할 수 있는 기준은 다음과 같습니다.<br><br>
 			
-			<li>욕설이나 비속어 사용</li>
-			<li>회원 간 분란조장</li>
-			<li>불법 금전 거래</li>
-			<li>이벤트 미참석</li>
-			<br>
-			매달 공지사항 게시판을 통해 신고당한 회원과 사유 목록을 공지하고 있습니다.
+						<li>욕설이나 비속어 사용</li>
+						<li>회원 간 분란조장</li>
+						<li>불법 금전 거래</li>
+						<li>이벤트 미참석</li>
+						<br>
+						매달 공지사항 게시판을 통해 신고당한 회원과 사유 목록을 공지하고 있습니다.
+					</div>
+				</div>
+			</div>
+			<!-- Item 3 -->
+			<div class="accordion-item">
+				<h2 class="accordion-header">
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#membercol3">
+						Q. 가입시 설정한 이메일을 변경할 수 있나요?</button>
+				</h2>
+				<div id="membercol3" class="accordion-collapse collapse"data-bs-parent="#member">
+					<div class="accordion-body">
+						가입 시 설정한 이메일은 회원의 고유한 아이디로 사용되기 때문에 변경할 수 없습니다.
+					</div>
+				</div>
+			</div>
+			<!-- Item 4 -->
+			<div class="accordion-item">
+				<h2 class="accordion-header">
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#membercol4">
+						Q. 이메일이 기억나지 않아요 / 비밀번호가 기억나지 않아요</button>
+				</h2>
+				<div id="membercol4" class="accordion-collapse collapse"data-bs-parent="#member">
+					<div class="accordion-body">
+						<strong> 로그인 > 이메일 찾기 / 비밀번호 찾기 </strong> 를 이용하시면 <br>
+						회원가입 시 입력한 이메일 주소로 선택하신 정보가 발송됩니다.<br>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-	<div class="accordion-item">
-		<h2 class="accordion-header" id="member3">
-			<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#membercol3" aria-expanded="false" aria-controls="membercol3">
-			Q. 가입시 설정한 이메일을 변경할 수 있나요?
-			</button>
-		</h2>
-		<div id="membercol3" class="accordion-collapse collapse" aria-labelledby="member3" data-bs-parent="#member">
-			<div class="accordion-body">
-			가입 시 설정한 이메일은 회원의 고유한 아이디로 사용되기 때문에 변경할 수 없습니다.
-			</div>
-		</div>
-	</div>
-	<div class="accordion-item">
-		<h2 class="accordion-header" id="member4">
-			<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#membercol4" aria-expanded="false" aria-controls="membercol4">
-			Q. 이메일이 기억나지 않아요 / 비밀번호가 기억나지 않아요
-			</button>
-		</h2>
-		<div id="membercol4" class="accordion-collapse collapse" aria-labelledby="member4" data-bs-parent="#member">
-			<div class="accordion-body">
-			<strong> 로그인 > 이메일 찾기 / 비밀번호 찾기 </strong> 를 이용하시면 <br>
-			회원가입 시 입력한 이메일 주소로 선택하신 정보가 발송됩니다.<br>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- 회원 아코디언 종료 -->
-<br><br>
+</section>
+<br>
 
 <!-- 회원 아코디언 시작 -->
 <div class="container">
@@ -180,7 +179,7 @@
   <p><h2>자주 묻는 질문 - 이벤트</h2></p>
 </div>
 <div class="container">
-<div class="accordion" id="event" style="width:60%">
+<div class="accordion" id="event" style="width:700px">
 	<div class="accordion-item">
 		<h2 class="accordion-header" id="event1">
 			<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#eventcol1" aria-expanded="true" aria-controls="eventcol1">
@@ -305,5 +304,8 @@
 </div>
 </form>
 <!-- 메일 폼 종료 -->
+
+<br><br><br><br><br>
+<jsp:include page="../include/footer.jsp"></jsp:include>
 </body>
 </html>

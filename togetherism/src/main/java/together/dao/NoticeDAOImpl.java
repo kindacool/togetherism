@@ -48,5 +48,10 @@ public class NoticeDAOImpl implements NoticeDAO{
 	public int fileDelete (int notice_num) {
 		return sqlSession.update("noticens.fileDelete", notice_num);
 	}
+	
+	//공지사항의 가장 최신글 3개 불러오기
+	public List<NoticeDTO> getNoticeRecent () {
+		return sqlSession.selectList("noticens.getNoticeRecent");
+	}
 
 }

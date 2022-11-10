@@ -414,4 +414,10 @@ public class ManagerController {
 		
 		return "togetherview/qna_mailResult";
 	}
+	
+	//about 페이지 진입
+	@RequestMapping("about.do")
+	public String about () {
+		return "togetherview/about";
+	}
 }

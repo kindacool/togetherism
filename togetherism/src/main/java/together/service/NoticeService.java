@@ -13,5 +13,6 @@ public interface NoticeService {
 	public int delete (int no);
 	public int update (NoticeDTO noticeDto);
 	public int fileDelete (int notice_num);
+	public List<NoticeDTO> getNoticeRecent ();
 
 }

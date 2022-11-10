@@ -17,6 +17,7 @@ $(function(){
 </script>
 </head>
 <body>
+<jsp:include page="../include/header.jsp"></jsp:include><br><br><br><br><br>
 <div class="container">
 	<p><h1>관리자 > 공지사항</h1></p>
 </div>

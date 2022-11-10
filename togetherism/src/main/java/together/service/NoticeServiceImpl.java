@@ -48,5 +48,10 @@ public class NoticeServiceImpl implements NoticeService {
 	public int fileDelete (int notice_num) {
 		return noticeDao.fileDelete(notice_num);
 	}
+	
+	//공지사항의 가장 최신글 3개 불러오기
+	public List<NoticeDTO> getNoticeRecent () {
+		return noticeDao.getNoticeRecent();
+	}
 
 }
