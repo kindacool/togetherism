@@ -11,8 +11,8 @@ public interface NoticeDAO {
 	public List<NoticeDTO> getNoticeList (int page);
 	public NoticeDTO getNotice (int notice_num);
 	public int delete (int no);
-	public int update1 (NoticeDTO noticeDto);
-	public int update2 (NoticeDTO noticeDto);
 	public int update (NoticeDTO noticeDto);
+	public int fileDelete (int notice_num);
+	public List<NoticeDTO> getNoticeRecent ();
 
 }

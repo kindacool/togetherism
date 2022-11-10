@@ -8,16 +8,23 @@ import java.util.UUID;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ibatis.sqlmap.engine.scope.SessionScope;
+
+import together.model.ManagerDTO;
 import together.model.NoticeDTO;
+import together.service.ManagerService;
+import together.service.ManagerServiceImpl;
 import together.service.NoticeServiceImpl;
 
 @Controller
@@ -27,8 +34,10 @@ public class NoticeController {
 	
 	//공지사항 작성 폼 진입
 	@RequestMapping("notice_writeForm.do")
-	public String notice_writeForm () {
+	public String notice_writeForm () throws Exception {
+		
 		System.out.println("공지사항 작성폼 컨트롤러 진입");
+
 		return "togetherview/notice_writeForm";
 	}
 	
@@ -82,7 +91,7 @@ public class NoticeController {
 				model.addAttribute("resultFile", resultFile);
 				System.out.println("지정된 확장자가 아닙니다.");
 				
-				return "togetherview/notice/notice_fileError";
+				return "togetherview/notice_fileError";
 			}
 		}
 		
@@ -91,7 +100,11 @@ public class NoticeController {
 			mf.transferTo(new File(path + "/" + newFilename));
 		}
 		
+		System.out.println();
+		
 		noticeDto.setNotice_file(newFilename);				// notice_file 컬럼에 newFilename 값 주입
+		
+		//공지사항 새 글 작성
 		int result = noticeService.insert(noticeDto);
 		if(result == 1) System.out.println("공지사항 작성 완료");
 		
@@ -103,7 +116,8 @@ public class NoticeController {
 	
 	//공지사항 게시판 목록
 	@RequestMapping("notice_list.do")
-	public String notice_list (HttpServletRequest request, Model model) {
+	public String notice_list (HttpServletRequest request, 
+							   Model model) throws Exception {
 		System.out.println("공지사항 게시판 목록 컨트롤러 진입");
 		
 		//page : 현재 페이지, limit : 한 화면에 출력할 페이지 개수
@@ -114,11 +128,11 @@ public class NoticeController {
 			page = Integer.parseInt(request.getParameter("page"));
 		}
 		
-		//총 데이터 개수
+		//공지사항 전체 글 개수
 		int noticeCount = noticeService.getCount();
 		System.out.println("데이터 개수: "+noticeCount);
 		
-		//글 목록 리스트
+		//공지사항 전체 글 데이터 리스트 객체로 가져오기
 		List<NoticeDTO> noticeList = noticeService.getNoticeList(page);
 		System.out.println("게시판 글 출력: "+noticeList);
 		
@@ -143,14 +157,15 @@ public class NoticeController {
 
 	//공지사항 글 상세 페이지
 	@RequestMapping("notice_content.do")
-	public String notice_content(int notice_num, int page, Model model) {
+	public String notice_content(int notice_num, int page, 
+								 Model model) throws Exception {
 		
 		System.out.println("글 상세 내용 컨트롤러 진입");
 
-		// 글 번호 notice_num을 매개로 글 정보 하나를 구해 오는 메소드
+		//공지사항 특정 글 가져오기
 		NoticeDTO noticeDto = noticeService.getNotice(notice_num);
 		
-		// 글 내용의 줄바꿈 처리
+		//글 내용의 줄바꿈 처리
 		String notice_content = noticeDto.getNotice_content().replace("\n", "<br>");
 		
 		model.addAttribute("notice_content", notice_content);
@@ -162,9 +177,10 @@ public class NoticeController {
 	
 	//공지사항 글 수정 폼 진입
 	@RequestMapping("notice_modifyForm.do")
-	public String notice_modifyForm(int notice_num, int page, Model model) {
+	public String notice_modifyForm(int notice_num, int page, 
+									Model model) throws Exception {
 		
-		// 글 번호 notice_num을 매개로 글 정보 하나를 구해 오는 메소드
+		//공지사항 특정 글 가져오기
 		NoticeDTO noticeDto = noticeService.getNotice(notice_num);
 		System.out.println("첨부파일명: "+noticeDto.getNotice_file());
 		
@@ -185,6 +201,7 @@ public class NoticeController {
 		System.out.println(noticeService.getNotice(noticeDto.getNotice_num()));
 		System.out.println("글 수정 컨트롤러 진입");
 		
+		//공지사항 특정 글 가져오기
 		noticeService.getNotice(noticeDto.getNotice_num());
 		
 		String fileName = mf.getOriginalFilename();
@@ -246,6 +263,7 @@ public class NoticeController {
 			noticeDto.setNotice_file(oldFilename.getNotice_file());
 		}
 		
+		//기존 글 수정
 		int result = noticeService.update(noticeDto);
 		System.out.println("글 수정 컨트롤러 2");
 		if(result == 1) System.out.println("공지사항 수정 완료");
@@ -260,15 +278,64 @@ public class NoticeController {
 	
 	//공지사항 삭제
 	@RequestMapping("notice_delete.do")
-	public String notice_deleteReally (int notice_num, Model model) {
+	public String notice_deleteReally (int notice_num, 
+									   Model model) throws Exception {
 		
 		System.out.println("글 삭제 컨트롤러 진입");
 		
-		int result = 0;
-		result = noticeService.delete(notice_num);
+		//공지사항 특정 글 삭제
+		int result = noticeService.delete(notice_num);
+		if(result == 1 ) System.out.println("글 삭제 완료");
 		
 		model.addAttribute("result", result);
 		
 		return "togetherview/notice_delete";
 	}
+	
+	//수정폼의 첨부파일 삭제
+	@RequestMapping("notice_modifyFile.do")
+	public String notice_modifyFile (int notice_num, 
+									 Model model) throws Exception {
+		
+		System.out.println("수정폼의 첨부파일 삭제 컨트롤러 진입");
+		//기존 글 수정 시 첨부파일 삭제
+		int result = noticeService.fileDelete(notice_num);
+		if(result == 1) System.out.println("notice_file 컬럼 null 처리 완료");
+		
+		model.addAttribute("result", result);
+		
+		return "togetherview/notice_fileResult";
+	}
+	
+	//공지사항 최신글 3개 가져오기
+	@RequestMapping("notice_recent3.do")
+	public String notice_recent3 (Model model) throws Exception {
+		
+		System.out.println("공지사항 최신글3 컨트롤러 진입");
+		
+		List<NoticeDTO> noticeRecent = noticeService.getNoticeRecent();
+		
+		String noticeRecent0 = noticeRecent.get(0).getNotice_title();
+		String noticeRecent1 = noticeRecent.get(1).getNotice_title();
+		String noticeRecent2 = noticeRecent.get(2).getNotice_title();
+		int noticeRnum0 = noticeRecent.get(0).getNotice_num();
+		int noticeRnum1 = noticeRecent.get(1).getNotice_num();
+		int noticeRnum2 = noticeRecent.get(2).getNotice_num();
+		
+		for (int i=0; i<3; i++) {
+			System.out.println("공지사항 최신글 "+i+1+" : "+noticeRecent.get(i).getNotice_title());
+		}
+		
+		model.addAttribute("noticeRecent0", noticeRecent0);
+		model.addAttribute("noticeRecent1", noticeRecent1);
+		model.addAttribute("noticeRecent2", noticeRecent2);
+		model.addAttribute("noticeRnum0", noticeRnum0);
+		model.addAttribute("noticeRnum1", noticeRnum1);
+		model.addAttribute("noticeRnum2", noticeRnum2);
+		
+		System.out.println("공지사항 최신글3 구하기 성공");
+		
+		return "togetherview/header_notice";
+	}
+
 }

@@ -1,22 +1,40 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="../include/top.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>공지사항 수정</title>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="./js/notice_writeForm.js"></script>
 <script>
-	var notice_file = document.getElementById("img");
+/* 	$(function(){
+		$("#imgdelbtn").click(function(){
+			if(confirm("첨부한 이미지를 삭제하시겠습니까?")){
+				var data = { "notice_num" : ${noticeDto.notice_num} }
+				$.post("notice_modifyFile.do", data, function(result){
+					if(result == 1){
+						$(".fileDelete").text("");
+					} // if end
+				}); // post end
+			} // if end
+	   });	// click end
+   }); */
 	
-	if(img.value != "") {
-		if (confirm ("기존 첨부파일을 삭제하시겠습니까?")) {
-			img.val = "";
-		}
-	}
+	$(function() {
+		$("#imgdelbtn").click(function(){
+			if(confirm("첨부한 이미지를 삭제하시겠습니까?")) {
+				var data = { "notice_num" : ${noticeDto.notice_num} }
+				
+				$.post("notice_modifyFile.do", data, function(result) {
+					if(result == 1 ) {
+						$(".fileDelete").text("");
+					}
+				});// post end
+			} 
+		}); // click end
+	}); //main function end
 </script>
 </head>
 <body>
@@ -28,25 +46,56 @@
 		</div>
 		<p>
 		<div align="center">
-			<div>
-				작성자 : <input type="text" name="manager_email" id="manager_email" value="${noticeDto.manager_email }" width="200" readonly="readonly">
-			</div>
-			<div>
-				제목 : <input type="text" name="notice_title" id="notice_title" value="${noticeDto.notice_title }" width="400px"><br>
-			</div>
-			<div>
-				내용 : <textarea name="notice_content" id="notice_content">${noticeDto.notice_content }</textarea><br>
-			</div>
-			<div>
-				<img src="<%=request.getContextPath() %>/upload/${noticeDto.notice_file}" /><br><br><br>
-				새로운 첨부파일 : <input type="file" name="notice_file1" class="form-control form-control-sm" style="width: 400px"><br>
-				기존 첨부파일 : <input id=img class="form-control" type="text" value="${noticeDto.notice_file }" aria-label="readonly input example" readonly style="width: 400px">
-				<input type="button" id=imgdelbtn class="btn btn-outline-danger" style="width: 100" value="이미지 삭제" onClick="">
-			</div>
+		<table class="table table-borderless w-auto">
+			<tr>
+				<th align="right" style="width: 200px"> 작성자 </th>
+				<td align="left" style="width: 500px">
+					<input type="text" name="manager_email" id="manager_email" value="관리자" class="form-control" style="width: 500px" readonly="readonly">
+				</td>
+			</tr>
+			<tr>
+				<th align="right" style="width: 200px"> 제목 </th> 
+				<td align="left" style="width: 500px"> 
+					<input type="text" name="notice_title" id="notice_title" value="${noticeDto.notice_title }" class="form-control" style="width: 500px">
+				</td>
+			</tr>
+			<tr>
+				<th align="right" style="width: 200px"> 내용 </th>
+				<td align="left" style="width: 500px">
+					<textarea name="notice_content" id="notice_content" class="form-control" rows="10" cols="10">${noticeDto.notice_content }</textarea><br>
+				</td>
+			</tr>
+			<tr>
+				<th align="right" style="width: 200px"> 첨부파일 </th>
+				<td align="left" style="width: 500px">
+					<input type="file" name="notice_file1" class="form-control form-control-sm" style="width: 500px">
+				</td>
+				
+			<c:if test="${empty noticeDto.notice_file }">	
+				&nbsp;
+			</c:if>
+				
+			<!-- 첨부한 파일이 있을 경우 -->
+			<c:if test="${ not empty noticeDto.notice_file }">
+			<tr class="fileDelete">
+				<th align="right" style="width: 200px"> 기존 첨부파일 </th>
+				<td align="left" style="width: 500px">
+					<input id=img class="form-control" type="text" value="${noticeDto.notice_file }" aria-label="readonly input example" readonly style="width: 500px">
+					<input type="button" id="imgdelbtn" class="btn btn-outline-danger" value="이미지 삭제">
+				</td>
+			</tr>
+			</c:if>
+		
 		</p>
 			<div>
-				<button type="submit" class="btn btn-primary" style="width: 300px">수정</button>
-				<button type="reset" class="btn btn-warning" style="width: 300px" onClick="history.go(-1)">취소</button>
+			<table class="table table-borderless w-auto">
+				<tr>
+					<td style="width:700"; align="center";>
+						<button type="submit" class="btn btn-primary">수정</button>
+						<button type="reset" class="btn btn-warning" onClick="history.go(-1)">취소</button>
+					</td>
+				</tr>
+			</table>
 			</div>
 		</div>
 	</form>
