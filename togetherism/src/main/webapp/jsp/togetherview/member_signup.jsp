@@ -12,11 +12,13 @@
 </head>
 
 <body>
-	<h1>Togetherism</h1>
+
+<jsp:include page="../include/header.jsp"></jsp:include><br><br><br><br><br>
+
 	<form action="<%=request.getContextPath()%>/member_signup_ok.do" method="post"
 	enctype="multipart/form-data" onSubmit="return check()">
 	<h3>Togetherism 회원가입</h3>
-	<table align="center" cellpadding="10">
+	<table align="center" cellpadding="10" style="background-color: #5e17eb">
 
 		<!----- Email Id ---------------------------------------------------------->
 		<tr>
@@ -107,7 +109,9 @@
 	</table>
 
 	</form>
-<footer> 고객센터 저작권 </footer>
+
+<br><br><br><br><br>
+<jsp:include page="../include/footer.jsp"></jsp:include>
 
 </body>
 </html>

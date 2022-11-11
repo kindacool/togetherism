@@ -11,7 +11,10 @@
 <script src="./js/member.js"></script>
 
 </head>
+
 <body>
+<jsp:include page="../include/header.jsp"></jsp:include><br><br><br><br><br>
+
   <div id="edit_wrap">
   <h2 class="edit_title">회원수정</h2>
   <form action="member_edit_ok.do" method="post"
@@ -108,4 +111,7 @@
   </form>
  </div>
 </body>
+
+<br><br><br><br><br>
+<jsp:include page="../include/footer.jsp"></jsp:include>
 </html>

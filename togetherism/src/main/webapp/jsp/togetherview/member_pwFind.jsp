@@ -34,6 +34,9 @@ function check(){
 </script>
 </head>
 <body>
+<jsp:include page="../include/header.jsp"></jsp:include><br><br><br><br><br>
+
+
  <c:if test="${empty pwdok}"> 
  <form action="<%=request.getContextPath()%>/member_pwfind_ok.do" method="post" onSubmit="return check()">
  <h2 align="center">비밀번호 찾기</h2>
@@ -75,5 +78,8 @@ function check(){
     </table>
     
 </c:if> 
+
+<br><br><br><br><br>
+<jsp:include page="../include/footer.jsp"></jsp:include>
 </body>
 </html>

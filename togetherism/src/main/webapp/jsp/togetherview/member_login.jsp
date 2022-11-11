@@ -50,6 +50,9 @@ function pwd_find(){
 <div class="logo text-left">
 	<h1>Togetherism</h1>
 </div>
+<jsp:include page="../include/header.jsp"></jsp:include><br><br><br><br><br>
+
+
 <div class="wrapper">
 	<div class="inner-warpper text-center">
 		<h2 class="title">Togetherism 로그인</h2>
@@ -63,7 +66,7 @@ function pwd_find(){
 					<span class="lighting"></span>
 				</div>
 				
-				<button type="submit" id="login">로그인하기</button>
+				<button type="submit" id="login" style="background-color: #5e17eb">로그인하기</button>
 				
 				<div class="clearfix supporter">
 					<div class="pull-left remember-me">
@@ -82,6 +85,8 @@ function pwd_find(){
 		</a>
 	</div>
 </div>
+
+<br><br><br><br><br>
+<jsp:include page="../include/footer.jsp"></jsp:include>
 </body>
-<footer>고객센터 저작권</footer>
 </html>

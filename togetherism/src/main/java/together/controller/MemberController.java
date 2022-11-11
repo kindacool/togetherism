@@ -45,7 +45,7 @@ public class MemberController {
 			model.addAttribute("header_result", header_result);
 		}
 		
-		return "togetherview/header_member";
+		return "include/header_member";
 	}
 	
 	

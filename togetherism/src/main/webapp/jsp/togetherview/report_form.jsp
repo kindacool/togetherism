@@ -17,6 +17,7 @@ function check(){
 </script>
 </head>
 <body>
+<jsp:include page="../include/header.jsp"></jsp:include><br><br><br><br><br>
 
 <form method="post" action="<%=request.getContextPath()%>/report_ok.do"
 	onSubmit="return check()">
@@ -54,6 +55,9 @@ function check(){
 	
 </table>
 </form>
+
+<br><br><br><br><br>
+<jsp:include page="../include/footer.jsp"></jsp:include>
 
 </body>
 </html>

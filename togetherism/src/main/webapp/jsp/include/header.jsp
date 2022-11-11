@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,6 +30,14 @@
 		$("#noticeRecent").load("<%=request.getContextPath()%>/notice_recent.do")
 	}); --%>
 </script>
+
+<script type="text/javascript">	
+$(function(){
+	$("#ttt").load("header_member.do");
+});
+
+</script>
+
 </head>
 <body>
 	<!-- 로고 -->
@@ -49,37 +58,74 @@
 				<!-- 최신 공지사항 불러오기 -->
 				<div id="noticeRecent"></div>
 				
+				
+				<!-- 로그인 안했을 때 프로필 -->
+				<c:if test="${empty sessionScope.email }"> 
 				<!--  기업소개 버튼 -->
 				<div class="collapse navbar-collapse" id="navmenu">
-				
 					<ul class="navbar-nav ms-auto">
-						
 						<li class="nav-item"><a href="<%=request.getContextPath()%>/about.do" class="nav-link">About</a>
 						</li>
-						<li class="nav-item"><a href="#questions" class="nav-link"></a>
-						</li>
-
-						<!-- 프로필 -->
-
-						<li class="nave-item"><a href="#"><img
-								src="<%=request.getContextPath()%>/images/profile_pic.png"
-								alt="프로필사진" width="30" height="30" style="border-radius: 50%;" />
+						
+						<li class="nave-item"><a href="#" class="nav-link">
+						</a></li>
+						
+						<li class="nave-item">
+						<img src="<%=request.getContextPath()%>/images/profile_pic.png"
+							 width="80" height="80" style="border-radius: 50%;" />
+						</a>
+						
+						<li class="nave-item"><a href="#" class="nav-link">
 						</a></li>
 
 						<!-- 프로필 & 드롭다운 -->
 						<div class="dropdown">
 							<a class="btn btn-secondary dropdown-toggle" href="#"
-								role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
+								role="button" id="dropdownMenuLink" data-toggle="dropdown"
 								aria-expanded="false" style="background-color: #5e17eb"> 프로필
 							</a>
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<li><a class="dropdown-item" href="#">로그인/로그아웃</a></li>
-								<li><a class="dropdown-item" href="#">회원가입/정보수정</a></li>
+								<li><a class="dropdown-item" href="<%=request.getContextPath()%>/member_login.do">로그인</a></li>
+								<li><a class="dropdown-item" href="<%=request.getContextPath()%>/member_signup.do">회원가입</a></li>
+							</ul>
+						</div>
+					</ul>
+				</div>
+				</c:if>	
+						
+						
+				<!-- 로그인 했을 때 프로필 -->
+				<c:if test="${!empty sessionScope.email}">
+				<div class="collapse navbar-collapse" id="navmenu">
+					<ul class="navbar-nav ms-auto">
+						<li class="nav-item"><a href="<%=request.getContextPath()%>/about.do" class="nav-link">About</a>
+						</li>
+						
+						<li class="nave-item"><a href="#" class="nav-link">
+						</a></li>	
+						
+						<li class="nave-item"><a href="#">
+							<div id="ttt"></div>
+						</a></li>
+						
+						<li class="nave-item"><a href="#" class="nav-link">
+						</a></li>
+						
+						<div class="dropdown">
+							<a class="btn btn-secondary dropdown-toggle" href="#"
+								role="button" id="dropdownMenuLink" data-toggle="dropdown"
+								aria-expanded="false" style="background-color: #5e17eb"> 프로필
+							</a>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<li><a class="dropdown-item" href="<%=request.getContextPath()%>/member_logout.do">로그아웃</a></li>
+								<li><a class="dropdown-item" href="<%=request.getContextPath()%>/member_edit.do">정보수정</a></li>
 								<li><a class="dropdown-item" href="#">마이페이지 </a></li>
 							</ul>
 						</div>
 					</ul>
 				</div>
+			</c:if>
+			
 			</div>
 		</nav>
 		<!-- 카테고리 -->

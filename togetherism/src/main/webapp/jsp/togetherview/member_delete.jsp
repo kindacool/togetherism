@@ -24,6 +24,9 @@
 </script>
 </head>
 <body>
+<jsp:include page="../include/header.jsp"></jsp:include><br><br><br><br><br>
+
+
  <div id="del_wrap">
   <h2 class="del_title">회원 탈퇴</h2>
   <form method="post" action="<%=request.getContextPath() %>/member_delete_ok.do" 
@@ -72,5 +75,8 @@
     </div>
   </form>
  </div>
+ 
+<br><br><br><br><br>
+<jsp:include page="../include/footer.jsp"></jsp:include>
 </body>
 </html>

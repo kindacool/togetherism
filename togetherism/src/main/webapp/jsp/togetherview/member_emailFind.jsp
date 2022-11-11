@@ -34,6 +34,8 @@ function check(){
 </script>
 </head>
 <body>
+<jsp:include page="../include/header.jsp"></jsp:include><br><br><br><br><br>
+
  <c:if test="${empty old}"> 
  <form action="<%=request.getContextPath()%>/member_emailfind_ok.do" method="post" onSubmit="return check()">
  <h2 align="center">이메일 찾기</h2>
@@ -75,6 +77,9 @@ function check(){
      </tr>
     </table>
     
-</c:if> 
+</c:if>
+
+<br><br><br><br><br>
+<jsp:include page="../include/footer.jsp"></jsp:include> 
 </body>
 </html>

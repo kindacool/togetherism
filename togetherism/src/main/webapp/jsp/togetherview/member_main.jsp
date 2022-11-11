@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<%@ include file="header_test.jsp"%>   
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
 <!DOCTYPE html>
 <html>
@@ -12,6 +10,7 @@
 
 </head>
 <body>
+<jsp:include page="../include/header.jsp"></jsp:include><br><br><br><br><br>
 
 <c:if test="${sessionScope.email == null }"> 
 <br>
@@ -48,5 +47,9 @@
    </form>
  </div>
 </c:if>
+
+
+<br><br><br><br><br>
+<jsp:include page="../include/footer.jsp"></jsp:include>
 </body>
 </html>
