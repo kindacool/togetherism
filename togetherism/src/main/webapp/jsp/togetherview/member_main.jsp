@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%@ include file="header_test.jsp"%>   
 
 <!DOCTYPE html>
 <html>
@@ -12,10 +14,8 @@
 <body>
 
 <c:if test="${sessionScope.email == null }"> 
-  <script>
-   alert("다시 로그인 해주세요!");
-   location.href="<%=request.getContextPath()%>/member_login.do";
-  </script>
+<br>
+로그인하세용~
 </c:if>
 
 <c:if test="${sessionScope.email != null }">  
@@ -35,7 +35,7 @@
     
     <tr>
      <th>회원이름</th>
-     <td>${member_nickname}님 로그인을 환영합니다</td>
+     <td>${member_nickname}님 로그인을 환영합니다(메인부분)</td>
     </tr>
     
     <tr>

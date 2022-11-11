@@ -41,6 +41,8 @@ public class ClubController {
 			Model model) throws Exception {
 		
 		System.out.println("Club 컨트롤러 들어옴");
+		
+		String session_email = (String) session.getAttribute("email");
 
 		String filename = mf.getOriginalFilename();
 		int size = (int) mf.getSize();
@@ -84,8 +86,9 @@ public class ClubController {
 		}
 
 		clubdto.setClub_image(newfilename);
-
-
+		clubdto.setClub_host_email(session_email);
+		
+	
 		clubservice.insertClub(clubdto);
 		
 		Club_Member_JoinDTO clubmjdto = new Club_Member_JoinDTO();
@@ -94,12 +97,11 @@ public class ClubController {
 		ClubDTO old = clubservice.bringclubname(clubdto.getClub_name());
 		
 		clubmjdto.setClub_num(old.getClub_num());
-		
-		String session_email = (String) session.getAttribute("email");
-		clubmjdto.setMember_email(session_email);
+		clubmjdto.setMember_email(old.getClub_host_email());
 		
 		
 		clubservice.insertClub_Member_Join(clubmjdto);
+		
 		model.addAttribute("club_num", clubdto.getClub_num());
 
 		return "togetherview/club_welcome";

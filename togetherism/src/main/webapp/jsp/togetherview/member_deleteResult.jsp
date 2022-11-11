@@ -3,6 +3,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
+
+<c:if test="${result == 0}">
+	<script>
+		alert("모임장일 경우, 모임장인 모임을 모두 삭제 후 회원 탈퇴가 가능합니다.");
+		history.go(-1);
+	</script>
+</c:if> 
+
+
 <c:if test="${result == 1}">
 	<script>
 		alert("비밀번호가 등록된 정보와 일치하지 않습니다.");

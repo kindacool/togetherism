@@ -1,6 +1,7 @@
 package together.controller;
 
 import java.io.File;
+import java.util.List;
 import java.util.StringTokenizer;
 import java.util.UUID;
 
@@ -17,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import together.model.Club_Member_JoinDTO;
 import together.model.MemberDTO;
+import together.service.Event_User_AttendServiceImpl;
 import together.service.MemberServiceImpl;
 
 
@@ -26,6 +29,24 @@ public class MemberController {
 
 	@Autowired
 	private MemberServiceImpl memberService;
+	
+	
+	/* 헤더부분 처리 */
+	@RequestMapping(value="/header_member.do")
+	public String header(HttpSession session, Model model) throws Exception {
+		
+		String email = (String) session.getAttribute("email");
+	
+		
+		if(email==null) {
+			model.addAttribute("header_result", "null");
+		}else {
+			MemberDTO header_result = memberService.userCheck(email);
+			model.addAttribute("header_result", header_result);
+		}
+		
+		return "togetherview/header_member";
+	}
 	
 	
 	/* ID중복검사 ajax함수로 처리부분 */
@@ -39,6 +60,7 @@ public class MemberController {
 		return "togetherview/member_idcheckResult";
 	}
 	
+	
 	/* nickname 중복검사 ajax함수로 처리부분 */
 	@RequestMapping(value = "/member_nickcheck.do")
 	public String member_nickcheck(@RequestParam("memnick") String member_nickname,
@@ -49,6 +71,7 @@ public class MemberController {
 		return "togetherview/member_nickcheckResult";
 	}
 	
+	
 	/* 로그인 폼 뷰 */
 	@RequestMapping(value = "/member_login.do")
 	public String member_login() {
@@ -56,12 +79,14 @@ public class MemberController {
 		// togetherview 폴더의 member_login 뷰 페이지 실행
 	}
 	
+	
 	/* email 찾기 폼 뷰*/
 	@RequestMapping(value = "/member_emailfind.do")
 	public String member_emailFind() {
 		return "togetherview/member_emailFind";
 		// togetherview 폴더의 member_emailFind 뷰 페이지 실행
 	}
+	
 	
 	/* email 찾기 완료  */
 	@RequestMapping(value = "/member_emailfind_ok.do")
@@ -81,12 +106,14 @@ public class MemberController {
 		}
 	}
 	
+	
 	/* 비밀번호 찾기 폼 뷰 */
 	@RequestMapping(value = "/member_pwfind.do")
 	public String member_pwfind() {
 		return "togetherview/member_pwFind";
 		// togetherview 폴더의 member_pwFind 뷰 페이지 실행
 	}
+	
 	
 	/* 비밀번호 찾기 완료  */
 	@RequestMapping(value = "/member_pwfind_ok.do")
@@ -140,6 +167,7 @@ public class MemberController {
 		}
 	}
 	
+	
 	/* 회원가입 폼 */
 	@RequestMapping(value = "/member_signup.do")
 	public String member_signup() {
@@ -147,6 +175,7 @@ public class MemberController {
 		return "togetherview/member_signup";
 		// togetherview 폴더의 member_signup 뷰 페이지 실행
 	}
+	
 	
 	/* 회원가입 저장 */
 	@RequestMapping(value = "/member_signup_ok.do")
@@ -368,35 +397,63 @@ public class MemberController {
 	}
 	
 	
-	/* 회원정보 삭제 완료 */
+	/* 회원정보 삭제 */
 	@RequestMapping(value = "/member_delete_ok.do")
 	public String member_del_ok(String member_pw, String member_del_reason,
 								Model model,
 							    HttpSession session) throws Exception {
-		int result = 1;
+		int result = 0;
+		
 		String email = (String) session.getAttribute("email");
+		
+		List<Club_Member_JoinDTO> hostyn = memberService.checkHost(email);
+		
+		System.out.println(hostyn);
+		
+		//비번 비교를 위해 정보 불러옴
 		MemberDTO old = memberService.userCheck(email);
+		
 
-		if (!old.getMember_pw().equals(member_pw)) {
-			
+		if (!(hostyn.isEmpty())) {		// 모임장일 경우
 			model.addAttribute("result", result);
 			return "togetherview/member_deleteResult";
 			
-		} else {// 비번이 같은 경우
-			
-			MemberDTO member = new MemberDTO();
-			member.setMember_email(email);;
-			member.setMember_del_reason(member_del_reason);;
+		}else {
+			if(!old.getMember_pw().equals(member_pw)) {	// 비번 불일치
+				result = 1;
+				model.addAttribute("result", result);
+				return "togetherview/member_deleteResult";
+				
+			}else {												// 비번 일치
+				
+				MemberDTO member = new MemberDTO();
+				member.setMember_email(email);;
+				member.setMember_del_reason(member_del_reason);;
+				
+				
+				//1. 모임가입 삭제
+				memberService.deleteJoinclub(email);
+				
+				//2. 탈퇴하는 회원이 가입한 모임들의 현재 정원을 -1명 시키기
+				memberService.reduceClubmemeber(email);
+				
+				//3. 좋아요 삭제
+				memberService.deleteHeart(email);
+				
+				//4. 이벤트 참석 삭제
+				memberService.deleteEventattend(email);
+				
 
-			memberService.deleteMember(member);// 삭제 메서드 호출
-			
-			result = 2;
-			
-			model.addAttribute("result", result);
+				memberService.deleteMember(member);// 삭제 메서드 호출
+				
+				result = 2;
+				
+				model.addAttribute("result", result);
 
-			session.invalidate();	// 세션만료
+				session.invalidate();	// 세션만료
 
-			return "togetherview/member_deleteResult";
+				return "togetherview/member_deleteResult";
+			}
 		}
 	}
 	

@@ -22,4 +22,6 @@ public class ClubDTO {
 	   private Date club_del_date;
 	   private int club_viewcount;
 	   
+
+
 }

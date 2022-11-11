@@ -1,5 +1,8 @@
 package together.service;
 
+import java.util.List;
+
+import together.model.Club_Member_JoinDTO;
 import together.model.MemberDTO;
 
 
@@ -21,8 +24,14 @@ import together.model.MemberDTO;
 
 	public void deleteMember(MemberDTO member) throws Exception;
 	
+	public List<Club_Member_JoinDTO> checkHost(String email) throws Exception;
 	
+	public void deleteJoinclub(String email) throws Exception;
 	
+	public void deleteHeart(String email) throws Exception;
 	
+	public void deleteEventattend(String email) throws Exception;
+	
+	public void reduceClubmemeber(String email) throws Exception;
 
 }

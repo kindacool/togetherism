@@ -1,6 +1,8 @@
 package together.model;
 
-import java.sql.Date;
+
+
+import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,6 +10,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class MemberDTO {
+
    
    private String member_email;
    private String member_nickname;
@@ -26,3 +29,4 @@ public class MemberDTO {
    private String keyword;
  
 }
+
