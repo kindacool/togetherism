@@ -25,12 +25,12 @@ public class Event_User_MemberController {
 	private Event_User_AttendServiceImpl euaService;
 	
 	/* 선택한 이벤트 참석 이력 */
-	@RequestMapping(value = "/event_user_attend_check.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/event_user_attend_ok.do", method = RequestMethod.GET)
 	public String event_user_attend_check(int event_num,
 											int club_num,
 											HttpSession session,
 											Model model) throws Exception{
-		int result = -1; 		
+		int result = 0; 		
 		String email = (String) session.getAttribute("email");
 
 		
@@ -38,52 +38,27 @@ public class Event_User_MemberController {
 		Club_Member_JoinDTO cmjdto = new Club_Member_JoinDTO();
 		cmjdto.setClub_num(club_num);
 		cmjdto.setMember_email(email);
-		
 		Club_Member_JoinDTO join = euaService.joinCheck(cmjdto);
 		
 		
-		//이벤트 참석 이력 검색 
-		Event_User_AttendDTO euadto = new Event_User_AttendDTO();
-		euadto.setEvent_num(event_num);
-		euadto.setMember_email(email);
 		
-		Event_User_AttendDTO attend = euaService.attendCheck(euadto);
-		
-		if(join != null) {	// 모임에 가입한 사람	
+		if(join != null) {	// 모임에 가입한 사람
+			Event_User_AttendDTO euadto = new Event_User_AttendDTO();
+			euadto.setEvent_num(event_num);
+			euadto.setMember_email(email);
+			Event_User_AttendDTO attend = euaService.attendCheck(euadto);
+			
 			if(attend == null ) {	// 모임에 가입했는데 이벤트에 참석하지 않은 사람
-				result = 0;
+				result = euaService.attendInsert(euadto);
+				
 			}else {					// 모임에 가입했는데 이벤트에 참석한 사람
-				result = 1;
+				result = 2;
+				
 			}
-		}
+		}// 모임에 가입하지 않은 사람: result = 0
 		
-		
-		// 모임에 가입하지 않은 사람: result = -1
 		
 		model.addAttribute("result", result);
-		model.addAttribute("event_num", event_num);
-		model.addAttribute("club_num", club_num);
-		
-		return "togetherview/Event_User_Attend_Button";
-	}
-	
-	
-	/* 이벤트 참여 */
-	@RequestMapping(value = "/event_user_attend_ok.do", method = RequestMethod.GET)
-	public String event_user_attend_ok(int event_num,
-										int club_num,
-										HttpSession session,
-										Model model) throws Exception{
-		
-		String email = (String) session.getAttribute("email");
-		
-		Event_User_AttendDTO euadto = new Event_User_AttendDTO();
-		euadto.setEvent_num(event_num);
-		euadto.setMember_email(email);
-		
-		int result1 = euaService.attendInsert(euadto);
-		
-		model.addAttribute("result1", result1);
 		model.addAttribute("event_num", event_num);
 		model.addAttribute("club_num", club_num);
 		
@@ -104,9 +79,10 @@ public class Event_User_MemberController {
 		euadto.setEvent_num(event_num);
 		euadto.setMember_email(email);
 		
-		int result2 = euaService.attendDelete(euadto);
+		euaService.attendDelete(euadto);
+		int result = 3;
 		
-		model.addAttribute("result2", result2);
+		model.addAttribute("result", result);
 		model.addAttribute("event_num", event_num);
 		model.addAttribute("club_num", club_num);
 		

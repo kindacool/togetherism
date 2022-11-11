@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="header_test.jsp"%>      
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -18,6 +19,7 @@
 				<td colspan=2><div align="center">이벤트 제목</div></td>
 				<td><div align="center">이벤트 장소</div></td>
 				<td><div align="center">이벤트 날짜</div></td>
+				<td><div align="center">참석 취소</div></td>
 			</tr>
 	
 			<!-- 반복문 시작 -->
@@ -29,12 +31,17 @@
      			</td>
 				<td><div align="center">		
 					<!-- 제목 출력 부분 -->	
-					<a href="">
+					<a href="<%=request.getContextPath() %>/event_cont.do?club_num=${my.club_num}&event_num=${my.event_num }&eventPage=1&state=cont">
 							${my.event_title}
 					</a>
 				</td>
 				<td><div align="center">${my.event_region}</div></td>
 				<td><div align="center">${my.event_date}</div></td>
+				<td>
+				<input type="button" value="참석 취소" 
+				onclick="location.href=
+				'<%=request.getContextPath() %>/event_user_attend_no.do?event_num=${my.event_num }&club_num=${my.club_num}'"/>
+				</td>
 			</tr>
 			
 			</c:forEach>

@@ -3,16 +3,30 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-<c:if test="${result1 == 1}">
+<c:if test="${result == 0}">
+	<script>
+		alert("이벤트 참석을 희망하실 경우, 모임 가입 후 이벤트 참석이 가능합니다.");
+		history.go(-1);
+	</script>
+</c:if> 
+
+<c:if test="${result == 1}">
 	<script>
 		alert("참여 등록되었습니다.");
-		location.href = "event_user_attend_check.do?event_num=${event_num}&club_num=${club_num}";
+		history.go(-1);
 	</script>
 </c:if>   
 
-<c:if test="${result2 == 1}">
+<c:if test="${result == 2}">
 	<script>
-		alert("참여 취소되었습니다.");
-		location.href = "event_user_attend_check.do?event_num=${event_num}&club_num=${club_num}";
+		alert("이미 참석 등록하신 이벤트입니다.");
+		history.go(-1);
 	</script>
-</c:if>  
+</c:if>
+
+<c:if test="${result == 3}">
+	<script>
+		alert("이벤트 참석이 취소되었습니다.");
+		location.href = "<%=request.getContextPath()%>/event_user_attend_mylistPaging.do";
+	</script>
+</c:if> 

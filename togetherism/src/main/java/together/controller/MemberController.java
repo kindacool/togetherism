@@ -31,6 +31,24 @@ public class MemberController {
 	private MemberServiceImpl memberService;
 	
 	
+	/* 헤더부분 처리 */
+	@RequestMapping(value="/header_member.do")
+	public String header(HttpSession session, Model model) throws Exception {
+		
+		String email = (String) session.getAttribute("email");
+	
+		
+		if(email==null) {
+			model.addAttribute("header_result", "null");
+		}else {
+			MemberDTO header_result = memberService.userCheck(email);
+			model.addAttribute("header_result", header_result);
+		}
+		
+		return "togetherview/header_member";
+	}
+	
+	
 	/* ID중복검사 ajax함수로 처리부분 */
 	@RequestMapping(value = "/member_emailcheck.do")
 	public String member_idcheck(@RequestParam("mememail") String member_email,

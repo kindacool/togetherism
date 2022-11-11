@@ -8,11 +8,8 @@
 </head>
 <body>
 
-<%-- <input type="button" value="신고하기" 
- 	onclick="location='<%=request.getContextPath()%>/report_check.do?member_email=${member_email}'"/> --%>
-
 <input type="button" value="신고하기" 
- 	onclick="location='<%=request.getContextPath()%>/report_check.do?member_email=test10@gmail.com'"/>
+ 	onclick="location='<%=request.getContextPath()%>/report_check.do?member_email=${member_email}'"/>
 
 </body>
 </html>
