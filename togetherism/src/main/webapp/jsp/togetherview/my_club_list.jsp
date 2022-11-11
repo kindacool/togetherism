@@ -11,7 +11,7 @@
 </head>
 <body>
 <c:if test="${empty myClubList}">
-<div class="alert alert-warning" role="alert" style="width: 640px;">
+<div class="alert alert-warning" role="alert" style="width: 800px;">
 	현재 내가 운영하는 모임이 없습니다! <a href="#" class="alert-link">모임 만들러 가기</a>
 </div>
 </c:if>
@@ -20,7 +20,7 @@
 <c:if test="${not empty joinedClist}">
 <c:set var="no1" value="${no}"></c:set><!-- 화면출력번호 -->
 <c:forEach var="i" items="${joinedClist}"> 
-<div class="card mb-3 border-warning" style="width: 640px; height: 200px;">
+<div class="card mb-3 border-warning" style="width: 800px; height: 250px;">
   <div class="row no-gutters">
     <div class="col-md-4">
     <img src="<%=request.getContextPath() %>/upload/${i.club_image}" class="card-img" style="width:100%; height:100%" alt="${i.club_image}"/>

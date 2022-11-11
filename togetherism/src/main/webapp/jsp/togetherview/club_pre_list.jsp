@@ -15,7 +15,7 @@
 <%-- 리스트 출력 --%>
 <c:if test="${not empty clubprelist}">
 <c:forEach var="i" items="${clubprelist}"> 
-<div class="card mb-3 border-warning" style="width: 640px; height: 200px;">
+<div class="card mb-3 border-warning" style="width: 800px; height: 250px;">
   <div class="row no-gutters">
     <div class="col-md-4">
     <img src="<%=request.getContextPath() %>/upload/${i.club_image}" class="card-img" style="width:100%; height:100%" alt="${i.club_image}"/>
@@ -50,7 +50,7 @@
 <%-- 리스트 출력 --%>
 <c:if test="${not empty clubprelist}">
 <c:forEach var="i" items="${clubprelist}"> 
-<div class="card mb-3 border-warning" style="width: 640px; height: 200px;">
+<div class="card mb-3 border-warning" style="width: 800px; height: 250px;">
   <div class="row no-gutters">
     <div class="col-md-4">
     <img src="<%=request.getContextPath() %>/upload/${i.club_image}" class="card-img" style="width:100%; height:100%" alt="${i.club_image}"/>
@@ -85,7 +85,7 @@
 <%-- 미리보기 리스트 출력 --%>
 <c:if test="${not empty clubprelist}">
 <c:forEach var="i" items="${clubprelist}"> 
-<div class="card mb-3 border-warning" style="width: 640px; height: 200px;">
+<div class="card mb-3 border-warning" style="width: 800px; height: 250px;">
   <div class="row no-gutters">
     <div class="col-md-4">
     <img src="<%=request.getContextPath() %>/upload/${i.club_image}" class="card-img" style="width:100%; height:100%" alt="${i.club_image}"/>

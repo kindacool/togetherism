@@ -12,6 +12,8 @@
 <!-- services와 clusterer, drawing 라이브러리 불러오기 -->
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=44a98d8b63fb071cda538e0fedd4970c&libraries=services,clusterer,drawing"></script>
+<link href="<%=request.getContextPath()%>/css/middle.css" rel="stylesheet" type="text/css" />
+
 <script>
 $(document).ready(function(){
 	// 유효성 검사
@@ -54,6 +56,8 @@ $(document).ready(function(){
 
 </head>
 <body>
+<div class="wrapper">
+<div class="content">
 <c:if test="${result == 2}">
 <script>
 alert("모임장만 수정 가능합니다");
@@ -209,5 +213,6 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 
 	</form>
 </c:if>
+</div></div>
 </body>
 </html>

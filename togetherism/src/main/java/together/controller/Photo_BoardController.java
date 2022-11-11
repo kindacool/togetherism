@@ -46,7 +46,7 @@ public class Photo_BoardController {
 		// 세션을 구하기
 		// 세션을 구해서 club_member_join 테이블에서 확인해서 모임 멤버인 경우만 사진첩 insert 가능
 		// 세션이 없으므로 임의로 설정
-		String sess = "miae@daum.net";
+		String sess = "bboyam@gmail.com";
 		pbdto.setPhoto_member_email(sess);
 		int result = 0;
 
@@ -157,11 +157,11 @@ public class Photo_BoardController {
 		// startRow, endRow 가 넘어오지 않으면 바로 로딩했을때 
 		if(startRow0 == null && endRow0 == null) {
 			startRow = 1;
-			endRow = 4;
+			endRow = 3;
 		} else if(startRow0 != null && endRow0 != null){ // startRow, endRow 가 넘어왔을땐 그 데이터 가져오기
 			startRow = Integer.parseInt(startRow0);
 			endRow = Integer.parseInt(endRow0);
-			photoPage = endRow/4;
+			photoPage = endRow/3;
 		}
 		System.out.println(startRow);
 		System.out.println(endRow);
@@ -203,7 +203,7 @@ public class Photo_BoardController {
 		// 세션을 구하기
 		// 세션을 구해서 사진 등록자와 일치하는 경우에만 삭제 가능, 
 		// 세션이 없으므로 임의로 설정
-		String sess = "miae@daum.net";
+		String sess = "bboyam@gmail.com";
 		Photo_BoardDTO old = this.photo_BoardService.getPhotoCont(pbdto.getPhoto_num());
 		//또한 모임장과 일치하는 경우에도 삭제 가능하도록 하기
 		// club 테이블과 연동해서 모임장 이메일 구해오기
@@ -253,7 +253,7 @@ public class Photo_BoardController {
 		// 세션을 구하기
 		// 세션을 구해서 club_member_join 테이블에서 확인해서 모임 멤버인 경우만 사진첩 insert 가능
 		// 세션이 없으므로 임의로 설정
-		String sess = "miae@daum.net";
+		String sess = "bboyam@gmail.com";
 		pbdto.setPhoto_member_email(sess);
 		int result = 0;
 		

@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<link href="<%=request.getContextPath()%>/css/middle.css" rel="stylesheet" type="text/css" />
 <style>
     .cover {
         display: flex;
@@ -28,6 +28,10 @@ $(document).ready(function(){
 			alert("사진을 선택해주세요");
 			return false;
 		}
+		if($("#contentw").val().length > 20){
+			alert("20자 미만으로 입력해주세요");
+			return false;
+		}
 	});
 });
 </script>
@@ -35,7 +39,8 @@ $(document).ready(function(){
 </head>
 <body>
 
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#photoModal" data-bs-whatever="@mdo">사진 등록</button>
+<button type="button" class="btn btn-warning" data-bs-toggle="modal" 
+data-bs-target="#photoModal" data-bs-whatever="@mdo" style="border-radius:20px; width:100px;">사진 등록</button>
 <form action="<%=request.getContextPath()%>/photo_create.do" method="post" enctype="multipart/form-data">
 <input type="hidden" name="club_num" value="${club_num}">
 
@@ -67,18 +72,18 @@ $(document).ready(function(){
 </div>
 </form>
 
-
+<div id="wrapper"><div id="content">
 <c:if test="${empty pblist}">
-	<div class="alert alert-warning" role="alert" style="width: 640px;">
+	<div class="alert alert-warning" role="alert" style="width: 800px;">
  		현재 이 모임에 사진이 없습니다!
 	</div>
 </c:if>
 <c:if test="${not empty pblist}">
 <div class="row row-cols-1 row-cols-md-4 g-4">
 <c:forEach items="${pblist}" var="p">
-  <div class="col">
+  <div class="col" style="width:300px; height:300px;">
     <div class="card h-100">
-      <img src="<%=request.getContextPath() %>/upload/${p.photo_file}" style="width:100%; height:100%" class="card-img-top" alt="defalutimage">
+      <img src="<%=request.getContextPath() %>/upload/${p.photo_file}" style="width:100%; height:80%" class="card-img-top" alt="defalutimage">
       <div class="card-body">
         <div class='cover'>
         <p class="card-text">${p.photo_content}</p>
@@ -135,7 +140,7 @@ $(document).ready(function(){
 </c:forEach>
 </div>
 </c:if>
-
+</div></div>
 
 </body>
 </html>
