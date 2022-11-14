@@ -3,6 +3,13 @@
 
 <mapper namespace="event_replyns">
 
+<insert id="write" parameterType="event_reply">
+insert into event_reply values(event_reply_seq.nextval,#{event_num},#{reply_content},#{reply_member_email},sysdate)
+</insert>
+
+<select id="list" resultType="event_reply" parameterType="int">
+select * from event_reply where event_num = #{event_num}
+</select>
 </mapper>
 
 

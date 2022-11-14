@@ -11,17 +11,9 @@
 <body>
 <c:if test="${result == 2}">
 <script>
-alert("내가 운영하는 리스트가 없습니다.");
+alert("모임장만 삭제 가능합니다");
 history.go(-1);
 </script>
-</c:if>
-<c:if test="${empty result}">
-<c:forEach items="${clist}" var="c">
-${c.club_image}<br>
-${c.club_name}<br>
-${c.club_member_count}<br>
-${c.club_region}<br>
-</c:forEach>
 </c:if>
 </body>
 </html>

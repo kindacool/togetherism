@@ -67,6 +67,14 @@ event_spot_lat=#{event_spot_lat},event_region=#{event_region} where event_num=#{
 <delete id="delete" parameterType="int">
 delete from event where event_num=#{event_num}
 </delete>
+
+<select id="eventlistall" resultType="event" parameterType="int">
+select * from event where club_num = #{club_num}
+</select>
+
+<select id="clubcont" resultType="club" parameterType="int">
+select * from club where club_num = #{club_num}
+</select>
 </mapper>
 
 

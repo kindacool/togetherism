@@ -2,6 +2,7 @@ package together.dao;
 
 import java.util.List;
 
+import together.model.ClubDTO;
 import together.model.EventDTO;
 
 public interface EventDAO {
@@ -22,4 +23,10 @@ public interface EventDAO {
 	
 	// 이벤트 삭제
 	public int eventDelete(int event_num);
+	
+	// club_num 에 해당하는 모든 이벤트 가져오기
+	public List<EventDTO> getEventListWithCN(int club_num);
+	
+	// club table 연동, club 데이터 1개 상세정보 가져오기
+	public ClubDTO getClubCont(int club_num);
 }

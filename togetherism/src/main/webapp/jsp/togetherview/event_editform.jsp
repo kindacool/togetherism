@@ -12,25 +12,187 @@
 <!-- services와 clusterer, drawing 라이브러리 불러오기 -->
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=44a98d8b63fb071cda538e0fedd4970c&libraries=services,clusterer,drawing"></script>
+<link href="<%=request.getContextPath()%>/css/middle.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath()%>/css/center.css" rel="stylesheet" type="text/css" />
+
+<script>
+$(document).ready(function(){
+	// 유효성 검사
+ 	$("#check").click(function(){
+		if($("#event_region").val() == ""){
+			alert("이벤트 지역을 선택해주세요");
+			return false;
+		}
+		if($("#event_title").val() == ""){
+			alert("이벤트 명을 입력해주세요");
+			$("#event_title").focus();
+			return false;
+		}
+		if($("#event_date_date").val() == ""){
+			alert("이벤트 날짜를 입력해주세요");
+			return false;
+		}
+		if($("#event_date_time").val() == ""){
+			alert("이벤트 시간을 입력해주세요");
+			return false;
+		}
+		if($("#event_info").val() == ""){
+			alert("이벤트 설명을 입력해주세요");
+			$("#event_info").focus();
+			return false;
+		}
+		if($("event_spot_lat").val() == ""){
+			alert("지도를 설정해주세요");
+			return false;
+		}
+		if($("event_spot_long").val() == ""){
+			alert("지도를 설정해주세요");
+			return false;
+		}
+
+	});
+});
+
+</script>
+<style>
+    .host{
+      float: left;
+    }
+</style>
 
 </head>
 <body>
+<div class="wrapper">
+<div class="content">
+<c:if test="${result == 2}">
+<script>
+alert("모임장만 수정 가능합니다");
+history.go(-1);
+</script>
+</c:if>
+<c:if test="${empty result}">
 	<form name="event_form"
 		action="<%=request.getContextPath()%>/event_edit.do" method="post"
 		enctype="multipart/form-data">
 		<input type="hidden" value="${event.club_num}" name="club_num">
 		<input type="hidden" value="${event.event_num}" name="event_num">
 		<input type="hidden" value="${eventPage}" name="eventPage">
-		<input type="hidden" value="x@g.com" name="club_host_email"> <!-- Merge 이후 넘어올 값 -->
-		<input type="hidden" id="event_spot_lat" name="event_spot_lat" value="">
-		<input type="hidden" id="event_spot_long" name="event_spot_long" value="">
+		<input type="hidden" value="${event.club_host_email}" name="club_host_email"> <!-- Merge 이후 넘어올 값 -->
+		<input type="hidden" id="event_spot_lat" name="event_spot_lat" value="${event.event_spot_lat}">
+		<input type="hidden" id="event_spot_long" name="event_spot_long" value="${event.event_spot_long}">
 
-		<!-- 맵이 표시될 위치 -->
-		<div id="map" style="width: 500px; height: 400px;"></div>
-		<p>
-			<em>수정할 장소로 지도를 클릭해주세요!</em>
-		</p>
-		<div id="clickLatlng"></div>
+
+			<h2 style="text-align: center">이벤트 수정</h2>
+			<div style="background-color:red;width:700px;">
+			<div class="host" style="background-color:yellow; width:200px; height:40px;">
+  			<div class= "center" style="background-color:gray; width:200px; height:50px;"><b>이벤트 제목</b></div>
+  			<div class= "center" style="background-color:blue; width:200px; height:50px;"><b>이벤트 날짜</b></div>
+  			<div class= "center" style="background-color:orange; width:200px; height:50px;"><b>이벤트 시간</b></div>
+  			<div class= "center" style="background-color:gray; width:200px; height:50px;"><b>이벤트 지역</b></div>
+  			<div class= "center" style="background-color:blue; width:200px; height:150px;"><b>이벤트 내용</b></div>
+  			<div class= "center" style="background-color:black; width:200px; height:200px;"><b>첨부파일 및 사진 확인</b></div>
+  			<div class= "center" style="background-color:orange; width:200px; height:100px;"><b>첨부파일 및 사진 수정</b></div>
+			</div>
+
+			<div class="host" style="background-color:red; width:500px;">
+  			<div style="background-color:blue; width:500px; height:50px;">
+  			<div class="mb-3">
+  			<input type="text" class="form-control center" name="event_title" id="event_title" value="${event.event_title}">
+  
+			</div>
+  			</div>
+
+  			<div style="background-color:gray; width:500px; height:50px;">
+  			<input type="date" class="center" id="event_date_date" 
+  			value="<fmt:formatDate value="${event.event_date}" pattern="YYYY-MM-dd"/>"
+  			name="event_date_date" style="width:500px;height:40px;border-radius:8px;">
+  			</div>
+  			<div style="background-color:green; width:500px; height:50px;">
+  			<input type="time" class="center" id="event_date_time" 
+  			value="<fmt:formatDate value="${event.event_date}" pattern="HH:mm"/>"
+  			name="event_date_time" style="width:500px;height:40px;border-radius:8px;">
+  			</div>
+  			<div style="background-color:blue; width:500px; height:50px;">
+			
+  			<select class="form-select center" aria-label="Default select example" name="event_region" id="event_region">
+			<option value="Seoul_Metropolitan" <c:if test="${event.event_region == 'Seoul_Metropolitan'}">selected
+            </c:if>>수도권</option>
+			<option value="Gangwon" <c:if test="${event.event_region == 'Gangwon'}">selected
+            </c:if>>강원</option>
+			<option value="Gyeongsang" <c:if test="${event.event_region == 'Gyeongsang'}">selected
+            </c:if>>경상</option>
+			<option value="Jeolla" <c:if test="${event.event_region == 'Jeolla'}">selected
+            </c:if>>전라</option>
+			<option value="Chungcheong" <c:if test="${event.event_region == 'Chungcheong'}">selected
+            </c:if>>충청</option>
+			<option value="Jeju" <c:if test="${event.event_region == 'Jeju'}">selected
+            </c:if>>제주</option>
+			<option value="Abroad" <c:if test="${event.event_region == 'Abroad'}">selected
+            </c:if>>해외</option>
+			</select>
+			
+
+  			</div>
+  			<div style="background-color:green; width:500px; height:150px;">
+  			<div class="mb-3">
+  			<textarea class="form-control center" name="event_info" id="event_info" style="height:140px;">${eventInfobr}</textarea>
+			</div>
+  			</div>
+				
+  			<div class="center" style="background-color:orange; width:500px; height:200px;">
+
+				<c:if test="${not empty event.event_file}">
+    			<c:set var="filename" value="${event.event_file}" />
+				<c:set var="fileNm" value="${fn:toLowerCase(filename)}" />
+				<c:forTokens var="token" items="${fileNm}" delims="."
+    				varStatus="status">
+    				<c:if test="${status.last }">
+        				<c:choose>
+            				<c:when test="${token eq 'jpg' }">
+            					<img src="<%=request.getContextPath() %>/upload/${event.event_file}" style="height:200px; weight:200px;" alt="${event.event_file}"/>
+            				</c:when>
+            				<c:when test="${token eq 'png'}">
+            						<img src="<%=request.getContextPath() %>/upload/${event.event_file}" style="height:200px; weight:200px;"alt="${event.event_file}"/>
+            				</c:when>
+            				<c:when test="${token eq 'jfif'}">
+            						<img src="<%=request.getContextPath() %>/upload/${event.event_file}" style="height:200px; weight:200px;" alt="${event.event_file}"/>
+            				</c:when>
+            				<c:when test="${token eq 'gif'}">
+            						<img src="<%=request.getContextPath() %>/upload/${event.event_file}" style="height:200px; weight:200px;" alt="${event.event_file}"/>
+            				</c:when>
+            				<c:otherwise><%-- 첨부파일이 사진이 아닐떄 --%>
+            					<a href="<%=request.getContextPath()%>/file_down.do?file_name=${event.event_file}">${event.event_file}</a>
+            				</c:otherwise>
+        				</c:choose>
+        			</c:if>
+				</c:forTokens>
+				</c:if>
+		<c:if test="${empty event.event_file}"> <%-- 첨부파일이 없을때 --%>
+			<div class="alert alert-warning center" role="alert" style="width: 500px;height:150px;">
+ 				첨부파일이 없습니다
+			</div>
+		</c:if>
+			
+  			</div>
+  		<div class="center" style="background-color:blue; width:500px; height:100px;">
+  			<div class="input-group mb-3">
+				<input type="file" name="event_file0" class="form-control center">
+				<label class="input-group-text" for="inputGroupFile02">Upload</label>
+				</div>
+  		</div>
+			</div>
+			<br>
+			<p style="text-align:center">장소를 지도에서 선택해주세요</p>
+			<!-- 맵이 표시될 위치 -->
+			<div id="map" style="clear:both;background-color:green; width:700px; height:700px;"></div>
+			<div id="clickLatlng"></div>
+			<br>
+			<br>
+			<input type="submit" class="btn btn-warning" id="check" 
+			style="width:700px; height:40px; border-radius:20px;" value="수정">
+			</div>
+
+
 		
 		<!-- 맵 작업 코드 -->
 <script>
@@ -61,15 +223,6 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 	// 마커 위치를 클릭한 위치로 옮깁니다
 	marker.setPosition(latlng);
 
-	// 위경도를 화면에 표시만 하기
-	var resultLat = document.getElementById('event_spot_lat0');
-	var resultLng = document.getElementById('event_spot_long0');
-	resultLat.innerHTML = latlng.getLat();
-	resultLng.innerHTML = latlng.getLng();
-
-	var lat_string = latlng.getLat().toString();
-	var lng_string = latlng.getLng().toString();
-
 	// 위경도를 hidden 값으로 넘기기
 	document.getElementById('event_spot_lat').setAttribute('value',
 			latlng.getLat().toString());
@@ -79,78 +232,10 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 });
 </script>
 
-		<table>
-			<caption>이벤트 생성 폼</caption>
-			<tr>
-				<td>이벤트</td>
-				<td><input type="text" name="event_title" value="${event.event_title}"></td>
-			</tr>
-			<tr>
-				<td>이벤트 날짜 및 시간</td>
-				변경전 날짜 : ${event.event_date}
-				<td><input type="date" name="event_date_date"></td>
-				<td><input type="time" name="event_date_time"></td>
-			</tr>
-
-			<td>이벤트 장소 위도 경도</td>
-			<td>
-				<div id="event_spot_lat0"></div>
-				<div id="event_spot_long0"></div>
-			</td>
-
-			<td>이벤트 지역</td>
-			<select name="event_region">
-			<option value="수도권" <c:if test="${event.event_region == '수도권'}">selected
-            </c:if>>수도권</option>
-			<option value="경상권" <c:if test="${event.event_region == '경상권'}">selected
-            </c:if>>경상권</option>
-			</select>
-			<tr>
-				<td>이벤트 설명</td>
-				<td><textarea name="event_info">${event.event_info}</textarea></td>
-			</tr>
-			
-			<tr>
-				파일 수정하기 : 
-				<td><input type="file" name="event_file0"></td>
-				<c:if test="${not empty event.event_file}">
-    			<c:set var="filename" value="${event.event_file}" />
-				<c:set var="fileNm" value="${fn:toLowerCase(filename)}" />
-				<c:forTokens var="token" items="${fileNm}" delims="."
-    				varStatus="status">
-    				<c:if test="${status.last }">
-        				<c:choose>
-            				<c:when test="${token eq 'jpg' }">
-            					<img src="<%=request.getContextPath() %>/upload/${event.event_file}" style="height:100px; weight:100px;" alt="${event.event_file}"/>
-            				</c:when>
-            				<c:when test="${token eq 'png'}">
-            						<img src="<%=request.getContextPath() %>/upload/${event.event_file}" style="height:100px; weight:100px;"alt="${event.event_file}"/>
-            				</c:when>
-            				<c:when test="${token eq 'jifi'}">
-            						<img src="<%=request.getContextPath() %>/upload/${event.event_file}" style="height:100px; weight:100px;" alt="${event.event_file}"/>
-            				</c:when>
-            				<c:when test="${token eq 'gif'}">
-            						<img src="<%=request.getContextPath() %>/upload/${event.event_file}" style="height:100px; weight:100px;" alt="${event.event_file}"/>
-            				</c:when>
-            				<c:otherwise><%-- 첨부파일이 사진이 아닐떄 --%>
-            					<img src="images/togetherimage.jpg" style="height:100px; weight:100px;" alt="defalutimage">
-            					<a href="<%=request.getContextPath()%>/file_down.do?file_name=${event.event_file}">${event.event_file}</a>
-            				</c:otherwise>
-        				</c:choose>
-        			</c:if>
-				</c:forTokens>
-				</c:if>
-		<c:if test="${empty event.event_file}"> <%-- 첨부파일이 없을때 --%>
-			<img src="<%=request.getContextPath()%>/images/togetherimage.jpg" style="height:100px; weight:100px;" alt="defalutimage">
-			첨부파일이 없습니다!
-		</c:if>
-			</tr>
-				
-			<tr>
-				<td><input type="submit"></td>
-			</tr>
-		</table>
+		
 
 	</form>
+</c:if>
+</div></div>
 </body>
 </html>

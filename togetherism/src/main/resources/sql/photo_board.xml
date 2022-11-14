@@ -24,6 +24,10 @@ delete from photo_board where photo_num = #{photo_num}
 <select id="cont" resultType="photo_board" parameterType="int">
 select * from photo_board where photo_num = #{photo_num}
 </select>
+
+<update id="update" parameterType="photo_board">
+update photo_board set photo_content=#{photo_content, jdbcType=VARCHAR}, photo_file=#{photo_file} where photo_num = #{photo_num}
+</update>
 </mapper>
 
 

@@ -39,4 +39,9 @@ public class Photo_BoardServiceImpl implements Photo_BoardService{
 	public Photo_BoardDTO getPhotoCont(int photo_num) {
 		return photo_BoardDAO.getPhotoCont(photo_num);
 	}
+	
+	// 사진 수정
+	public int photoUpdate(Photo_BoardDTO pbdto) {
+		return photo_BoardDAO.photoUpdate(pbdto);
+	}
 }

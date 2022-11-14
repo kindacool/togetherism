@@ -1,6 +1,5 @@
 package together.model;
 
-
 import java.util.Date;
 
 import lombok.Getter;
@@ -9,6 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Club_Member_JoinDTO {
+
 
    private int join_num;
    private String member_email;

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import together.dao.EventDAO;
+import together.model.ClubDTO;
 import together.model.EventDTO;
 
 @Service
@@ -37,5 +38,14 @@ public class EventServiceImpl implements EventService{
 	
 	public int eventDelete(int event_num) {
 		return eventDao.eventDelete(event_num);
+	}
+	
+	public List<EventDTO> getEventListWithCN(int club_num){
+		return eventDao.getEventListWithCN(club_num);
+	}
+	
+	// club table 연동, club 데이터 1개 상세정보 가져오기
+	public ClubDTO getClubCont(int club_num) {
+		return eventDao.getClubCont(club_num);
 	}
 }

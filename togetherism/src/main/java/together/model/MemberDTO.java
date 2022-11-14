@@ -11,7 +11,6 @@ import lombok.Setter;
 @Getter
 public class MemberDTO {
 
-   
    private String member_email;
    private String member_nickname;
    private String member_pw;
@@ -27,6 +26,5 @@ public class MemberDTO {
    
    private String search;
    private String keyword;
- 
 }
 
