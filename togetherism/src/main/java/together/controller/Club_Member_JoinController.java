@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,12 +43,13 @@ public class Club_Member_JoinController {
 
 	// 일반 회원 모임 가입
 	@RequestMapping(value = "/club_join.do", method = RequestMethod.GET)
-	public String clubJoin(@ModelAttribute Club_Member_JoinDTO cmjdto, Model model) throws Exception {
+	public String clubJoin(@ModelAttribute Club_Member_JoinDTO cmjdto, 
+			Model model, HttpSession session) throws Exception {
 
 		int result = 0;
 		// 중복 가입 검사 : 모임가입테이블은 중복가입이 가능하므로 중복가입을 방지
 		// 1. 세션 구하기 (현재는 Merge 가 안되었으므로 임의로 정함)
-		String sess = "bboyam@gmail.com";
+		String sess = (String) session.getAttribute("email");
 		cmjdto.setMember_email(sess);
 
 		// 넘어오는 값 확인
@@ -160,10 +162,10 @@ public class Club_Member_JoinController {
 
 	// 내가 가입한 모임
 	@RequestMapping(value = "/joined_club.do", method = RequestMethod.GET)
-	public String joinedClub(Model model, HttpServletRequest request) throws Exception {
+	public String joinedClub(Model model, HttpServletRequest request, HttpSession session) throws Exception {
 
 		// 1. 세션 구하기 (현재는 Merge 가 안되었으므로 임의로 정함)
-		String sess = "bboyam@gmail.com";
+		String sess = (String) session.getAttribute("email");
 		
 		List<ClubDTO> joinedClubList = new ArrayList<ClubDTO>();
 		
@@ -213,9 +215,9 @@ public class Club_Member_JoinController {
 
 	// 모임 탈퇴
 	@RequestMapping(value = "/leave_club.do", method = RequestMethod.GET)
-	public String leaveClub(Model model, @ModelAttribute Club_Member_JoinDTO cmjdto) throws Exception {
+	public String leaveClub(Model model, @ModelAttribute Club_Member_JoinDTO cmjdto, HttpSession session) throws Exception {
 		// 1. 세션 구하기 (현재는 Merge 가 안되었으므로 임의로 정함)
-		String sess = "bboyam@gmail.com";
+		String sess = (String) session.getAttribute("email");
 		cmjdto.setMember_email(sess);
 		int result = 0;
 
@@ -252,10 +254,10 @@ public class Club_Member_JoinController {
 
 	// 내가 운영하는 모임 리스트
 	@RequestMapping(value = "/my_club.do", method = RequestMethod.GET)
-	public String myClub(Model model, HttpServletRequest request) throws Exception {
+	public String myClub(Model model, HttpServletRequest request, HttpSession session) throws Exception {
 
 		// 1. 세션 구하기 (현재는 Merge 가 안되었으므로 임의로 정함)
-		String sess = "bboyam@gmail.com";
+		String sess = (String) session.getAttribute("email");
 	
 		List<Club_Member_JoinDTO> myClubList = new ArrayList<Club_Member_JoinDTO>();
 		
@@ -404,13 +406,13 @@ public class Club_Member_JoinController {
 	// 모임장이 멤버 모임 탈퇴시키기
 	@RequestMapping(value="/kick_out.do", method = RequestMethod.GET)
 	public String kickOut(@RequestParam("member_email") String member_email,
-			@RequestParam("club_num") int club_num, Model model) throws Exception {
+			@RequestParam("club_num") int club_num, Model model, HttpSession session) throws Exception {
 
 		int result = 0;
 		model.addAttribute("club_num", club_num);
 		
 		// 1. 세션을 구해서 모임장인지 확인, 모임장만 내보내기 가능
-		String sess = "bboyam@gmail.com";
+		String sess = (String) session.getAttribute("email");
 
 		// member_email, club_num 을 담은 Club_Member_Join DTO 필요
 		Club_Member_JoinDTO cmjdto = new Club_Member_JoinDTO();
