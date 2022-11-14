@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>이벤트 생성 폼</title>
+<link rel="icon" href="<%=request.getContextPath()%>/images/favicon.ico" />
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=44a98d8b63fb071cda538e0fedd4970c"></script>
@@ -27,6 +28,11 @@ $(document).ready(function(){
  	$("#check").click(function(){
 		if($("#event_title").val() == ""){
 			alert("이벤트 명을 입력해주세요");
+			$("#event_title").focus();
+			return false;
+		}
+		if($("#event_title").val().length > 20){
+			alert("이벤트 명을 20자 이내로 입력해주세요");
 			$("#event_title").focus();
 			return false;
 		}
@@ -99,7 +105,7 @@ history.go(-1);
 			<div class="host" style="background-color:red; width:500px; height:400px;">
   			<div style="background-color:blue; width:500px; height:50px;">
   			<div class="mb-3">
-  			<input type="text" class="form-control center" id="event_title" name="event_title">
+  			<input type="text" class="form-control center" id="event_title" name="event_title" maxlength="20">
 			</div>
   			</div>
   			<div style="background-color:gray; width:500px; height:50px;">

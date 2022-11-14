@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="icon" href="<%=request.getContextPath()%>/images/favicon.ico" />
 </head>
 <body>
 <c:if test="${result == 1}">

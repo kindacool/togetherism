@@ -7,7 +7,10 @@
 <head>
 <meta charset="UTF-8">
 <title>내가 가입한 모임 목록</title>
+<link rel="icon" href="<%=request.getContextPath()%>/images/favicon.ico" />
 <link href="<%=request.getContextPath()%>/css/hidden_text.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath()%>/css/middle.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath()%>/css/center.css" rel="stylesheet" type="text/css" />
 <script>
 function leave(club_num){
     if (!confirm("탈퇴하시겠습니까")) {
@@ -19,6 +22,13 @@ function leave(club_num){
 </head>
 
 <body>
+<div class="wrapper">
+<div class="content">
+<table>
+<tr>
+<td><jsp:include page="../include/sidemenu.jsp"></jsp:include>
+</td>
+<td>
 
 <c:if test="${empty joinedClubList}">
 	<div class="alert alert-warning" role="alert" style="width: 800px;">
@@ -62,7 +72,7 @@ function leave(club_num){
 
 
 <%-- 페이징 처리 시작--%>
-<nav aria-label="Page navigation example">
+<nav class="center" aria-label="Page navigation example">
   <ul class="pagination">
  <%-- 전체 목록의 페이징 처리 --%>
 
@@ -82,6 +92,12 @@ function leave(club_num){
 		</c:if>
 </ul>
 </nav>
+
+</td>
+</tr>
+</table>
+</div></div>
+
 
 </body>
 </html>

@@ -7,9 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <title>모임 상세 페이지</title>
+<link rel="icon" href="<%=request.getContextPath()%>/images/favicon.ico" />
 <link href="<%=request.getContextPath()%>/css/club_cont.css" rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath()%>/css/middle.css" rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath()%>/css/center.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath()%>/css/fullimage.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath()%>/css/fontj.css" rel="stylesheet" type="text/css" />
 </head>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript"
@@ -90,7 +93,6 @@ function copy_to_clipboard() {
       float: left;
     }
 
-
 </style>
 
 <body>
@@ -106,16 +108,16 @@ function copy_to_clipboard() {
 <div class="wrapper">
 <div class="content">
 
- <div style="background-color:orange;height:300px;padding:20px;">
-    <div class="host" style="background-color:yellow; width:500px; height:240px;">
-    	<img src="<%=request.getContextPath()%>/upload/${club.club_image}" style="height:100px; weight:100px;" alt="${club.club_image}"/>
+ <div class="center" style="background-color:orange;height:300px;">
+    <div class="host" style="background-color:yellow; width:500px; height:270px;">
+    	<img class="full" src="<%=request.getContextPath()%>/upload/${club.club_image}" alt="${club.club_image}"/>
     </div>
-    <div class="host" style="background-color:red; width:500px; height:240px;">
-      <div class="center" style="background-color:gray; width:500px;height:70px;font-size:30px;font-weight:bold;">${club.club_name}</div>
+    <div class="host" style="background-color:red; width:500px; height:270px;">
+      <div class="center" style="background-color:gray; width:500px;height:80px;font-size:30px;font-weight:bold;">${club.club_name}</div>
       
       <div style="background-color:blue; width:500px; height:100px;">
         <div class="host" style="background-color:orange; width:100px; height:100px;">
-			<img src="<%=request.getContextPath() %>/upload/${memberdto.member_image}" style="height:100px; weight:100px;" alt="${memberdto.member_image}"/>
+			<img class="img-circle full" src="<%=request.getContextPath() %>/upload/${memberdto.member_image}" alt="${memberdto.member_image}"/>
 		</div>
         <div class="host" style="background-color:red; width:400px; height:100px;">
         <div class="center" style="height:60px;background-color:blue;">${memberdto.member_nickname} <br>${club.club_host_email}</div>
@@ -123,8 +125,8 @@ function copy_to_clipboard() {
         </div>
 
       </div>
-      <div class="center" style="background-color:gray; width:500px; height:70px;">
-		<button type="button" class="btn btn-warning" 
+      <div class="center" style="background-color:gray; width:500px; height:90px;">
+		<button type="button" class="btn btn-warning center" 
 		style="width:400px;height:50px;border-radius:20px;font-size:30px;font-weight:bold;"
 		 data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">JOIN NOW</button>
 	  </div>

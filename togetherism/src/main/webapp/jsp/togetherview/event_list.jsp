@@ -7,10 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <title>이벤트 목록</title>
+<link rel="icon" href="<%=request.getContextPath()%>/images/favicon.ico" />
 <link href="<%=request.getContextPath()%>/css/hidden_text.css" rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath()%>/css/middle.css" rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath()%>/css/center.css" rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath()%>/css/search.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath()%>/css/fullimage.css" rel="stylesheet" type="text/css" />
 <style>
 .big{
 text-decoration: none;
@@ -18,6 +20,10 @@ color: black;
 font-size:40px;
 margin: 10px;
 }
+    .cover{
+    display: flex;
+    justify-content: space-between;
+    }
 </style>
 </head>
 <body>
@@ -111,7 +117,7 @@ margin: 10px;
 <c:if test="${not empty eventlist}">
 <c:set var="no1" value="${no}"></c:set><!-- 화면출력번호 -->
 <c:forEach var="i" items="${eventlist}"> 
-<div class="card mb-3 border-warning" style="width: 800px; height: 250px;">
+<div class="card mb-3 border-warning" style="width: 800px; height: 250px;line-height:3;border-width: 2px;">
   <div class="row no-gutters">
     <div class="col-md-4"><!-- 파일 확장자가 jpg,png같은걸로 끝나면 사진 표시, 아니면 기본사진 표시 -->
     <c:if test="${not empty i.event_file}">
@@ -122,32 +128,46 @@ margin: 10px;
     		<c:if test="${status.last }">
         		<c:choose>
             		<c:when test="${token eq 'jpg' }">
-            			<img src="<%=request.getContextPath() %>/upload/${i.event_file}" class="card-img" style="width:100%; height:100%" alt="${i.event_file}"/>
+            			<a href="<%=request.getContextPath()%>/event_cont.do?club_num=${club_num}&event_num=${i.event_num}&eventPage=${eventPage}&state=cont"> 
+            			<img src="<%=request.getContextPath() %>/upload/${i.event_file}" class="card-img full"  style="width:100%; height:245px" alt="${i.event_file}"/>
+            			</a>
             		</c:when>
             		<c:when test="${token eq 'png'}">
-            			<img src="<%=request.getContextPath() %>/upload/${i.event_file}" class="card-img" style="width:100%; height:100%" alt="${i.event_file}"/>
+            		    <a href="<%=request.getContextPath()%>/event_cont.do?club_num=${club_num}&event_num=${i.event_num}&eventPage=${eventPage}&state=cont"> 
+            			<img src="<%=request.getContextPath() %>/upload/${i.event_file}" class="card-img full"  style="width:100%; height:245px" alt="${i.event_file}"/>
+            			</a>
             		</c:when>
             		<c:when test="${token eq 'jfif'}">
-            			<img src="<%=request.getContextPath() %>/upload/${i.event_file}" class="card-img" style="width:100%; height:100%" alt="${i.event_file}"/>
+            		    <a href="<%=request.getContextPath()%>/event_cont.do?club_num=${club_num}&event_num=${i.event_num}&eventPage=${eventPage}&state=cont"> 
+            			<img src="<%=request.getContextPath() %>/upload/${i.event_file}" class="card-img full"  style="width:100%; height:245px" alt="${i.event_file}"/>
+            			</a>
             		</c:when>
             		<c:when test="${token eq 'gif'}">
-            			<img src="<%=request.getContextPath() %>/upload/${i.event_file}" class="card-img" style="width:100%; height:100%" alt="${i.event_file}"/>
+            		    <a href="<%=request.getContextPath()%>/event_cont.do?club_num=${club_num}&event_num=${i.event_num}&eventPage=${eventPage}&state=cont"> 
+            			<img src="<%=request.getContextPath() %>/upload/${i.event_file}" class="card-img full"  style="width:100%; height:245px" alt="${i.event_file}"/>
+            			</a>
             		</c:when>
             		<c:otherwise>
-            			<img src="<%=request.getContextPath()%>/images/togetherimage.jpg" class="card-img" style="width:100%; height:100%" alt="defalutimage">
+            		    <a href="<%=request.getContextPath()%>/event_cont.do?club_num=${club_num}&event_num=${i.event_num}&eventPage=${eventPage}&state=cont"> 	
+            			<img src="<%=request.getContextPath()%>/images/togetherimage.jpg" class="card-img full"  style="width:100%; height:245px" alt="defalutimage">
+            			</a>
             		</c:otherwise>
         		</c:choose>
         	</c:if>
 		</c:forTokens>
 	</c:if>
 	<c:if test="${empty i.event_file}">
-		<img src="<%=request.getContextPath()%>/images/togetherimage.jpg" class="card-img" style="width:100%; height:100%" alt="defalutimage">
+	    <a href="<%=request.getContextPath()%>/event_cont.do?club_num=${club_num}&event_num=${i.event_num}&eventPage=${eventPage}&state=cont">
+		<img src="<%=request.getContextPath()%>/images/togetherimage.jpg" class="card-img"  style="width:100%; height:245px" alt="defalutimage">
+		</a>
 	</c:if>
 
     </div>
     <div class="col-md-8">
       <div class="card-body">
-        <h5 class="card-title hidden"><a href="<%=request.getContextPath()%>/event_cont.do?club_num=${club_num}&event_num=${i.event_num}&eventPage=${eventPage}&state=cont">${i.event_title}</a></h5>
+      	<div class="cover center" style="height:50px;">
+        <h5 class="card-title hidden" style="float:left;"><a href="<%=request.getContextPath()%>/event_cont.do?club_num=${club_num}&event_num=${i.event_num}&eventPage=${eventPage}&state=cont" style="text-decoration: none">${i.event_title}</a></h5>
+        </div>
         <p class="card-text hidden">${i.event_info}</p>
         <p class="card-text">
         <c:choose>
@@ -161,7 +181,17 @@ margin: 10px;
         </c:choose>
 
         </p>
-        <p class="card-text"><fmt:formatDate value="${i.event_date}" pattern="yy/MM/dd HH:mm"/></p>
+        <div class="cover">
+        <div style="float:left;">
+        <p class="card-text"><fmt:formatDate value="${i.event_date}" pattern="yy년  MM월  dd일  a hh:mm"/></p>
+       	</div>
+       	<div style="float:right;">
+    <c:if test="${club_num == 0}">
+		<button onclick="location='<%=request.getContextPath()%>/event_cont.do?club_num=${club_num}&event_num=${i.event_num}&eventPage=${eventPage}&state=cont'"
+ 		class="btn btn-warning" style="width:200px; height:40px; border-radius:20px;">자세히 보기</button>
+	</c:if>
+       	</div>
+       	</div>
         <!-- <p class="card-text"><small class="text-muted">${i.event_date}</small></p>  -->
       </div>
     </div>

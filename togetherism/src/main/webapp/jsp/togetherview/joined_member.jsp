@@ -7,10 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="icon" href="<%=request.getContextPath()%>/images/favicon.ico" />
 <link href="<%=request.getContextPath()%>/css/clubmember_list.css" rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath()%>/css/middle.css" rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath()%>/css/center.css" rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath()%>/css/hidden_text.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath()%>/css/fullimage.css" rel="stylesheet" type="text/css" />
 <script>
 function kickout(member_email, club_num){
 	if(!confirm("정말 해당 회원을 탈퇴시키시겠습니까?")){
@@ -24,6 +26,10 @@ function kickout(member_email, club_num){
     .host{
       float: left;
     }
+    .cover{
+    display: flex;
+    justify-content: space-between;
+    }
 </style>
 </head>
 <body>
@@ -36,21 +42,23 @@ function kickout(member_email, club_num){
 <c:if test="${empty result}">
 
 	<c:forEach var="m" items="${cmilist}">    
+	
 <div style="background-color:red; width:450px; height:120px;" class="host center">
   <div class="host" style="background-color:yellow; width:100px; height:100px;">
-  		<img class="img-circle" src="<%=request.getContextPath() %>/upload/${m.member_image}" alt="Card image cap">
+  		<img class="img-circle full" src="<%=request.getContextPath() %>/upload/${m.member_image}" alt="Card image cap">
   </div>
   <div class="host" style="background-color:red; width:300px; height:100px;">
-    <div style="background-color:gray; width:300px; height:30px;">
+    <div class="center" style="background-color:gray; width:300px; height:30px;">
            <c:if test="${m.club_host_yn eq 'Y'}"><img src="<%=request.getContextPath()%>/images/crown.png" style="width:20px;height:20px" alt="모임장"></c:if>
            ${m.member_nickname}
     </div>
-    <div class="hidden" style="background-color:blue; width:300px; height:45px;">${m.join_hello}</div>
-    <div style="background-color:orange; width:300px; height:25px;">
+    <div class="hidden center" style="background-color:blue; width:300px; height:45px;">${m.join_hello}</div>
+    <div class="center" style="background-color:orange; width:300px; height:25px;">
      <a href="<%=request.getContextPath()%>/report_check.do?member_email=${m.member_email}" style="text-decoration:none;color:black;">신고하기</a>
      <c:if test="${m.club_host_yn eq 'N'}"><a href="javascript:void(0);" onclick="kickout('${m.member_email}',${club_num});" style="text-decoration:none;color:black;">내보내기</a></c:if> 	
     </div>
   </div>
+
 </div>
 	</c:forEach>
 

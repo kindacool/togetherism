@@ -7,9 +7,20 @@
 <head>
 <meta charset="UTF-8">
 <title>내가 운영하는 모임</title>
+<link rel="icon" href="<%=request.getContextPath()%>/images/favicon.ico" />
 <link href="<%=request.getContextPath()%>/css/hidden_text.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath()%>/css/middle.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
+
+<div class="wrapper">
+<div class="content">
+<table>
+<tr>
+<td><jsp:include page="../include/sidemenu.jsp"></jsp:include>
+</td>
+<td>
+
 <c:if test="${empty myClubList}">
 <div class="alert alert-warning" role="alert" style="width: 800px;">
 	현재 내가 운영하는 모임이 없습니다! <a href="#" class="alert-link">모임 만들러 가기</a>
@@ -72,6 +83,6 @@
 		</c:if>
 </ul>
 </nav>
-
+</td></tr></table></div></div>
 </body>
 </html>

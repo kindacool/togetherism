@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>이벤트 생성 폼</title>
+<link rel="icon" href="<%=request.getContextPath()%>/images/favicon.ico" />
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=44a98d8b63fb071cda538e0fedd4970c"></script>

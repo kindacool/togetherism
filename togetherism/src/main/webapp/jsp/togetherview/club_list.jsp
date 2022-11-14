@@ -5,11 +5,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>모임 목록</title>
+<link rel="icon" href="<%=request.getContextPath()%>/images/favicon.ico" />
 <link href="<%=request.getContextPath()%>/css/hidden_text.css" rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath()%>/css/middle.css" rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath()%>/css/center.css" rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath()%>/css/search.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath()%>/css/fullimage.css" rel="stylesheet" type="text/css" />
 
 <script>
 $(document).ready(function(){
@@ -19,7 +21,6 @@ $(document).ready(function(){
 function heart2(club_num){ // 빈 하트 클릭
        var data = {"club_num":club_num}
        $.post("<%=request.getContextPath()%>/insert_heart.do", data, function(result){
-          alert(result);
           $("#heart2_div" + club_num).hide();
           $("#heart1_div" + club_num).show();
        });    
@@ -28,8 +29,8 @@ function heart2(club_num){ // 빈 하트 클릭
 function heart1(club_num){ // 빨간하트 클릭
          var data = {"club_num":club_num}
            $.post("<%=request.getContextPath()%>/remove_heart.do", data, function(result){
-               $("#heart2_div" + club_num).hide();
-               $("#heart1_div" + club_num).show();
+               $("#heart1_div" + club_num).hide();
+               $("#heart2_div" + club_num).show();
            });     
 
 }
@@ -41,6 +42,13 @@ color: black;
 font-size:40px;
 margin: 10px;
 }
+    .host{
+      float: left;
+    }
+    .cover{
+    display: flex;
+    justify-content: space-between;
+    }
 </style>
 </head>
 <body>
@@ -56,11 +64,17 @@ margin: 10px;
 <c:choose>
 <c:when test="${not empty keyword}">
 <h5>'${keyword}' 모임 검색 결과</h5>
+<div class="cover">
+<div style="float: left;">
 <a href="<%=request.getContextPath()%>/club_list.do?keyword=${keyword}" class="big">Groups</a>
 <a href="<%=request.getContextPath()%>/event_list.do?keyword=${keyword}" class="big" style="color:gray">Events</a>
+</div>
+<div style="float:right;" class="center">
 <button onclick="location='<%=request.getContextPath()%>/club.do'"
  class="btn btn-warning" style="width:200px; height:40px; border-radius:20px;">모임만들기</button>
-<br><br>
+ </div>
+ </div>
+<br>
 </c:when>
 <%-- 특정 지역 모임 페이지 일때 --%>
 <c:when test="${not empty club_region}">
@@ -73,21 +87,32 @@ margin: 10px;
      <c:when test="${club_region == 'Jeju'}"><h5>제주 지역 모임</h5></c:when>
      <c:when test="${club_region == 'Abroad'}"><h5>해외 지역 모임</h5></c:when>
     </c:choose>
+<div class="cover">
+<div style="float: left;">
 <a href="<%=request.getContextPath()%>/club_list.do?club_region=${club_region}" class="big">Groups</a>
 <a href="<%=request.getContextPath()%>/event_list.do?event_region=${event_region}" class="big" style="color:gray">Events</a>
+</div>
+<div style="float:right;" class="center">
 <button onclick="location='<%=request.getContextPath()%>/club.do'"
  class="btn btn-warning" style="width:200px; height:40px; border-radius:20px;">모임만들기</button>
-<br><br>
+ </div>
+ </div>
+<br>
 </c:when>	
 <%-- 전체 목록의 페이지 일때 --%>
 <c:otherwise>
 <h5>전체 모임 보기</h5>
+<div class="cover">
+<div style="float: left;">
 <a href="<%=request.getContextPath()%>/club_list.do" class="big">Groups</a>
 <a href="<%=request.getContextPath()%>/event_list.do" class="big" style="color:gray">Events</a>
-
+</div>
+<div style="float:right;" class="center">
 <button onclick="location='<%=request.getContextPath()%>/club.do'"
  class="btn btn-warning" style="width:200px; height:40px; border-radius:20px;">모임만들기</button>
-<br><br>
+ </div>
+</div>
+<br>
 </c:otherwise>
 </c:choose>
 
@@ -116,15 +141,21 @@ margin: 10px;
 <c:if test="${not empty clublist}">
 <c:set var="no1" value="${no}"></c:set><!-- 화면출력번호 -->
 <c:forEach var="i" items="${clublist}"> 
-<div class="card mb-3 border-warning" style="width: 800px; height: 250px;">
+<div class="card mb-3 border-warning" style="width: 800px; height:250px;line-height:3;border-width: 2px;">
   <div class="row no-gutters">
     <div class="col-md-4">
-    <img src="<%=request.getContextPath() %>/upload/${i.club_image}" class="card-img" style="width:100%; height:100%" alt="${i.club_image}"/>
+    <a href="<%=request.getContextPath()%>/club_ct.do?club_num=${i.club_num}"> 
+    <img src="<%=request.getContextPath() %>/upload/${i.club_image}" class="card-img full" style="width:100%; height:245px" alt="${i.club_image}"/>
+    </a>
     </div>
     <div class="col-md-8">
-      <div class="card-body">
-        <h5 class="card-title hidden"><a href="<%=request.getContextPath()%>/club_ct.do?club_num=${i.club_num}">${i.club_name}</a></h5>
-	   
+      <div class="card-body" style="height:250px;">
+      <div class="cover center" style="height:50px;">
+      <div style="float:left;">
+        <h5 class="card-title hidden"><a href="<%=request.getContextPath()%>/club_ct.do?club_num=${i.club_num}" style="text-decoration:none;">${i.club_name}</a></h5>
+   	  </div>
+   	  <div style="float:right;">
+        <p class="card-text hidden">
 	   	   <div id="heart1_div${i.club_num}">
       		<button id="heart1${i.club_num}" onclick="heart1(${i.club_num});" class="heart_button_fill" type="button" style="border:0; background-color:transparent;">
       		<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-heart-fill" style="color:red;" viewBox="0 0 16 16">
@@ -138,8 +169,10 @@ margin: 10px;
   			<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
 			</svg></button>
    			</div>
-   
-   	</div>
+		</p>
+	 </div>
+		</div>
+		
         <p class="card-text hidden">${i.club_info}</p>
         <p class="card-text">
         <c:choose>
@@ -152,8 +185,18 @@ margin: 10px;
         	<c:when test="${i.club_region == 'Abroad'}">해외</c:when>
         </c:choose>
         </p>
-        <p class="card-text">${i.club_member_count} 명 / ${i.club_member_limit} 명</p>
+        
         <!-- <p class="card-text"><small class="text-muted">${i.club_reg_date}</small></p>  -->
+         <div class="cover">
+        <div style="float:left;">
+		<p class="card-text">${i.club_member_count} 명 / ${i.club_member_limit} 명</p></div>
+       	<div style="float:right;">
+		<button onclick="location='<%=request.getContextPath()%>/club_ct.do?club_num=${i.club_num}'"
+ 		class="btn btn-warning" style="width:200px; height:40px; border-radius:20px;">자세히 보기</button>
+       	</div>
+       	</div>
+       	
+        </div>
       </div>
     </div>
   </div>
