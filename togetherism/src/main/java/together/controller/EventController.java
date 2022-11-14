@@ -50,10 +50,10 @@ public class EventController {
 	
 	// 이벤트 만들기 폼으로 이동
 	@RequestMapping(value = "/event_createform.do", method = RequestMethod.GET)
-	public String eventCreateForm(@RequestParam("club_num") int club_num, Model model) {
+	public String eventCreateForm(@RequestParam("club_num") int club_num, Model model, HttpSession session) throws Exception {
 		// 1. 세션을 구하기
 		// 2. 세션을 구해서 club 테이블에서 확인해서 모임장이면 수정 가능
-		String sess = "bboyam@gmail.com";
+		String sess = (String) session.getAttribute("email");
 		ClubDTO clubdto = club_Member_JoinService.getClubCont(club_num);
 					
 		if(!(clubdto.getClub_host_email().equals(sess))) {
@@ -224,7 +224,7 @@ public class EventController {
 			@RequestParam("state") String state ,
 			@RequestParam("club_num") int club_num, 
 			RedirectAttributes redirectAttributes,
-			Model model) throws Exception {
+			Model model, HttpSession session) throws Exception {
 		
 		System.out.println("상태값 출력: " + state);
 		
@@ -237,7 +237,7 @@ public class EventController {
 
 		// 1. 세션을 구하기
 		// 2. 세션을 구해서 club 테이블에서 확인해서 모임장이면 수정 가능
-		String sess = "bboyam@gmail.com";
+		String sess = (String) session.getAttribute("email");
 		ClubDTO clubdto = club_Member_JoinService.getClubCont(event.getClub_num());
 		
 		
