@@ -47,8 +47,8 @@ function kickout(member_email, club_num){
     </div>
     <div class="hidden" style="background-color:blue; width:300px; height:45px;">${m.join_hello}</div>
     <div style="background-color:orange; width:300px; height:25px;">
-     <a href="<%=request.getContextPath()%>/report_check.do?member_email=${m.member_email}">신고하기</a>
-     <c:if test="${m.club_host_yn eq 'N'}"><a href="javascript:void(0);" onclick="kickout('${m.member_email}',${club_num});">내보내기</a></c:if> 	
+     <a href="<%=request.getContextPath()%>/report_check.do?member_email=${m.member_email}" style="text-decoration:none;color:black;">신고하기</a>
+     <c:if test="${m.club_host_yn eq 'N'}"><a href="javascript:void(0);" onclick="kickout('${m.member_email}',${club_num});" style="text-decoration:none;color:black;">내보내기</a></c:if> 	
     </div>
   </div>
 </div>

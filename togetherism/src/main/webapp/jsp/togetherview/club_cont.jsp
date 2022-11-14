@@ -294,7 +294,7 @@ for (var i = 0; i < positions.length; i ++) {
 </c:if>
 
 <!-- 사진첩 ajax 페이지네이션 -->
-<nav aria-label="Page navigation example" id="photoPaging">
+<nav class="center" aria-label="Page navigation example" id="photoPaging">
   <ul class="pagination">
   	
 <c:forEach var="v" begin="1" end="${pt}">

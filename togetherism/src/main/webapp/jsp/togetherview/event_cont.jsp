@@ -47,7 +47,7 @@ function edit_ok(){
 <div class="wrapper">
 <div class="content">
 <h2 style="text-align: center">이벤트 정보</h2>
-<div style="background-color:red;width:700px;">
+			<div style="background-color:red;width:700px;">
 			<div class="host" style="background-color:yellow; width:200px; height:40px;">
   			<div class= "center" style="background-color:gray; width:200px; height:50px;"><b>이벤트 제목</b></div>
   			<div class= "center" style="background-color:blue; width:200px; height:50px;"><b>이벤트 날짜</b></div>
@@ -65,7 +65,7 @@ function edit_ok(){
 			<fmt:formatDate value="${event.event_date}" pattern="YYYY년  M월 d일"/>
 			</div>
   			<div class="center" style="background-color:green; width:500px; height:50px;">
-			<fmt:formatDate value="${event.event_date}" pattern="HH:mm"/>  			
+			<fmt:formatDate type="time" timeStyle="short" value="${event.event_date}"/>  			
 			</div>
   			<div class="center" style="background-color:blue; width:500px; height:50px;">
   			
@@ -117,7 +117,6 @@ function edit_ok(){
 		</c:if>
 		
   			</div>
-  			
 			</div>
 			<!-- 맵이 표시될 위치 -->
 <div id="map" style="width: 700px; height: 700px;"></div>

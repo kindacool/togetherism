@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="<%=request.getContextPath()%>/css/middle.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath()%>/css/center.css" rel="stylesheet" type="text/css" />
 <style>
     .cover {
         display: flex;
@@ -74,12 +75,12 @@ data-bs-target="#photoModal" data-bs-whatever="@mdo" style="border-radius:20px; 
 
 <div id="wrapper"><div id="content">
 <c:if test="${empty pblist}">
-	<div class="alert alert-warning" role="alert" style="width: 800px;">
+	<div class="alert alert-warning center" role="alert" style="width: 1000px;">
  		현재 이 모임에 사진이 없습니다!
 	</div>
 </c:if>
 <c:if test="${not empty pblist}">
-<div class="row row-cols-1 row-cols-md-4 g-4">
+<div class="row row-cols-1 row-cols-md-4 g-4 center">
 <c:forEach items="${pblist}" var="p">
   <div class="col" style="width:300px; height:300px;">
     <div class="card h-100">
@@ -88,8 +89,8 @@ data-bs-target="#photoModal" data-bs-whatever="@mdo" style="border-radius:20px; 
         <div class='cover'>
         <p class="card-text">${p.photo_content}</p>
          <div>
-         <a href="javascript:void(0);" onclick="delete_ok(${p.photo_num}, ${club_num});" style="text-decoration: none">삭제</a>
-         <a href="javascript:void(0);"  data-bs-toggle="modal" data-bs-target="#photoEditModal" data-bs-whatever="@mdo" style="text-decoration: none">수정</a>
+         <a href="javascript:void(0);" onclick="delete_ok(${p.photo_num}, ${club_num});" style="text-decoration:none;color:black;">삭제</a>
+         <a href="javascript:void(0);"  data-bs-toggle="modal" data-bs-target="#photoEditModal" data-bs-whatever="@mdo" style="text-decoration:none;color:black;">수정</a>
 		
 		<!-- 수정폼 모달 -->
 		<form action="<%=request.getContextPath()%>/photo_edit.do" method="post" enctype="multipart/form-data">

@@ -9,6 +9,8 @@
 <title>이벤트 목록</title>
 <link href="<%=request.getContextPath()%>/css/hidden_text.css" rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath()%>/css/middle.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath()%>/css/center.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath()%>/css/search.css" rel="stylesheet" type="text/css" />
 <style>
 .big{
 text-decoration: none;
@@ -23,14 +25,16 @@ margin: 10px;
 <div class="content">
 <c:if test="${club_num == 0}"> <!-- 모임 내에서 이벤트를 볼때는 검색창 없음 -->
 	<form action="<%=request.getContextPath()%>/event_list.do" method="get">
-		<input type="text" name="keyword">
-		<input type="submit" value="검색">
+		<input class="search-input" type="text" name="keyword">
+		<input class="search-button btn btn-warning" type="submit" value="검색">
 	</form>
+	<br>
+	
 	<%-- 검색 결과 페이지 일떄--%>
 	<c:choose>
 	<c:when test="${not empty keyword}">
 	<h5>'${keyword}' 이벤트 검색 결과</h5>
-	<a href="<%=request.getContextPath()%>/club_list.do?keyword=${keyword}" class="big">Groups</a>
+	<a href="<%=request.getContextPath()%>/club_list.do?keyword=${keyword}" class="big" style="color:gray">Groups</a>
 	<a href="<%=request.getContextPath()%>/event_list.do?keyword=${keyword}" class="big">Events</a>
 	<br><br>
 	</c:when>
@@ -45,14 +49,14 @@ margin: 10px;
      	<c:when test="${event_region == 'Jeju'}"><h5>제주 지역 이벤트</h5></c:when>
      	<c:when test="${event_region == 'Abroad'}"><h5>해외 지역 이벤트</h5></c:when>
     	</c:choose>
-	<a href="<%=request.getContextPath()%>/club_list.do?club_region=${club_region}" class="big">Groups</a>
+	<a href="<%=request.getContextPath()%>/club_list.do?club_region=${club_region}" class="big" style="color:gray">Groups</a>
 	<a href="<%=request.getContextPath()%>/event_list.do?event_region=${event_region}" class="big">Events</a>
 	<br><br>
 	</c:when>	
 	<%-- 전체 목록의 페이지 일때 --%>
 	<c:otherwise>
 	<h5>전체 이벤트 보기</h5>
-	<a href="<%=request.getContextPath()%>/club_list.do" class="big">Groups</a>
+	<a href="<%=request.getContextPath()%>/club_list.do" class="big" style="color:gray">Groups</a>
 	<a href="<%=request.getContextPath()%>/event_list.do" class="big">Events</a>
 	<br><br>
 	</c:otherwise>
@@ -168,7 +172,7 @@ margin: 10px;
 </c:if>
 
 <%-- 페이징 처리 시작--%>
-<nav aria-label="Page navigation example">
+<nav class="center" aria-label="Page navigation example">
   <ul class="pagination">
 <%-- 검색 결과 페이지  페이징 처리 --%>
 <c:choose>

@@ -147,7 +147,7 @@ history.go(-1);
 			<br>
 			<br>
 			<input type="submit" class="btn btn-warning" id="check" 
-			style="width:700px; height:40px; border-radius:20px;">
+			style="width:700px; height:40px; border-radius:20px;" value="이벤트 등록">
 			</div>
 			
 

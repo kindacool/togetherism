@@ -8,6 +8,8 @@
 <title>Insert title here</title>
 <link href="<%=request.getContextPath()%>/css/hidden_text.css" rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath()%>/css/middle.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath()%>/css/center.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath()%>/css/search.css" rel="stylesheet" type="text/css" />
 
 <script>
 $(document).ready(function(){
@@ -46,17 +48,17 @@ margin: 10px;
 <div class="content">
 <!-- 검색창 -->
 <form action="<%=request.getContextPath()%>/club_list.do" method="get">
-	<input type="text" name="keyword">
-	<input type="submit" value="검색">
+	<input class="search-input" type="text" name="keyword">
+	<input class="search-button btn btn-warning" type="submit" value="검색">
 </form>
-
+<br>
 <%-- 검색 결과 페이지 일떄--%>
 <c:choose>
 <c:when test="${not empty keyword}">
 <h5>'${keyword}' 모임 검색 결과</h5>
 <a href="<%=request.getContextPath()%>/club_list.do?keyword=${keyword}" class="big">Groups</a>
-<a href="<%=request.getContextPath()%>/event_list.do?keyword=${keyword}" class="big">Events</a>
-<button onclick="location='<%=request.getContextPath()%>/<%=request.getContextPath()%>/club.do'"
+<a href="<%=request.getContextPath()%>/event_list.do?keyword=${keyword}" class="big" style="color:gray">Events</a>
+<button onclick="location='<%=request.getContextPath()%>/club.do'"
  class="btn btn-warning" style="width:200px; height:40px; border-radius:20px;">모임만들기</button>
 <br><br>
 </c:when>
@@ -72,8 +74,8 @@ margin: 10px;
      <c:when test="${club_region == 'Abroad'}"><h5>해외 지역 모임</h5></c:when>
     </c:choose>
 <a href="<%=request.getContextPath()%>/club_list.do?club_region=${club_region}" class="big">Groups</a>
-<a href="<%=request.getContextPath()%>/event_list.do?event_region=${event_region}" class="big">Events</a>
-<button onclick="location='<%=request.getContextPath()%>/<%=request.getContextPath()%>/club.do'"
+<a href="<%=request.getContextPath()%>/event_list.do?event_region=${event_region}" class="big" style="color:gray">Events</a>
+<button onclick="location='<%=request.getContextPath()%>/club.do'"
  class="btn btn-warning" style="width:200px; height:40px; border-radius:20px;">모임만들기</button>
 <br><br>
 </c:when>	
@@ -81,9 +83,9 @@ margin: 10px;
 <c:otherwise>
 <h5>전체 모임 보기</h5>
 <a href="<%=request.getContextPath()%>/club_list.do" class="big">Groups</a>
-<a href="<%=request.getContextPath()%>/event_list.do" class="big">Events</a>
+<a href="<%=request.getContextPath()%>/event_list.do" class="big" style="color:gray">Events</a>
 
-<button onclick="location='<%=request.getContextPath()%>/<%=request.getContextPath()%>/club.do'"
+<button onclick="location='<%=request.getContextPath()%>/club.do'"
  class="btn btn-warning" style="width:200px; height:40px; border-radius:20px;">모임만들기</button>
 <br><br>
 </c:otherwise>
@@ -123,20 +125,20 @@ margin: 10px;
       <div class="card-body">
         <h5 class="card-title hidden"><a href="<%=request.getContextPath()%>/club_ct.do?club_num=${i.club_num}">${i.club_name}</a></h5>
 	   
-	   <div id="heart1_div${i.club_num}">
-      <button id="heart1${i.club_num}" onclick="heart1(${i.club_num});" class="heart_button_fill" type="button" style="border:0; background-color:transparent;">
-      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-heart-fill" style="color:red;" viewBox="0 0 16 16">
-  	<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-</svg></button>
-   </div>
+	   	   <div id="heart1_div${i.club_num}">
+      		<button id="heart1${i.club_num}" onclick="heart1(${i.club_num});" class="heart_button_fill" type="button" style="border:0; background-color:transparent;">
+      		<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-heart-fill" style="color:red;" viewBox="0 0 16 16">
+  			<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+			</svg></button>
+   			</div>
 
-   <div id="heart2_div${i.club_num}">
-      <button id="heart2${i.club_num}" onclick="heart2(${i.club_num});" class="heart_button_cancel" type="button" style="border:0; background-color:transparent;">
-      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-  <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-</svg></button>
-
-   </div>
+   			<div id="heart2_div${i.club_num}">
+      		<button id="heart2${i.club_num}" onclick="heart2(${i.club_num});" class="heart_button_cancel" type="button" style="border:0; background-color:transparent;">
+      		<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+  			<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+			</svg></button>
+   			</div>
+   
    	</div>
         <p class="card-text hidden">${i.club_info}</p>
         <p class="card-text">
@@ -161,7 +163,7 @@ margin: 10px;
 </c:if>
 
 <%-- 페이징 처리 시작--%>
-<nav aria-label="Page navigation example">
+<nav class="center" aria-label="Page navigation example">
   <ul class="pagination">
 <%-- 검색 결과 페이지  페이징 처리 --%>
 <c:choose>
