@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<img src="<%=request.getContextPath() %>/upload/${header_result.member_image}" width="80" height="80" style="border-radius: 50%;" />
+<img src="<%=request.getContextPath() %>/upload/${header_result.member_image}" width="60" height="60" style="border-radius: 50%;" />
 
 </body>
 </html>

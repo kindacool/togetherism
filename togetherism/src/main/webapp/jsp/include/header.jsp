@@ -7,6 +7,7 @@
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="<%=request.getContextPath()%>/images/favicon.ico" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link
@@ -72,7 +73,7 @@ $(function(){
 						
 						<li class="nave-item">
 						<img src="<%=request.getContextPath()%>/images/profile_pic.png"
-							 width="80" height="80" style="border-radius: 50%;" />
+							 width="50" height="50" style="border-radius: 50%;" />
 						</a>
 						
 						<li class="nave-item"><a href="#" class="nav-link">

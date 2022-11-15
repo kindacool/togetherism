@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="icon" href="<%=request.getContextPath()%>/images/favicon.ico" />
 <title>Insert title here</title>
 </head>
 <body>

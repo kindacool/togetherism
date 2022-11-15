@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8" />
+<link rel="icon" href="<%=request.getContextPath()%>/images/favicon.ico" />
 <title class="title">Togetherism 로그인하기</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
@@ -45,17 +47,25 @@ function pwd_find(){
 
 </script>
 
+<style type="text/css">
+
+#box{background-color:#F6F7F8;}
+
+</style>
+
 </head>
 <body>
-<div class="logo text-left">
-	<h1>Togetherism</h1>
-</div>
+<div id="box">
 <jsp:include page="../include/header.jsp"></jsp:include><br><br><br><br><br>
 
 
+
 <div class="wrapper">
+<br><br>
+<h1 align="center" style="font-weight: bold; color: #5e17eb">Togetherism</h1>
+<h2 align="center" style="font-weight: bold;">로그인</h2>
+<br><br>
 	<div class="inner-warpper text-center">
-		<h2 class="title">Togetherism 로그인</h2>
 			<form action="<%=request.getContextPath()%>/member_login_ok.do" method="post" onsubmit="return check()">
 				<div class="input-group">
 					<input type="text" class="form-control" name="login_email" id="login_email" placeholder="이메일주소" /> 
@@ -65,20 +75,19 @@ function pwd_find(){
 					<input type="password" class="form-control" name="login_pw" id="login_pw" placeholder="비밀번호" />
 					<span class="lighting"></span>
 				</div>
+				<br>
 				
 				<button type="submit" id="login" style="background-color: #5e17eb">로그인하기</button>
 				
 				<div class="clearfix supporter">
-					<div class="pull-left remember-me">
-						<input type="checkbox" id="rememberMe"/> 
-						<label for="rememberMe">아이디 기억하기</label>
-					</div>
-					<a class="forgot pull-right" 
+
+					<a class="forgot pull-left" 
 					href="<%=request.getContextPath()%>/member_emailfind.do">이메일 찾기</a> 
 					<a class="forgot pull-right" 
 					href="<%=request.getContextPath()%>/member_pwfind.do">비밀번호 찾기</a>
 				</div>
 			</form>
+			
 	</div>
 	<div class="signup-wrapper text-center">
 		<a href="<%=request.getContextPath()%>/member_signup.do">계정이 없으신가요? <span class="text-primary">회원가입하기</span>
@@ -88,5 +97,6 @@ function pwd_find(){
 
 <br><br><br><br><br>
 <jsp:include page="../include/footer.jsp"></jsp:include>
+</div>
 </body>
 </html>
