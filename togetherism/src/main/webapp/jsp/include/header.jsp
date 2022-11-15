@@ -44,6 +44,17 @@
       font-size:large;
       text-decoration:none;
   }
+  
+  #about{
+  		color:black;
+  		font-size:large;
+  		text-decoration:none;
+  }
+  #about:hover{
+  	font-weight:900;
+  	text-decoration:none;
+  	color:black;
+  }
 
   
 </style>
@@ -72,7 +83,7 @@
 				<!--  기업소개 버튼 -->
 				<div class="collapse navbar-collapse" id="navmenu">
 					<ul class="navbar-nav ms-auto">
-						<li class="nav-item"><a href="<%=request.getContextPath()%>/about.do" class="nav-link">About</a>
+						<li class="nav-item"><a href="<%=request.getContextPath()%>/about.do" class="nav-link" id="about">About</a>
 						</li>
 						
 						<li class="nave-item"><a href="#" class="nav-link">
@@ -126,8 +137,8 @@
 							</a>
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 								<li><a class="dropdown-item" href="<%=request.getContextPath()%>/member_logout.do">로그아웃</a></li>
-								<li><a class="dropdown-item" href="<%=request.getContextPath()%>/member_edit.do">정보수정</a></li>
-								<li><a class="dropdown-item" href="#">마이페이지 </a></li>
+		                        <li><a class="dropdown-item" href="<%=request.getContextPath()%>/member_edit.do">정보수정</a></li>
+		                        <li><a class="dropdown-item" href="<%=request.getContextPath()%>/joined_club.do">마이페이지 </a></li>
 							</ul>
 						</div>
 					</ul>
@@ -141,13 +152,18 @@
 			style="background-color: #ffc100;">
 			<div class="container">
 				<nav class="nav text-dark">
-					<a class="nav-link" href="#">전체</a> <a class="nav-link" href="#">수도권</a>
-					<a class="nav-link" href="#">강원</a> <a class="nav-link" href="#">경상</a>
-					<a class="nav-link" href="#">전라</a> <a class="nav-link" href="#">충청</a>
-					<a class="nav-link" href="#">제주</a> <a class="nav-link" href="#">해외</a>
-					<a class="nav-link" href="<%=request.getContextPath()%>/qna.do">FAQ/Contact</a>
+				<a class="nav-link active" aria-current="page" href="<%=request.getContextPath()%>/main.do">Home</a>
+	               <a class="nav-link" href="<%=request.getContextPath()%>/notice_list.do">공지사항</a>
+	               <a class="nav-link" href="<%=request.getContextPath()%>/club_list.do">전체</a> 
+	               <a class="nav-link" href="<%=request.getContextPath()%>/club_list.do?club_region=Seoul_Metropolitan">수도권</a>
+	               <a class="nav-link" href="<%=request.getContextPath()%>/club_list.do?club_region=Gangwon">강원</a> 
+	               <a class="nav-link" href="<%=request.getContextPath()%>/club_list.do?club_region=Gyeongsang">경상</a>
+	               <a class="nav-link" href="<%=request.getContextPath()%>/club_list.do?club_region=Jeolla">전라</a> 
+	               <a class="nav-link" href="<%=request.getContextPath()%>/club_list.do?club_region=Chungcheong">충청</a>
+	               <a class="nav-link" href="<%=request.getContextPath()%>/club_list.do?club_region=Jeju">제주</a> 
+	               <a class="nav-link" href="<%=request.getContextPath()%>/club_list.do?club_region=Abroad">해외</a>
+	               <a class="nav-link" href="<%=request.getContextPath()%>/qna.do">FAQ/Contact</a>
 					<a class="nav-link" href="<%=request.getContextPath()%>/notice_list.do">공지사항</a>
-					<a class="nav-link" >　　　　　</a>
 					<a class="nav-link" href="<%=request.getContextPath()%>/admin.do">　　　　</a>
 				</nav>
 			</div>
