@@ -153,7 +153,7 @@ margin: 10px;
             		</c:when>
             		<c:otherwise>
             		    <a href="<%=request.getContextPath()%>/event_cont.do?club_num=${club_num}&event_num=${i.event_num}&eventPage=${eventPage}&state=cont"> 	
-            			<img src="<%=request.getContextPath()%>/images/togetherimage.jpg" class="card-img full"  style="width:100%; height:245px" alt="defalutimage">
+            			<img src="<%=request.getContextPath()%>/images/logo_square.png" class="card-img full"  style="width:100%; height:245px" alt="defalutimage">
             			</a>
             		</c:otherwise>
         		</c:choose>
@@ -162,7 +162,7 @@ margin: 10px;
 	</c:if>
 	<c:if test="${empty i.event_file}">
 	    <a href="<%=request.getContextPath()%>/event_cont.do?club_num=${club_num}&event_num=${i.event_num}&eventPage=${eventPage}&state=cont">
-		<img src="<%=request.getContextPath()%>/images/togetherimage.jpg" class="card-img"  style="width:100%; height:245px" alt="defalutimage">
+		<img src="<%=request.getContextPath()%>/images/logo_square.png" class="card-img"  style="width:100%; height:245px" alt="defalutimage">
 		</a>
 	</c:if>
 
