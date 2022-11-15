@@ -13,6 +13,7 @@
 <link href="<%=request.getContextPath()%>/css/center.css" rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath()%>/css/fullimage.css" rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath()%>/css/fontj.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath()%>/css/border.css" rel="stylesheet" type="text/css" />
 </head>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript"
@@ -94,7 +95,7 @@ function copy_to_clipboard() {
     }
 
 </style>
-
+<jsp:include page="../include/header.jsp"></jsp:include><br><br><br><br><br>
 <body>
 
 
@@ -107,41 +108,41 @@ function copy_to_clipboard() {
 <c:if test="${not empty club}">
 <div class="wrapper">
 <div class="content">
-
- <div class="center" style="background-color:orange;height:300px;">
-    <div class="host" style="background-color:yellow; width:500px; height:270px;">
+<br><br><br><br>
+ <div class="center yellow-border" style="height:300px;">
+    <div class="host" style="width:500px; height:270px;">
     	<img class="full" src="<%=request.getContextPath()%>/upload/${club.club_image}" alt="${club.club_image}"/>
     </div>
-    <div class="host" style="background-color:red; width:500px; height:270px;">
-      <div class="center" style="background-color:gray; width:500px;height:80px;font-size:30px;font-weight:bold;">${club.club_name}</div>
+    <div class="host" style="width:500px; height:270px;">
+      <div class="center" style="width:500px;height:80px;font-size:30px;font-weight:bold;">${club.club_name}</div>
       
-      <div style="background-color:blue; width:500px; height:100px;">
-        <div class="host" style="background-color:orange; width:100px; height:100px;">
+      <div class="beige-full" style="width:500px; height:100px;border:4px dashed #ffc107;border-radius: 40px;">
+        <div class="host" style="width:90px; height:90px;">
 			<img class="img-circle full" src="<%=request.getContextPath() %>/upload/${memberdto.member_image}" alt="${memberdto.member_image}"/>
 		</div>
-        <div class="host" style="background-color:red; width:400px; height:100px;">
-        <div class="center" style="height:60px;background-color:blue;">${memberdto.member_nickname} <br>${club.club_host_email}</div>
-        <div class="center" style="height:40px;background-color:bule;">${club.club_keyword}</div>
+        <div class="host" style="width:400px; height:90px;">
+        <div class="center" style="height:50px;"><img src="<%=request.getContextPath()%>/images/crown.png" style="width:20px;height:20px" alt="모임장">&nbsp; ${memberdto.member_nickname}</div>
+        <div class="center" style="height:40px;">${club.club_keyword}</div>
         </div>
 
       </div>
-      <div class="center" style="background-color:gray; width:500px; height:90px;">
+      <div class="center" style="width:500px; height:90px;">
 		<button type="button" class="btn btn-warning center" 
-		style="width:400px;height:50px;border-radius:20px;font-size:30px;font-weight:bold;"
+		style="width:400px;height:50px;border-radius:20px;font-size:30px;font-weight:bold;color:white"
 		 data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">JOIN NOW</button>
 	  </div>
     </div>
 </div>
-
+<br>
 <hr width="900px">
 
 <div>
   <div style="background-color:blue; width=450px; height=80px;"></div>
   <div>
-    <div class="host center" style="background-color:yellow;width:100px;height:80px;"><h4>모임정보</h4></div>
-    <div class="host" style="background-color:red; width:200px; height:80px;">
-      <div class="center" style="background-color:gray; width:200px; height:40px;"><b>지역</b></div>
-      <div class="center" style="background-color:blue; width:200px; height:40px;">
+    <div class="host center" style="width:100px;height:80px;"><h4>모임정보</h4></div>
+    <div class="host" style=" width:200px; height:80px;">
+      <div class="center" style="width:200px; height:40px;"><b>지역</b></div>
+      <div class="center" style="width:200px; height:40px;">
       <c:choose>
         	<c:when test="${club.club_region == 'Seoul_Metropolitan'}">수도권</c:when>
         	<c:when test="${club.club_region == 'Gangwon'}">강원</c:when>
@@ -153,19 +154,19 @@ function copy_to_clipboard() {
         </c:choose>
       </div>
     </div>
-    <div class="host" style="background-color:red; width:200px; height:80px;">
-      <div class="center" style="background-color:blue; width:200px; height:40px;"><b>관심사</b></div>
-      <div class="center" style="background-color:gray; width:200px; height:40px;">${club.club_interest}</div>
+    <div class="host" style="width:200px; height:80px;">
+      <div class="center" style="width:200px; height:40px;"><b>관심사</b></div>
+      <div class="center" style=" width:200px; height:40px;">${club.club_interest}</div>
     </div>
-    <div class="host" style="background-color:red; width:200px; height:80px;">
-      <div class="center" style="background-color:gray; width:200px; height:40px;"><b>정원</b></div>
-      <div class="center" style="background-color:blue; width:200px; height:40px;">${club.club_member_limit}</div>
+    <div class="host" style=" width:200px; height:80px;">
+      <div class="center" style=" width:200px; height:40px;"><b>정원</b></div>
+      <div class="center" style=" width:200px; height:40px;">${club.club_member_limit}</div>
     </div>
-    <div class="host" style="background-color:red; width:200px; height:80px;">
-      <div class="center" style="background-color:blue; width:200px; height:40px;"><b>가입자수</b></div>
-      <div class="center" style="background-color:gray; width:200px; height:40px;">${club.club_member_count}</div>
+    <div class="host" style="width:200px; height:80px;">
+      <div class="center" style=" width:200px; height:40px;"><b>가입자수</b></div>
+      <div class="center" style=" width:200px; height:40px;">${club.club_member_count}</div>
     </div>
-    <div class="host" style="background-color:yellow; width:100px; height:80px;">
+    <div class="host" style=" width:100px; height:80px;">
     <button onclick="copy_to_clipboard()" style="background-color: transparent;border:0"><svg xmlns="http://www.w3.org/2000/svg" width="100" height="50" fill="currentColor" class="bi bi-chat-dots-fill" viewBox="0 0 16 16">
  		<path d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
 		</svg></button>
@@ -177,7 +178,7 @@ function copy_to_clipboard() {
   </div>
 </div>
 
-<br><br><br><br>
+<br><br><br>
 <hr width="900px">
 <br>
 <button type="button" class="btn btn-warning" id="club_info" style="width:250px; height:40px; border-radius:20px;">상세정보</button>
@@ -309,4 +310,5 @@ for (var i = 0; i < positions.length; i ++) {
 </div>
 
 </body>
+<jsp:include page="../include/footer.jsp"></jsp:include>
 </html>

@@ -128,10 +128,10 @@ select * from (select a.*, rowNum rn from (
 	select * from club order by
 	<choose>
 		<when test="_parameter != null and _parameter == 'hot'">
-	club_viewcount desc) a) where rn between 1 and 9
+	club_viewcount desc) a) where rn between 1 and 3
 		</when>
 		<when test="_parameter != null and _parameter == 'new'">
-	club_reg_date desc) a) where rn between 1 and 9
+	club_reg_date desc) a) where rn between 1 and 3
 		</when>
 		<when test="_parameter != null and _parameter == 'pre'">
 	club_member_count desc)	a) where rn between 1 and 3

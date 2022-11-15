@@ -26,10 +26,11 @@ margin: 10px;
     }
 </style>
 </head>
-<body>
+<jsp:include page="../include/header.jsp"></jsp:include>
 <div class="wrapper">
 <div class="content">
 <c:if test="${club_num == 0}"> <!-- 모임 내에서 이벤트를 볼때는 검색창 없음 -->
+<br><br><br><br><br><br><br><br>
 	<form action="<%=request.getContextPath()%>/event_list.do" method="get">
 		<input class="search-input" type="text" name="keyword">
 		<input class="search-button btn btn-warning" type="submit" value="검색">
@@ -280,4 +281,5 @@ margin: 10px;
 </nav>
 </div></div>
 </body>
+<jsp:include page="../include/footer.jsp"></jsp:include>
 </html>

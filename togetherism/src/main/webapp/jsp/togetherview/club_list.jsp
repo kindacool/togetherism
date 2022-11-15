@@ -51,10 +51,12 @@ margin: 10px;
     }
 </style>
 </head>
+<jsp:include page="../include/header.jsp"></jsp:include><br><br><br><br><br>
 <body>
 <div class="wrapper">
 <div class="content">
 <!-- 검색창 -->
+<br><br><br>
 <form action="<%=request.getContextPath()%>/club_list.do" method="get">
 	<input class="search-input" type="text" name="keyword">
 	<input class="search-button btn btn-warning" type="submit" value="검색">
@@ -265,4 +267,5 @@ margin: 10px;
 </nav>
 </div></div>
 </body>
+<jsp:include page="../include/footer.jsp"></jsp:include>
 </html>

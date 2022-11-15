@@ -45,31 +45,33 @@ function edit_ok(){
     }
 </style>
 </head>
+<jsp:include page="../include/header.jsp"></jsp:include><br><br><br><br><br>
 <body>
 <div class="wrapper">
 <div class="content">
-<h2 style="text-align: center">이벤트 정보</h2>
-			<div style="background-color:red;width:700px;">
-			<div class="host" style="background-color:yellow; width:200px; height:40px;">
-  			<div class= "center" style="background-color:gray; width:200px; height:50px;"><b>이벤트 제목</b></div>
-  			<div class= "center" style="background-color:blue; width:200px; height:50px;"><b>이벤트 날짜</b></div>
-  			<div class= "center" style="background-color:orange; width:200px; height:50px;"><b>이벤트 시간</b></div>
-  			<div class= "center" style="background-color:gray; width:200px; height:50px;"><b>이벤트 지역</b></div>
-  			<div class= "center" style="background-color:blue; width:200px; height:150px;"><b>이벤트 내용</b></div>
-  			<div class= "center" style="background-color:black; width:200px; height:200px;"><b>첨부파일 및 사진</b></div>
+<br><br><br><br><br>
+<h2 style="text-align: center">이벤트 정보</h2><br>
+			<div style="width:700px;">
+			<div class="host" style="width:200px; height:40px;">
+  			<div class= "center" style="border-bottom:4px solid #ffc107; border-right:4px solid #ffc107;width:200px; height:50px;"><b>이벤트 제목</b></div>
+  			<div class= "center" style="border-bottom:4px solid #ffc107; border-right:4px solid #ffc107;width:200px; height:50px;"><b>이벤트 날짜</b></div>
+  			<div class= "center" style="border-bottom:4px solid #ffc107; border-right:4px solid #ffc107;width:200px; height:50px;"><b>이벤트 시간</b></div>
+  			<div class= "center" style="border-bottom:4px solid #ffc107; border-right:4px solid #ffc107;width:200px; height:50px;"><b>이벤트 지역</b></div>
+  			<div class= "center" style="border-bottom:4px solid #ffc107; border-right:4px solid #ffc107;width:200px; height:150px;"><b>이벤트 내용</b></div>
+  			<div class= "center" style="border-bottom:4px solid #ffc107; border-right:4px solid #ffc107;width:200px; height:200px;"><b>첨부파일 및 사진</b></div>
 			</div>
 
-			<div class="host" style="background-color:red; width:500px;">
-  			<div class="center" style="background-color:blue; width:500px; height:50px;">
+			<div class="host" style="width:500px;">
+  			<div class="center" style="border-bottom:4px solid #ffc107;  width:500px; height:50px;">
   			${event.event_title}
   			</div>
-  			<div class="center" style="background-color:gray; width:500px; height:50px;">
+  			<div class="center" style="border-bottom:4px solid #ffc107; width:500px; height:50px;">
 			<fmt:formatDate value="${event.event_date}" pattern="YYYY년  M월 d일"/>
 			</div>
-  			<div class="center" style="background-color:green; width:500px; height:50px;">
+  			<div class="center" style="border-bottom:4px solid #ffc107; width:500px; height:50px;">
 			<fmt:formatDate type="time" timeStyle="short" value="${event.event_date}"/>  			
 			</div>
-  			<div class="center" style="background-color:blue; width:500px; height:50px;">
+  			<div class="center" style="border-bottom:4px solid #ffc107; width:500px; height:50px;">
   			
   			<c:choose>
         	<c:when test="${event.event_region == 'Seoul_Metropolitan'}">수도권</c:when>
@@ -82,10 +84,10 @@ function edit_ok(){
         	</c:choose>
 
   			</div>
-  			<div class="center" style="background-color:green; width:500px; height:150px;">
+  			<div class="center" style="border-bottom:4px solid #ffc107; width:500px; height:150px;">
   			${eventInfobr}
   			</div>
-  			<div class="center" style="background-color:orange; width:500px; height:200px;">
+  			<div class="center" style="border-bottom:4px solid #ffc107; width:500px; height:200px;">
   			<c:if test="${not empty event.event_file}">
     			<c:set var="filename" value="${event.event_file}" />
 				<c:set var="fileNm" value="${fn:toLowerCase(filename)}" />
@@ -121,7 +123,7 @@ function edit_ok(){
   			</div>
 			</div>
 			<!-- 맵이 표시될 위치 -->
-<div id="map" style="width: 700px; height: 700px;"></div>
+<div id="map" style="border-bottom:4px solid #ffc107; width: 700px; height: 700px;"></div>
 <!-- 맵 작업 코드 -->
 <script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -171,4 +173,5 @@ marker.setMap(map);
 
 </div></div>
 </body>
+<jsp:include page="../include/footer.jsp"></jsp:include>
 </html>

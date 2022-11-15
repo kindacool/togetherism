@@ -72,9 +72,11 @@ $(document).ready(function(){
     }
 </style>
 </head>
+<jsp:include page="../include/header.jsp"></jsp:include><br><br><br><br><br>
 <body>
 <div class="wrapper">
 <div class="content">
+<br><br><br><br><br>
 <c:if test="${result == 2}">
 <script>
 alert("모임장만 이벤트를 등록할 수 있습니다");
@@ -82,7 +84,7 @@ history.go(-1);
 </script>
 </c:if>
 <c:if test="${empty result}">
-<h2 style="text-align: center">이벤트 생성</h2>
+<h2 style="text-align: center">이벤트 생성</h2><br>
 	<form name="event_form"
 		action="<%=request.getContextPath()%>/event_create.do" method="post"
 		enctype="multipart/form-data">
@@ -92,29 +94,29 @@ history.go(-1);
 		<input type="hidden" id="event_spot_long" name="event_spot_long" value="">
 			
 			<br>
-			<div style="background-color:red;width:700px;">
-			<div class="host" style="background-color:yellow; width:200px; height:40px;">
-  			<div class= "center" style="background-color:gray; width:200px; height:50px;"><b>이벤트 제목</b></div>
-  			<div class= "center" style="background-color:blue; width:200px; height:50px;"><b>이벤트 날짜</b></div>
-  			<div class= "center" style="background-color:orange; width:200px; height:50px;"><b>이벤트 시간</b></div>
-  			<div class= "center" style="background-color:gray; width:200px; height:50px;"><b>이벤트 지역</b></div>
-  			<div class= "center" style="background-color:blue; width:200px; height:150px;"><b>이벤트 내용</b></div>
-  			<div class= "center" style="background-color:black; width:200px; height:50px;"><b>첨부파일 및 사진</b></div>
+			<div style="width:700px;">
+			<div class="host" style="width:200px; height:40px;">
+  			<div class= "center" style="border-bottom:4px solid #ffc107; border-right:4px solid #ffc107; width:200px; height:50px;"><b>이벤트 제목</b></div>
+  			<div class= "center" style="border-bottom:4px solid #ffc107; border-right:4px solid #ffc107; width:200px; height:50px;"><b>이벤트 날짜</b></div>
+  			<div class= "center" style="border-bottom:4px solid #ffc107; border-right:4px solid #ffc107; width:200px; height:50px;"><b>이벤트 시간</b></div>
+  			<div class= "center" style="border-bottom:4px solid #ffc107; border-right:4px solid #ffc107; width:200px; height:50px;"><b>이벤트 지역</b></div>
+  			<div class= "center" style="border-bottom:4px solid #ffc107; border-right:4px solid #ffc107; width:200px; height:150px;"><b>이벤트 내용</b></div>
+  			<div class= "center" style="border-bottom:4px solid #ffc107; border-right:4px solid #ffc107; width:200px; height:50px;"><b>첨부파일 및 사진</b></div>
 			</div>
 
-			<div class="host" style="background-color:red; width:500px; height:400px;">
-  			<div style="background-color:blue; width:500px; height:50px;">
+			<div class="host" style="width:500px; height:400px;">
+  			<div style="border-bottom:4px solid #ffc107; width:500px; height:50px;">
   			<div class="mb-3">
   			<input type="text" class="form-control center" id="event_title" name="event_title" maxlength="20">
 			</div>
   			</div>
-  			<div style="background-color:gray; width:500px; height:50px;">
+  			<div style="border-bottom:4px solid #ffc107; width:500px; height:50px;">
   			<input type="date" class="center" id="event_date_date" name="event_date_date" style="width:500px;height:40px;border-radius:8px;">
   			</div>
-  			<div style="background-color:green; width:500px; height:50px;">
+  			<div style="border-bottom:4px solid #ffc107; width:500px; height:50px;">
   			<input type="time" class="center" id="event_date_time" name="event_date_time" style="width:500px;height:40px;border-radius:8px;">
   			</div>
-  			<div style="background-color:blue; width:500px; height:50px;">
+  			<div style="border-bottom:4px solid #ffc107; width:500px; height:50px;">
   			
   			<select class="form-select center" aria-label="Default select example" name="event_region" id="event_region">
   			<option value="Seoul_Metropolitan" <c:if test="${club_region == 'Seoul_Metropolitan'}">selected
@@ -134,12 +136,12 @@ history.go(-1);
 			</select>
 
   			</div>
-  			<div style="background-color:green; width:500px; height:150px;">
+  			<div style="border-bottom:4px solid #ffc107; width:500px; height:150px;">
   			<div class="mb-3">
   			<textarea class="form-control center" name="event_info" id="event_info" style="height:140px;"></textarea>
 			</div>
   			</div>
-  			<div style="background-color:orange; width:500px; height:50px;">
+  			<div style="border-bottom:4px solid #ffc107; width:500px; height:50px;">
   			<div class="input-group mb-3">
   			<input type="file" class="form-control center" name="event_file0">
   			<label class="input-group-text" for="inputGroupFile02">Upload</label>
@@ -148,7 +150,7 @@ history.go(-1);
 			</div>
 			<br>
 			<p style="text-align:center">장소를 지도에서 선택해주세요</p>
-			<div id="map" style="clear:both;background-color:green; width:700px; height:700px;"></div>
+			<div id="map" style="clear:both;background-color:green; width:700px; height:700px;border-bottom:4px solid #ffc107;"></div>
 			<div id="clickLatlng"></div>
 			<br>
 			<br>
@@ -233,4 +235,5 @@ history.go(-1);
 </div>
 </div>
 </body>
+<jsp:include page="../include/footer.jsp"></jsp:include>
 </html>
