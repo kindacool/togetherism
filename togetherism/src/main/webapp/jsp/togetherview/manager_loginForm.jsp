@@ -26,7 +26,7 @@ function check(){
 </head>
 <body>
 <jsp:include page="../include/header.jsp"></jsp:include><br><br><br><br><br>
-<br><br><br><br><br>
+<br><br><br>
 
 <div class="wrapper" align="center">
    <div class="inner-warpper text-center">
@@ -48,7 +48,7 @@ function check(){
    </div>
 </div>
 
-<br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br>
 <jsp:include page="../include/footer.jsp"></jsp:include>
 </body>
 </html>

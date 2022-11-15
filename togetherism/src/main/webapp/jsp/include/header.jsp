@@ -30,6 +30,9 @@
 	$(function() {
 		$("#noticeRecent").load("<%=request.getContextPath()%>/notice_recent.do")
 	});
+	$(function(){
+		$("#ttt").load("header_member.do");
+	});
 </script>
 <style>
 	.nav-link {

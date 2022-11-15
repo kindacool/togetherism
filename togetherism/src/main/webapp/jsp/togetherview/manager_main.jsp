@@ -60,7 +60,7 @@
 		</div>
 		<div class="col">
 			<!-- 신고 당한 회원 랭킹 -->
-			<h4>신고당한 회원</h4><br>
+			<h4>신고 랭킹 TOP 3</h4><br>
 			<div style="width:400px; height:auto; align:center">
 				<canvas id="reportChart">
 				</canvas>
