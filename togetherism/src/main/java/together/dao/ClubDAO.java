@@ -9,7 +9,7 @@ public interface ClubDAO {
 
 	public void insertClub(ClubDTO club) throws Exception;
 	
-	public void insertclub_member_join(Club_Member_JoinDTO clubmj) throws Exception;
+	public int insertclub_member_join(Club_Member_JoinDTO clubmj) throws Exception;
 	
 	public ClubDTO bringclubname(String club_name) throws Exception;
 

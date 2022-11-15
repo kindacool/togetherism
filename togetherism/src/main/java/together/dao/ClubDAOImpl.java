@@ -14,13 +14,16 @@ public class ClubDAOImpl implements ClubDAO {
 	@Autowired
 	private SqlSession sqlSession;
 
-	
-	  // 모임 이름 중복 체크
-	  
-	 @Transactional public int checkClubName(String cn) throws Exception { int re
-	  = -1; ClubDTO cto = sqlSession.selectOne("club_name_check", cn); if (cto !=
-	  null) re = 1; return re; }
-	
+	// 모임 이름 중복 체크
+
+	@Transactional
+	public int checkClubName(String club_name) throws Exception {
+		int re = -1;
+		ClubDTO cto = sqlSession.selectOne("club_name_check", club_name);
+		if (cto != null)
+			re = 1;
+		return re;
+	}
 
 	// 모임 등록
 	@Transactional
@@ -45,7 +48,7 @@ public class ClubDAOImpl implements ClubDAO {
 
 	}
 
-	public void insertclub_member_join(Club_Member_JoinDTO clubmj) throws Exception {
+	public int insertclub_member_join(Club_Member_JoinDTO clubmj) throws Exception {
 
 		System.out.println(clubmj.getJoin_num());
 		System.out.println(clubmj.getMember_email());
@@ -53,7 +56,7 @@ public class ClubDAOImpl implements ClubDAO {
 		System.out.println(clubmj.getJoin_hello());
 		System.out.println(clubmj.getClub_host_yn());
 
-		sqlSession.insert("clubns.insertclub_member_join", clubmj);
+		return sqlSession.insert("clubns.insertclub_member_join", clubmj);
 	}
 
 	public ClubDTO bringclubname(String club_name) throws Exception {

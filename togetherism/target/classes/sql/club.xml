@@ -4,6 +4,10 @@
 <mapper namespace="clubns">
 
 
+	<select id="club_name_check" parameterType="String" resultType="club">
+	select * from club where club_name=#{club_name} 
+	</select>
+
    <!-- 모임 등록 -->
     <insert id="club" parameterType="club">
     insert into club(club_num,club_host_email,club_name,club_image,

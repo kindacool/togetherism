@@ -28,8 +28,8 @@ public class ClubServiceImpl implements ClubService{
 	
 	
 // 모임 가입 테이블에 member_email 넣기 
-	public void insertClub_Member_Join(Club_Member_JoinDTO clubmj) throws Exception{
-		clubDao.insertclub_member_join(clubmj);
+	public int insertClub_Member_Join(Club_Member_JoinDTO clubmj) throws Exception{
+		return clubDao.insertclub_member_join(clubmj);
 	}
 	
 	public ClubDTO bringclubname(String club_name) throws Exception{

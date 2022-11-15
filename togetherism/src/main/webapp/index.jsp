@@ -23,8 +23,8 @@
 //location.href="heart_list.do";
 //location.href="club.do";
 //location.href="tester1.do";
-location.href="member_login.do";
-//location.href="club_detail.do?club_num=165&state=edit";
+//location.href="member_login.do";
+//location.href="club_detail.do?club_num=226&state=edit";
 //location.href="club_pre_list.do?preview=pre";
 
 </script>

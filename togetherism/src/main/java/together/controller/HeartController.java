@@ -152,7 +152,7 @@ public class HeartController {
 
 		return "togetherview/heart_list";
 	}
-//	
+	
 //	@RequestMapping(value="heart_check.do")
 //		public String heart_check(HttpServletRequest request, Model model, HeartDTO heartdto) throws Exception{
 //		System.out.println("heart_check 컨트롤러 들어옴");

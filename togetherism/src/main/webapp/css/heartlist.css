@@ -1,1 +1,7 @@
 @charset "UTF-8";
+
+   .cover{
+    display: flex;
+    justify-content: space-between;
+    background-color: #38b6ff;
+    }

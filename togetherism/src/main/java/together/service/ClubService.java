@@ -9,7 +9,7 @@ public interface ClubService {
 	
 	public void insertClub(ClubDTO club) throws Exception;
 	
-	public void insertClub_Member_Join(Club_Member_JoinDTO clubmj) throws Exception;
+	public int insertClub_Member_Join(Club_Member_JoinDTO clubmj) throws Exception;
 	
 	public ClubDTO bringclubname(String club_name) throws Exception;
 	
