@@ -1,7 +1,26 @@
 @charset "UTF-8";
 
-   .cover{
-    display: flex;
-    justify-content: space-between;
-    background-color: #38b6ff;
-    }
+.wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.content {
+	padding: 1rem;
+}
+
+.center {
+	text-align: center;
+	align-items: center;
+	display: flex;
+	justify-content: center;
+}
+
+.host{
+    float: left;
+  }
+  .cover{
+  display: flex;
+  justify-content: space-between;
+  }

@@ -60,7 +60,7 @@
  	// 모임 명 중복확인
      $.ajax({
          type:"POST",
-         url:"/togetherism/club_namecheck.do",
+         url:"/club_namecheck.do",
          data: {"club_name":club_name},        
          success: function (data) {  // 콜백함수
        	  if(data==1){	// 중복 모임명

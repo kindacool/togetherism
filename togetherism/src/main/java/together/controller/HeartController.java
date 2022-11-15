@@ -32,7 +32,8 @@ public class HeartController {
 	public String insert_heart(int club_num,  
 							   HttpSession session, Model model) throws Exception{
 		
-		String session_email = (String) session.getAttribute("email");
+		String session_email = "jackson@naver.com";
+				/* (String) session.getAttribute("email"); */
 		
 		
 		
@@ -58,7 +59,8 @@ public class HeartController {
 	@RequestMapping(value ="remove_heart.do")
 	public String remove_heart(int club_num, HttpSession session) throws Exception{
 	
-		String session_email = (String) session.getAttribute("email");
+		String session_email = "jackson@naver.com";
+				/*(String) session.getAttribute("email");*/
 		
 		HeartDTO heartdto = new HeartDTO();
 		heartdto.setClub_num(club_num);
@@ -74,7 +76,8 @@ public class HeartController {
 	public String remove1_heart(int club_num, HttpSession session) throws Exception{
 	
 		
-		String session_email = (String) session.getAttribute("email");
+		String session_email = "jackson@naver.com";
+		/* (String) session.getAttribute("email"); */
 		
 		HeartDTO heartdto = new HeartDTO();
 		heartdto.setClub_num(club_num);
@@ -100,7 +103,8 @@ public class HeartController {
 	         heartPage = Integer.parseInt(request.getParameter("heartPage"));
 	      }
 	      
-	      String session_email = (String) session.getAttribute("email");
+	      String session_email = "jackson@naver.com";
+		/* (String) session.getAttribute("email"); */
 	      
 	      Map<String, Object> map = new HashMap<String, Object>();
 	      map.put("session_email", session_email);

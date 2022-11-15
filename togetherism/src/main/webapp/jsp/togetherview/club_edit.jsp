@@ -148,7 +148,10 @@
 						<input
 							type="reset" value="취소" class="input_button" />
 					</div>
+					</div>
+					</div>
 		</form>
+		</div>
 		<%-- 		<jsp:include page="../include/footer.jsp"></jsp:include> --%>
 </body>
 <br><br><br><br><br>
