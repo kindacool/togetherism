@@ -26,7 +26,12 @@
 location.href="member_login.do";
 //location.href="club_detail.do?club_num=226&state=edit";
 //location.href="club_pre_list.do?preview=pre";
-
+//	 location.href = "testselect.do";
+//	 location.href = "notice_list.do";
+//	 location.href = "manager_list.do";
+//	 location.href = "admin.do";
+//	 location.href = "qna.do";
+//	 location.href = "notice_recent.do";
 </script>
 </body>
 </html>

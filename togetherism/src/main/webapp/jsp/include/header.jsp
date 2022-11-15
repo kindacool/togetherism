@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,6 +56,7 @@
      font-weight:900;
      text-decoration:none;
      color:black;
+
   }
 
   
@@ -119,7 +120,7 @@
             <c:if test="${!empty sessionScope.email}">
             <div class="collapse navbar-collapse" id="navmenu">
                <ul class="navbar-nav ms-auto">
-                  <li class="nav-item"><a href="<%=request.getContextPath()%>/about.do" class="nav-link">About</a>
+                  <li class="nav-item"><a href="<%=request.getContextPath()%>/about.do" class="nav-link" id="about">About</a>
                   </li>
                   
                   <li class="nave-item"><a href="#" class="nav-link">
@@ -155,7 +156,6 @@
          <div class="container">
             <nav class="nav text-dark">
             <a class="nav-link active" aria-current="page" href="<%=request.getContextPath()%>/main.do">Home</a>
-                  <a class="nav-link" href="<%=request.getContextPath()%>/notice_list.do">공지사항</a>
                   <a class="nav-link" href="<%=request.getContextPath()%>/club_list.do">전체</a> 
                   <a class="nav-link" href="<%=request.getContextPath()%>/club_list.do?club_region=Seoul_Metropolitan">수도권</a>
                   <a class="nav-link" href="<%=request.getContextPath()%>/club_list.do?club_region=Gangwon">강원</a> 
@@ -174,3 +174,4 @@
    </div>
 </body>
 </html>
+

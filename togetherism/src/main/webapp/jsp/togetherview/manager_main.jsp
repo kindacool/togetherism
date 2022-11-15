@@ -6,50 +6,166 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 메인</title>
-<script>
-$(function(){
-	$('#logout').click(function(){
-		if(confirm("정말 로그아웃 하시겠습니까?")) {
-			alert("로그아웃 완료");
-			self.location.href="manager_logout.do";
-		}
-	});
-});
-</script>
+<link rel="icon" href="<%=request.getContextPath()%>/images/favicon.ico" />
+<!-- 관리자 로그아웃 --> <script src="./js/manager_logout.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.0.0-rc.1/chartjs-plugin-datalabels.min.js" integrity="sha512-+UYTD5L/bU1sgAfWA0ELK5RlQ811q8wZIocqI7+K0Lhh8yVdIoAMEs96wJAIbgFvzynPm36ZCXtkydxu1cs27w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<style>
+  	#linkstyle{text-decoration:none; color:black;}
+	#linkstyle:hover {text-decoration: none; color: #5e17eb; }
+	.currentPage {font-style: bold;}
+</style>
 </head>
 <body>
+<jsp:include page="../include/header.jsp"></jsp:include><br><br><br><br><br><br>
 <p>
+<!-- 관리자 메뉴 -->
+
 <div class="container">
-	<p><h1>${sessionScope.manager_email } 님 환영합니다! </h1></p>
+	<div class="row">
+	<div class="col" style="text-align:center; padding:20px;">
+		<p><h3>관리자 메인 </h3></p>
+	</div>
+	<div class="col">
+	</div>
+	<div class="col" id="sidemenu">
+			<button class="btn text-dark" id="logout" style="width:350px; border-color:#fff;">${sessionScope.manager_email }에서 로그아웃</button>
+		<br>
+		<div class="btn-group">
+	  		<button type="button" class="btn text-white" style="background-color: #5e17eb;" onClick="location.href='manager_main.do' ">관리자 메인</button>
+	  		<button type="button" class="btn text-white" style="background-color: #5e17eb;" onClick="location.href='manager_list.do' ">회원 관리</button>
+	  		<button type="button" class="btn text-white" style="background-color: #5e17eb;" onClick="location.href='notice_list.do' ">공지사항</button>
+		</div>
+	</div>
+	</div>
 </div>
+
 </p>
+
+<p class="lead text-center text-black mb-5"></p>
 <div align="center">
-	<table class="table table-borderless w-auto">
-	
-	<tr>
-		<td align="center" style="width: 500px">
-			<h1> 회원관리</h1><br>
-			<button type="button" class="btn btn-warning" onClick="location.href='manager_list.do' ">
-             <svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
-  <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-  <path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/>
-  <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
-</svg></button>
-		</td>
-		<td align="center" style="width: 500px">
-			<h1> 공지사항 </h1><br>
-			<button type="button" class="btn btn-danger" onClick="location.href='notice_list.do' ">
-				<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" fill="currentColor" class="bi bi-megaphone-fill" viewBox="0 0 16 16">
-  <path d="M13 2.5a1.5 1.5 0 0 1 3 0v11a1.5 1.5 0 0 1-3 0v-11zm-1 .724c-2.067.95-4.539 1.481-7 1.656v6.237a25.222 25.222 0 0 1 1.088.085c2.053.204 4.038.668 5.912 1.56V3.224zm-8 7.841V4.934c-.68.027-1.399.043-2.008.053A2.02 2.02 0 0 0 0 7v2c0 1.106.896 1.996 1.994 2.009a68.14 68.14 0 0 1 .496.008 64 64 0 0 1 1.51.048zm1.39 1.081c.285.021.569.047.85.078l.253 1.69a1 1 0 0 1-.983 1.187h-.548a1 1 0 0 1-.916-.599l-1.314-2.48a65.81 65.81 0 0 1 1.692.064c.327.017.65.037.966.06z"/>
-</svg>
-			</button>
-		</td>
-	</tr>
-	<tr>
-		<td><button class="btn btn-dark" id="logout">로그아웃</button></td>
-		<td></td>
-	</tr>
-	</table>
+	<div class="row">
+		<div class="col">
+		</div>
+		<div class="col">
+			<!-- 3일간 회원 수 그래프 -->
+			<h4>3일간 회원 수</h4> <br>
+			<div style="width:400px; height:auto; align:center">
+				<canvas id="memberChart">
+				</canvas>
+			</div>
+		</div>
+		<div class="col">
+			<!-- 신고 당한 회원 랭킹 -->
+			<h4>신고 랭킹 TOP 3</h4><br>
+			<div style="width:400px; height:auto; align:center">
+				<canvas id="reportChart">
+				</canvas>
+			</div>
+		</div>
+		<div class="col">
+		</div>
+	</div>
 </div>
+
+<!-- 멤버차트 -->
+<script>
+  new Chart(document.getElementById("memberChart"), {
+    type: 'pie',		//차트 형태
+    data: {
+      labels: ['2일전', '1일전', '오늘'],	//x축
+      datasets: [{ 
+			label: "",
+			data: [${dago2Total}, ${dago1Total }, ${todayTotal }],
+			borderColor: [
+				'rgba(153, 102, 255, 1)',
+				'rgba(255, 206, 86, 1)',
+				'rgba(255, 99, 132, 1)'
+			],
+			backgroundColor: [
+				'rgba(153, 102, 255, 0.2)',
+				'rgba(255, 206, 86, 0.2)',
+				'rgba(255, 99, 132, 0.2)'
+			],
+			fill: false,
+			borderWidth:1,
+			datalabels:{
+				color:'black',
+				fontSize:15,
+			}
+          }
+      ],
+    },	//data end
+    options: {
+    	legend: {
+    		display: false
+    	},
+        scales: {
+            y: {
+                max: 10,
+                min: 0,
+                stepSize: 1
+            }
+        }
+    },
+    plugins: [ChartDataLabels],
+    	options: {
+    		color:'black',
+      		anchor: 'end',
+      		align: 'end',
+      		offset: 10
+    	}
+});
+</script>
+
+<!-- 신고차트 -->
+<script>
+  new Chart(document.getElementById("reportChart"), {
+    type: 'doughnut',		//차트 형태
+    data: {
+      labels: ['${reportName1 }', '${reportName2 }', '${reportName3 }'],	//x축
+      datasets: [
+    	 { 
+          label: "회원",
+          data: [${reportRank1}, ${reportRank2 }, ${reportRank3 }],
+          borderColor: [
+				'rgba(153, 102, 255, 1)',
+				'rgba(255, 206, 86, 1)',
+				'rgba(255, 99, 132, 1)'
+			],
+			backgroundColor: [
+				'rgba(153, 102, 255, 0.2)',
+				'rgba(255, 206, 86, 0.2)',
+				'rgba(255, 99, 132, 0.2)'
+			],
+          fill: false,
+          datalabels:{
+				color:'black'
+			}
+          }
+      ]
+    },
+    options: {
+    	
+    	responsive: true,
+    	legend: false,
+		title: {
+        display: true,
+        text: '신고당한 회원 랭킹',
+        fontSize: 25
+      }
+    },
+    plugins: [ChartDataLabels],
+	  	options:{
+	  		
+	  	}
+  });
+</script>
+
+<br><br><br><br><br>
+<jsp:include page="../include/footer.jsp"></jsp:include>
 </body>
 </html>

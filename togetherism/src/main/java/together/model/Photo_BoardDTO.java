@@ -14,4 +14,5 @@ public class Photo_BoardDTO {
 	private Date photo_date;
 	private String photo_content;
 	private String photo_file;
+
 }

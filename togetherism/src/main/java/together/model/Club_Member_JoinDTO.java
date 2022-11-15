@@ -2,12 +2,14 @@ package together.model;
 
 import java.util.Date;
 
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 public class Club_Member_JoinDTO {
+
 
 
    private int join_num;
@@ -18,6 +20,8 @@ public class Club_Member_JoinDTO {
    private String join_hello;
    private String club_host_yn;
    private Date join_date;
+
 }
+
 
 

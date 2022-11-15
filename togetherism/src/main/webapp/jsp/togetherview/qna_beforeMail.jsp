@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>문의 메일 미리보기</title>
+<link rel="icon" href="<%=request.getContextPath()%>/images/favicon.ico" />
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
@@ -15,14 +16,20 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+<jsp:include page="../include/header.jsp"></jsp:include><br><br><br>
 
+<!-- 메일 폼 미리보기 -->
 <form action="mail.do" method="post">
 <input type="hidden" value="${qna_category }">
-<br><br><br><br><br>
-		<div class="container">
-			<p><h1>메일 문의 미리보기<br></h1></p>
-		</div>
+
+
+<section class="p-5"></section>
 <div class="container">
+	<p><h3>1:1 문의 메일 전송 미리보기</h3></p>
+	<p><h6>작성하신 메일을 전송하기 전 한번 더 확인해주세요<br>
+	</h6></p>
+	<br><br>
+	
 	<p><table class="table table-borderless w-auto">
 		<tr>
 			<th style="width:200px"> 분류 </th>
@@ -39,11 +46,11 @@
 		</tr>
 		<tr>
 			<th style="width:200px"> 작성자 </th>
-			<td style="width:500px"><input type="text" name="member_nickname" id="member_nickname" value=${member_nickname } class="form-control" placeholder="제목을 입력해주세요" style="width: 500px" readonly></td>
+			<td style="width:700px"><input type="text" name="member_nickname" id="member_nickname" value=${member_nickname } class="form-control" placeholder="제목을 입력해주세요" style="width: 700px" readonly></td>
 		</tr>
 		<tr>
-			<th style="width:200px"> 메일 주소 </th>
-			<td style="width:500px"><input type="email" name="member_email" id="member_email" value="${member_email }" class="form-control" placeholder="답변 받을 이메일 주소를 입력해주세요" style="width: 500px" readonly></td>
+			<th> 메일 주소 </th>
+			<td> <input type="email" name="member_email" id="member_email" value="${member_email }" class="form-control" placeholder="답변 받을 이메일 주소를 입력해주세요" style="width: 700px" readonly></td>
 			
 			<%-- <!-- 로그인 세션이 유지될 경우 -->
 			<c:if test="${not empty memberDto.member_email }">
@@ -56,22 +63,25 @@
 			</c:if> --%>
 		</tr>
 		<tr>
-			<th style="width:200px"> 제목 </th>
-			<td style="width:500px"><input type="text" name="mail_subject" id="mail_subject" value="${ mail_subject}" class="form-control" placeholder="제목을 입력해주세요" style="width: 500px" readonly></td>
+			<th> 제목 </th>
+			<td> <input type="text" name="mail_subject" id="mail_subject" value="${ mail_subject}" class="form-control" placeholder="제목을 입력해주세요" style="width: 700px" readonly></td>
 		</tr>
 		<tr>
-			<th style="width:200px"> 내용 </th>
-			<td style="width:500px"><textarea type="text" name="mail_content" id="mail_content" class="form-control" placeholder="내용을 입력해주세요" rows="10" cols="10" readonly>${mail_content }</textarea>
+			<th> 내용 </th>
+			<td> <textarea type="text" name="mail_content" id="mail_content" class="form-control" placeholder="내용을 입력해주세요" rows="10" cols="10" readonly>${mail_content }</textarea>
 			</td>
 		</tr>
 	</table></p>
 	
 	<p><div align="center">
-			<input type="submit" class="btn btn-danger" id="mailbtn" value="전송">
+			<input type="submit" class="btn" style="background-color:#5e17eb; color:#ffffff;" id="mailbtn" value="전송">
 			<input type="reset" class="btn btn-warning" value="취소" onClick="history.go(-1)">
 	</p></div>
 </div>
 </form>
+</section>
 
+<br><br><br><br><br>
+<jsp:include page="../include/footer.jsp"></jsp:include>
 </body>
 </html>

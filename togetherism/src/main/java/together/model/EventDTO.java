@@ -1,8 +1,6 @@
 package together.model;
 
-
 import java.util.Date;
-
 
 import lombok.Getter;
 import lombok.Setter;
@@ -30,4 +28,6 @@ public class EventDTO {
 	private String keyword;
 	// 미리보기
 	private String preview;
+
 }
+

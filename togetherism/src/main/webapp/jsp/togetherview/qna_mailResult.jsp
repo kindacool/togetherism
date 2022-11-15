@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>문의 메일 전송 완료</title>
+<link rel="icon" href="<%=request.getContextPath()%>/images/favicon.ico" />
 </head>
 <body>
 <script>

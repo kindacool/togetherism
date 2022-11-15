@@ -14,5 +14,6 @@
 <img src="<%=request.getContextPath() %>/upload/${header_result.member_image}" width="50" height="50" style="border-radius: 50%;" />
 
 
+
 </body>
 </html>

@@ -17,8 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import together.model.ClubDTO;
+import together.model.ClubJoinInfo;
+import together.model.Club_Member_JoinDTO;
+import together.model.EventDTO;
+import together.model.Event_User_AttendDTO;
 import together.model.ManagerDTO;
 import together.model.MemberDTO;
+import together.model.MemberReportInfo;
+import together.model.ReportDTO;
 import together.service.ManagerServiceImpl;
 
 @Controller
@@ -34,6 +40,7 @@ public class ManagerController {
 	}
 	
 	//관리자 로그인 정보 확인
+//	@RequestMapping("manager_login.do")
 	@RequestMapping(value= "manager_login.do", method=RequestMethod.POST)
 	public String manager_login(String manager_email, 
 								String manager_pw, 
@@ -66,7 +73,8 @@ public class ManagerController {
 				
 				model.addAttribute("managerDto", managerDto);
 				
-				return "togetherview/manager_main";
+//				return "togetherview/manager_main";
+				return "redirect:manager_main.do";
 				
 			} else {												// 비밀번호 불일치
 				
@@ -81,11 +89,39 @@ public class ManagerController {
 	
 	//관리자로그인 후 메인 화면 진입
 	@RequestMapping("manager_main.do")
-	public String manger_main (HttpSession session) throws Exception {
+	public String manger_main (HttpSession session, Model model) throws Exception {
 		
 		//로그인 세션 유지
 		String manager_email = (String) session.getAttribute("manager_email");
 		System.out.println("메인화면 진입");
+		
+		//2일전, 1일전, 오늘 가입한 회원 수
+		int dago2Total = managerService.get2dago();
+		int dago1Total = managerService.get1dago();
+		int todayTotal = managerService.getToday();
+		
+		//신고 많이 당한 회원 리스트
+		List<MemberReportInfo> reportDto= managerService.getReport();
+		int reportRank1 = reportDto.get(0).getReport_count();
+		int reportRank2 = reportDto.get(1).getReport_count();
+		int reportRank3 = reportDto.get(2).getReport_count();
+		String reportName1 = reportDto.get(0).getMember_nickname();
+		String reportName2 = reportDto.get(1).getMember_nickname();
+		String reportName3 = reportDto.get(2).getMember_nickname();
+				
+		System.out.println(reportName1+"신고 횟수 : "+reportRank1);
+		System.out.println(reportName2+"신고 횟수 : "+reportRank2);
+		System.out.println(reportName3+"신고 횟수 : "+reportRank3);
+		
+		model.addAttribute("dago2Total", dago2Total);
+		model.addAttribute("dago1Total", dago1Total);
+		model.addAttribute("todayTotal", todayTotal);
+		model.addAttribute("reportRank1", reportRank1);
+		model.addAttribute("reportRank2", reportRank2);
+		model.addAttribute("reportRank3", reportRank3);
+		model.addAttribute("reportName1", reportName1);
+		model.addAttribute("reportName2", reportName2);
+		model.addAttribute("reportName3", reportName3);
 		
 		return "togetherview/manager_main";
 	}
@@ -188,6 +224,14 @@ public class ManagerController {
 	public String manager_listSearch (MemberDTO memberDto,
 									  HttpServletRequest request,
 									  Model model) throws Exception {
+
+		//page : 현재 페이지, limit : 한 화면에 출력할 목록
+		int page = 1;
+		int limit = 10;
+		
+		if (request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+		}
 		
 		//이메일, 닉네임 검색 목록 가져오기
 		List<MemberDTO> searchList = managerService.getSearch(memberDto);
@@ -201,14 +245,6 @@ public class ManagerController {
 		String keyword = memberDto.getKeyword();
 		System.out.println("분류 : "+memberDto.getSearch());
 		System.out.println("키워드 : "+memberDto.getKeyword());
-		
-		//page : 현재 페이지, limit : 한 화면에 출력할 목록
-		int page = 1;
-		int limit = 10;
-		
-		if (request.getParameter("page") != null) {
-			page = Integer.parseInt(request.getParameter("page"));
-		}
 		
 		//1 블럭당 페이지 개수
 		int pageCount = searchCount / limit + ((searchCount%limit == 0) ? 0 : 1);
@@ -247,18 +283,52 @@ public class ManagerController {
 		//특정 회원의 모임장 리스트 가져오기
 		List<ClubDTO> clubDto = managerService.getClub(member_email); 
 		System.out.println("개설한 모임 목록 구해오기 성공");
-		
 		//개설한 (모임장인) 모임의 수
 		int clubList = clubDto.size();
 		System.out.println("개설한 모임의 수 :"+clubDto.size());
 		for (int i=0; i<clubList; i++) {
 			System.out.println("개설한 모임 목록 :"+clubDto.get(i).getClub_name());
 		}
+
+		//특정 회원의 가입 모임 리스트 가져오기
+		List<ClubJoinInfo> cjiDto = managerService.getJoinclub(member_email);
+		//특정 회원이 가입한 모임의 수
+		int cjiList = cjiDto.size();
+		
+		//특정 회원이 참석한 이벤트 목록에서 event_num을 구해온다
+		List<Event_User_AttendDTO> euaDto = managerService.getAttendevent(member_email);
+		//특정 회원이 참석한 이벤트 수
+		int euaCount = euaDto.size();
+		
+		for (int i=0; i<euaCount; i++) {
+			System.out.println(memberDto.getMember_nickname()+"가 참여한 event_num"+i+" : " + euaDto.get(i).getEvent_num());
+		}
+		
+		//특정 회원이 참석한 이벤트 목록
+//		if( euaDto != null ) {
+//			
+////			int i=0;
+////			while( 0 < euaCount) {
+////				List<EventDTO> eventDto = managerService.getEvent(euaDto.get(i).getEvent_num());
+////			}
+//			
+//			for (int i=0; i<euaCount; i++) {
+//				List<EventDTO> eventDto = managerService.getEvent(euaDto.get(i).getEvent_num());
+//				System.out.println(memberDto.getMember_nickname()+"가 참여한 event_num"+i+" : " + eventDto.get(i).getEvent_title());
+//				model.addAttribute("eventDto", eventDto);
+//			}
+//			
+//		}
 		
 		model.addAttribute("memberDto", memberDto);
 		model.addAttribute("clubDto", clubDto);
 		model.addAttribute("reportCount", reportCount);
 		model.addAttribute("clubList", clubList);
+		model.addAttribute("cjiDto", cjiDto);
+		model.addAttribute("cjiList", cjiList);
+		model.addAttribute("euaDto", euaDto);
+		model.addAttribute("euaCount", euaCount);
+//		model.addAttribute("eventDto", eventDto);
 		
 		return "togetherview/manager_deleteForm";
 	}
@@ -286,7 +356,7 @@ public class ManagerController {
 	}
 	
 	//Q&A 메일 전송 미리보기
-	@RequestMapping("before_mail.do")
+	@RequestMapping("qna_beforeMail.do")
 	public String before_mail (String qna_category,
 							   String member_nickname,
 							   String member_email,
@@ -333,7 +403,7 @@ public class ManagerController {
 		String charSet = "utf-8";
 		String hostSMTP = "smtp.naver.com";
 		String hostSMTPid = "milkysea39@naver.com";	// 메일주소 입력
-		String hostSMTPpwd = "Sh**ting7!"; 		// 로그인 비밀번호 입력
+		String hostSMTPpwd = "sh**ting7!"; 		// 로그인 비밀번호 입력
 
 		// 보내는 사람 EMail, 제목, 내용
 		String fromEmail = hostSMTPid;	// 관리자 이메일
@@ -373,7 +443,7 @@ public class ManagerController {
 		String admin_charSet = "utf-8";
 		String admin_hostSMTP = "smtp.naver.com";
 		String admin_hostSMTPid = "milkysea39@naver.com";	// 메일주소 입력
-		String admin_hostSMTPpwd = "Sh**ting7!"; 		// 로그인 비밀번호 입력
+		String admin_hostSMTPpwd = "sh**ting7!"; 		// 로그인 비밀번호 입력
 
 		// 보내는 사람 EMail, 제목, 내용
 		// 발송 완료 안내메일

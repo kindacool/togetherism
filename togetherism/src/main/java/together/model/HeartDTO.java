@@ -12,3 +12,4 @@ public class HeartDTO {
 	 private int club_num;
 	 private String member_email;
 }
+

@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
+<link rel="icon" href="<%=request.getContextPath()%>/images/favicon.ico" />
 </head>
 <body>
 

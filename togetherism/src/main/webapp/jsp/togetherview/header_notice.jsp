@@ -1,17 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-    
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
+<style>
+  	#linkstyle{text-decoration:none; color:black;}
+	#linkstyle:hover {text-decoration: none; color: #5e17eb; }
+	.currentPage {font-style: bold;}
+</style>
 </head>
 <body>
-
 <br>
 <table class="table table-borderless">
 <tr>
@@ -21,7 +23,7 @@
 </svg>
 </td>
 <td>  
-<a href="<%=request.getContextPath()%>/notice_content.do?notice_num=${noticeRnum0 }&page=1" style="text-decoration:none"> ${noticeRecent0 } </a>
+<a href="<%=request.getContextPath()%>/notice_content.do?notice_num=${noticeRnum0 }&page=1" id="linkstyle"> ${noticeRecent0 } </a>
 </td>
 </tr>
 </table>
