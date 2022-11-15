@@ -5,9 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="icon" href="<%=request.getContextPath()%>/images/favicon.ico" />
 <title>Togetherism 계정 비밀번호 찾기</title>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-
 <script>
 function check(){
 	 if($.trim($("#member_email").val())==""){
@@ -32,31 +32,62 @@ function check(){
 	 }
 }
 </script>
+
+<style type="text/css">
+
+#box{background-color:#F6F7F8;}
+
+</style>
 </head>
 <body>
- <c:if test="${empty pwdok}"> 
- <form action="<%=request.getContextPath()%>/member_pwfind_ok.do" method="post" onSubmit="return check()">
- <h2 align="center">비밀번호 찾기</h2>
-	<table align="center">
+
+<div id="box">
+<jsp:include page="../include/header.jsp"></jsp:include><br><br><br><br><br>
+
+<c:if test="${empty pwdok}"> 
+<form action="<%=request.getContextPath()%>/member_pwfind_ok.do" method="post" onSubmit="return check()">
+
+<br><br>
+<h1 align="center" style="font-weight: bold; color: #5e17eb">Togetherism</h1>
+<h2 align="center" style="font-weight: bold;">비밀번호 찾기</h2>
+<br><br>
+
+
+	<table align="center" cellpadding="2" width="650px" height="300px">
 		<tr>
-			<th>이메일</th>
+			<th style="font-size: 21px;">이메일</th>
+		</tr>
+		
+		<tr>
 			<td>
-				<input type="text" name="member_email" id="member_email"/>
+				<input type="text" name="member_email" id="member_email" style= "width:645px"
+				placeholder="도메인을 포함하여 이메일 주소 전체를 입력하세요(예:togetherism@gmial.com)" / >
 			</td>
 		</tr>
+		<tr><td><br></td></tr>
+		
 		<tr>
-			<th>휴대폰번호</th>
+			<th style="font-size: 21px;">휴대폰번호</th>
 			<td>
-				<input type="text" name="member_mobile1" id="member_mobile1" /> -
-				<input type="text" name="member_mobile2" id="member_mobile2" /> -
-				<input type="text" name="member_mobile3" id="member_mobile3" />
+		</tr>
+		<tr>
+			<td>	
+				<input type="text" name="member_mobile1" id="member_mobile1" style= "width:205px"
+				placeholder="숫자만 입력하세요"/> -
+				<input type="text" name="member_mobile2" id="member_mobile2" style= "width:205px"
+				placeholder="숫자만 입력하세요"  /> -
+				<input type="text" name="member_mobile3" id="member_mobile3" style= "width:205px"
+				placeholder="숫자만 입력하세요" />
 			</td>
-		</tr>		
- 		<tr align="center">
- 		<td colspan=2>
- 			<input type="submit" value="찾기">
-			<input type="reset" value="취소">
-			<input type="button" value="로그인" onClick="location='<%=request.getContextPath()%>/member_login.do'">
+		</tr>	
+		<tr><td><br></td></tr>
+			
+ 		<tr>
+ 		<td align="center">
+ 			<input type="submit" value="찾기" class="btn btn-primary">
+			<input type="reset" value="취소"  class="btn btn-danger" >
+			<input type="button" value="로그인" onClick="location='<%=request.getContextPath()%>/member_login.do'"
+			class="btn btn-warning">
 		</td>
  		</tr>
 	</table>
@@ -64,16 +95,32 @@ function check(){
 </c:if>
 
 <c:if test="${!empty pwdok}">
-    <h2 align="center">비번찾기 결과</h2>
-    <table align="center">
+<br><br>
+<h1 align="center" style="font-weight: bold; color: #5e17eb">Togetherism</h1>
+<h2 align="center" style="font-weight: bold;">비밀번호 찾기 결과</h2>
+<br><br>
+
+    <table align="center" cellpadding="2" width="650px" height="200px">
      <tr>
-      <td>${pwdok}</td>
+      <td align="center" >${pwdok}</td>
      </tr>
+     
+      <tr><td><br></td></tr>
+
+      
      <tr>
-      <td><input type="button" value="로그인" onClick="location='<%=request.getContextPath()%>/member_login.do'"/></td>
+      <td align="center"><input type="button" value="로그인" 
+      onClick="location='<%=request.getContextPath()%>/member_login.do'" class="btn btn-primary"/></td>
      </tr>
+     <tr><td><br></td></tr>
     </table>
     
 </c:if> 
+
+
+<br><br><br><br><br>
+<jsp:include page="../include/footer.jsp"></jsp:include>
+
+</div>
 </body>
 </html>

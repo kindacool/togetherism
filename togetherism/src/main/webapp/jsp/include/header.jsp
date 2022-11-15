@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -93,8 +93,8 @@
                   
                   <li class="nave-item">
                   <img src="<%=request.getContextPath()%>/images/profile_pic.png"
-                      width="80" height="80" style="border-radius: 50%;" />
-                  </a>
+                      width="50" height="50" style="border-radius: 50%;" />
+                 
                   
                   <li class="nave-item"><a href="#" class="nav-link">
                   </a></li>

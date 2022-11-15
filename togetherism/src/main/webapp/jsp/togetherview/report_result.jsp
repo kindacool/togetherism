@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="icon" href="<%=request.getContextPath()%>/images/favicon.ico" />
 <title>신고 결과</title>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 </head>

@@ -45,7 +45,7 @@ public class MemberController {
 			model.addAttribute("header_result", header_result);
 		}
 		
-		return "togetherview/header_member";
+		return "include/header_member";
 	}
 	
 	
@@ -280,7 +280,7 @@ public class MemberController {
 				model.addAttribute("member_nickname", member_nickname);
 				model.addAttribute("member_image", member_image);
 
-				return "togetherview/member_main";
+				return "redirect: main.do";
 				
 			} else {// 비번이 다를때
 				result = 2;
@@ -380,7 +380,7 @@ public class MemberController {
 		model.addAttribute("member_nickname", member.getMember_nickname());
 		model.addAttribute("member_image", member.getMember_image());
 
-		return "togetherview/member_main";
+		return "redirect: main.do";
 	}
 	
 	

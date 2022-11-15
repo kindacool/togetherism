@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="headerlib.jsp"%>
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -173,16 +174,20 @@ h1 a {
 		<li class="default open">
 			<div class="link">내 모임</div>
 			<ul class="submenu">
+
 				<li><a href="<%=request.getContextPath()%>/joined_club.do">가입한 모임</a></li>
 				<li><a href="<%=request.getContextPath()%>/heart_list.do">관심있는 모임</a></li>
 				<li><a href="<%=request.getContextPath()%>/my_club.do">운영하는 모임</a></li>
+
 				<li><a href="<%=request.getContextPath() %>/event_user_attend_mylistPaging.do">내가 참석한 이벤트</a></li>
 			</ul>
 		</li>
 		<li>
 			<div class="link">내 정보</div>
 			<ul class="submenu">
-				<li><a href="<%=request.getContextPath()%>/member_edit.do">정보 수정</a></li>
+
+				<li><a href="<%=request.getContextPath() %>/member_edit.do">정보 수정</a></li>
+
 				<li><a href="<%=request.getContextPath() %>/member_delete.do">회원 탈퇴</a></li>
 			</ul>
 		</li>
