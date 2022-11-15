@@ -22,7 +22,7 @@
 location.href="heart_list.do";
 //location.href="club.do";
 //location.href="tester1.do";
-//location.href="club_detail.do?club_num=165&state=edit";
+//location.href="club_detail.do?club_num=100&state=edit";
 //location.href="club_pre_list.do?preview=pre";
 </script>
 </body>

@@ -14,13 +14,16 @@ public class ClubDAOImpl implements ClubDAO {
 	@Autowired
 	private SqlSession sqlSession;
 
-	
-	  // 모임 이름 중복 체크
-	  
-	 @Transactional public int checkClubName(String cn) throws Exception { int re
-	  = -1; ClubDTO cto = sqlSession.selectOne("club_name_check", cn); if (cto !=
-	  null) re = 1; return re; }
-	
+	// 모임 이름 중복 체크
+
+	@Transactional
+	public int checkClubName(String club_name) throws Exception {
+		int re = -1;
+		ClubDTO cto = sqlSession.selectOne("club_name_check", club_name);
+		if (cto != null)
+			re = 1;
+		return re;
+	}
 
 	// 모임 등록
 	@Transactional

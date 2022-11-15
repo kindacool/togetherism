@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="icon" href="<%=request.getContextPath()%>/images/favicon.ico" />
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/css/heart.css" />
 <link rel="text" type="text/javascript"

@@ -4,13 +4,17 @@
 <mapper namespace="clubns">
 
 
+	<select id="club_name_check" parameterType="String" resultType="club">
+	select * from club where club_name=#{club_name} 
+	</select>
+
    <!-- 모임 등록 -->
     <insert id="club" parameterType="club">
     insert into club(club_num,club_host_email,club_name,club_image,
     club_region,club_keyword,club_info,club_member_count,club_member_limit,
     club_interest,club_chat,club_reg_date,
     club_viewcount)
-    values(club_seq.nextval,'syberia@daum.net',#{club_name},#{club_image},#{club_region},
+    values(club_seq.nextval,#{club_host_email},#{club_name},#{club_image},#{club_region},
     #{club_keyword},#{club_info},1,#{club_member_limit},
     #{club_interest},#{club_chat},SYSDATE,0)
     </insert>
