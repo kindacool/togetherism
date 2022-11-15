@@ -166,6 +166,7 @@ public class Club_Member_JoinController {
 
 		// 1. 세션 구하기 (현재는 Merge 가 안되었으므로 임의로 정함)
 		String sess = (String) session.getAttribute("email");
+		//(String) session.getAttribute("email");
 		
 		List<ClubDTO> joinedClubList = new ArrayList<ClubDTO>();
 		
@@ -218,6 +219,7 @@ public class Club_Member_JoinController {
 	public String leaveClub(Model model, @ModelAttribute Club_Member_JoinDTO cmjdto, HttpSession session) throws Exception {
 		// 1. 세션 구하기 (현재는 Merge 가 안되었으므로 임의로 정함)
 		String sess = (String) session.getAttribute("email");
+		//(String) session.getAttribute("email");
 		cmjdto.setMember_email(sess);
 		int result = 0;
 
@@ -258,6 +260,7 @@ public class Club_Member_JoinController {
 
 		// 1. 세션 구하기 (현재는 Merge 가 안되었으므로 임의로 정함)
 		String sess = (String) session.getAttribute("email");
+				//(String) session.getAttribute("email");
 	
 		List<Club_Member_JoinDTO> myClubList = new ArrayList<Club_Member_JoinDTO>();
 		
@@ -445,5 +448,12 @@ public class Club_Member_JoinController {
 					return "togetherview/kick_out_result";
 				} 
 				
+		}
+	
+		// 메인페이지로 가기
+		@RequestMapping(value="/main.do", method = RequestMethod.GET)
+		public String mainPage() throws Exception {
+			
+			return "togetherview/main";
 		}
 }

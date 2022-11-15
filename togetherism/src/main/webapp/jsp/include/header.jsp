@@ -9,9 +9,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-   href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap"
-   rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap"
+   rel="stylesheet"/>
 <link
    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
    rel="stylesheet"
@@ -30,6 +29,9 @@
    $(function() {
       $("#noticeRecent").load("<%=request.getContextPath()%>/notice_recent.do")
    });
+   $(function(){
+		$("#ttt").load("header_member.do");
+	});
 </script>
 <style>
    .nav-link {
@@ -65,7 +67,7 @@
       <nav class="navbar navbar-expand-lg bg navbar py-3"
          style="background-color: white;">
          <div class="container">
-            <a href="#" class="navbar-brand"> <img
+            <a href="<%=request.getContextPath()%>/main.do" class="navbar-brand"> <img
                src="<%=request.getContextPath()%>/images/togetherism.png" alt="로고"
                width="230" height="70" />
             </a>

@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="icon" href="<%=request.getContextPath()%>/images/favicon.ico" />
 <link href="<%=request.getContextPath()%>/css/middle.css" rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath()%>/css/center.css" rel="stylesheet" type="text/css" />
 <style>
@@ -89,8 +90,8 @@ data-bs-target="#photoModal" data-bs-whatever="@mdo" style="border-radius:20px; 
         <div class='cover'>
         <p class="card-text">${p.photo_content}</p>
          <div>
-         <a href="javascript:void(0);" onclick="delete_ok(${p.photo_num}, ${club_num});" style="text-decoration:none;color:black;">삭제</a>
          <a href="javascript:void(0);"  data-bs-toggle="modal" data-bs-target="#photoEditModal" data-bs-whatever="@mdo" style="text-decoration:none;color:black;">수정</a>
+         <a href="javascript:void(0);" onclick="delete_ok(${p.photo_num}, ${club_num});" style="text-decoration:none;color:black;">삭제</a>
 		
 		<!-- 수정폼 모달 -->
 		<form action="<%=request.getContextPath()%>/photo_edit.do" method="post" enctype="multipart/form-data">

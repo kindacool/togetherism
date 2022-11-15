@@ -3,6 +3,7 @@
 <html>
 <head>
 	<title>Home</title>
+	<link rel="icon" href="<%=request.getContextPath()%>/images/favicon.ico" />
 </head>
 <body>
 <h1>

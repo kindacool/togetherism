@@ -1,27 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="headerlib.jsp"%>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
-	crossorigin="anonymous">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-	integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"
-	integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk"
-	crossorigin="anonymous"></script>
 <title>Insert title here</title>
 <script>
 $(function() {
@@ -189,17 +173,17 @@ h1 a {
 		<li class="default open">
 			<div class="link">내 모임</div>
 			<ul class="submenu">
-				<li><a href="#">가입한 모임</a></li>
-				<li><a href="#">관심있는 모임</a></li>
-				<li><a href="#">운영하는 모임</a></li>
-				<li><a href="#">내가 참석한 이벤트</a></li>
+				<li><a href="<%=request.getContextPath()%>/joined_club.do">가입한 모임</a></li>
+				<li><a href="<%=request.getContextPath()%>/heart_list.do">관심있는 모임</a></li>
+				<li><a href="<%=request.getContextPath()%>/my_club.do">운영하는 모임</a></li>
+				<li><a href="<%=request.getContextPath() %>/event_user_attend_mylistPaging.do">내가 참석한 이벤트</a></li>
 			</ul>
 		</li>
 		<li>
 			<div class="link">내 정보</div>
 			<ul class="submenu">
-				<li><a href="#">정보 수정</a></li>
-				<li><a href="#">회원 탈퇴</a></li>
+				<li><a href="<%=request.getContextPath()%>/member_edit.do">정보 수정</a></li>
+				<li><a href="<%=request.getContextPath() %>/member_delete.do">회원 탈퇴</a></li>
 			</ul>
 		</li>
 	</ul>
