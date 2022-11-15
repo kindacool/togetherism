@@ -26,7 +26,10 @@ margin: 10px;
     }
 </style>
 </head>
+
 <jsp:include page="../include/header.jsp"></jsp:include>
+
+
 <div class="wrapper">
 <div class="content">
 <c:if test="${club_num == 0}"> <!-- 모임 내에서 이벤트를 볼때는 검색창 없음 -->
@@ -71,7 +74,6 @@ margin: 10px;
 	</c:if>
 	
 <c:if test="${club_num != 0}"> <!-- 모임 페이지 내에서 모임내 이벤트를 볼때 -->
-
 <button onclick="location='<%=request.getContextPath()%>/event_createform.do?club_num=${club_num}'"
  class="btn btn-warning" style="width:200px; height:40px; border-radius:20px;">이벤트 생성하기</button>
 
@@ -80,6 +82,7 @@ margin: 10px;
  		class="btn btn-warning" style="width:200px; height:40px; border-radius:20px;">더보기</button>
 	</c:if>
 	<c:if test="${empty preview}"> <!--  모임 내에서 이벤트를 볼때 preview 상태가 아니면 모임으로 돌아가기 출력-->
+	<br><br><br><br><br><br><br><br>
 	<button onclick="location='<%=request.getContextPath()%>/club_ct.do?club_num=${club_num}'"
  		class="btn btn-warning" style="width:200px; height:40px; border-radius:20px;">해당 모임으로 돌아가기</button>
 	</c:if>
@@ -281,5 +284,7 @@ margin: 10px;
 </nav>
 </div></div>
 </body>
+<c:if test="club_num != 0">
 <jsp:include page="../include/footer.jsp"></jsp:include>
+</c:if>
 </html>
