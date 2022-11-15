@@ -380,7 +380,7 @@ public class MemberController {
 		model.addAttribute("member_nickname", member.getMember_nickname());
 		model.addAttribute("member_image", member.getMember_image());
 
-		return "togetherview/member_main";
+		return "redirect: main.do";
 	}
 	
 	
