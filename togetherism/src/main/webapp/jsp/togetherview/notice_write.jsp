@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 > 공지사항</title>
+<link rel="icon" href="<%=request.getContextPath()%>/images/favicon.ico" />
 </head>
 <body>
 	<c:if test="${ result == 1 }">

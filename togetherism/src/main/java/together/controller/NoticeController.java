@@ -308,32 +308,16 @@ public class NoticeController {
 	}
 	
 	//공지사항 최신글 3개 가져오기
-	@RequestMapping("notice_recent3.do")
-	public String notice_recent3 (Model model) throws Exception {
-		
-		System.out.println("공지사항 최신글3 컨트롤러 진입");
+	@RequestMapping("notice_recent.do")
+	public String notice_recent (Model model) throws Exception {
 		
 		List<NoticeDTO> noticeRecent = noticeService.getNoticeRecent();
 		
 		String noticeRecent0 = noticeRecent.get(0).getNotice_title();
-		String noticeRecent1 = noticeRecent.get(1).getNotice_title();
-		String noticeRecent2 = noticeRecent.get(2).getNotice_title();
 		int noticeRnum0 = noticeRecent.get(0).getNotice_num();
-		int noticeRnum1 = noticeRecent.get(1).getNotice_num();
-		int noticeRnum2 = noticeRecent.get(2).getNotice_num();
-		
-		for (int i=0; i<3; i++) {
-			System.out.println("공지사항 최신글 "+i+1+" : "+noticeRecent.get(i).getNotice_title());
-		}
 		
 		model.addAttribute("noticeRecent0", noticeRecent0);
-		model.addAttribute("noticeRecent1", noticeRecent1);
-		model.addAttribute("noticeRecent2", noticeRecent2);
 		model.addAttribute("noticeRnum0", noticeRnum0);
-		model.addAttribute("noticeRnum1", noticeRnum1);
-		model.addAttribute("noticeRnum2", noticeRnum2);
-		
-		System.out.println("공지사항 최신글3 구하기 성공");
 		
 		return "togetherview/header_notice";
 	}
