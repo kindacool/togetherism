@@ -22,7 +22,14 @@
 <div class="container">
 	<div class="row">
 	<div class="col" style="text-align:center; padding:20px;">
-		<p><h3>관리자 > 공지사항 </h3></p>
+		<p><h3>
+		<c:if test="${empty sessionScope.manager_email }">
+		공지사항 
+		</c:if>
+		<c:if test="${not empty sessionScope.manager_email }">
+		관리자 > 공지사항 
+		</c:if>
+		</h3></p>
 	</div>
 	<div class="col">
 	</div>
