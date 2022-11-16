@@ -83,9 +83,9 @@ data-bs-target="#photoModal" data-bs-whatever="@mdo" style="border-radius:20px; 
 <c:if test="${not empty pblist}">
 <div class="row row-cols-1 row-cols-md-4 g-4 center">
 <c:forEach items="${pblist}" var="p">
-  <div class="col" style="width:300px; height:300px;">
-    <div class="card h-100">
-      <img src="<%=request.getContextPath() %>/upload/${p.photo_file}" style="width:100%; height:80%" class="card-img-top" alt="defalutimage">
+  <div class="col" style="max-width:400px;height:300px;">
+    <div class="card h-100" style="width:300px;">
+      <img src="<%=request.getContextPath() %>/upload/${p.photo_file}" style="width:300px; height:80%" class="card-img-top" alt="defalutimage">
       <div class="card-body">
         <div class='cover'>
         <p class="card-text">${p.photo_content}</p>

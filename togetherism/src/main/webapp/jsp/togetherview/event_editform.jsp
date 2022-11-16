@@ -29,6 +29,11 @@ $(document).ready(function(){
 			$("#event_title").focus();
 			return false;
 		}
+		if($("#event_title").val().length > 20){
+			alert("이벤트 명을 20자 이내로 입력해주세요");
+			$("#event_title").focus();
+			return false;
+		}
 		if($("#event_date_date").val() == ""){
 			alert("이벤트 날짜를 입력해주세요");
 			return false;
@@ -37,9 +42,18 @@ $(document).ready(function(){
 			alert("이벤트 시간을 입력해주세요");
 			return false;
 		}
+		if($("#event_region").val() == ""){
+			alert("이벤트 지역을 선택해주세요");
+			return false;
+		}
 		if($("#event_info").val() == ""){
 			alert("이벤트 설명을 입력해주세요");
 			$("#event_info").focus();
+			return false;
+		}
+		if($("#event_info").val().length > 100){
+			alert("이벤트 설명을 100자 이내로 입력해주세요");
+			$("#event_title").focus();
 			return false;
 		}
 		if($("event_spot_lat").val() == ""){
@@ -138,7 +152,7 @@ history.go(-1);
   			</div>
   			<div style="border-bottom:4px solid #ffc107; width:500px; height:150px;">
   			<div class="mb-3">
-  			<textarea class="form-control center" name="event_info" id="event_info" style="height:140px;">${eventInfobr}</textarea>
+  			<textarea class="form-control center" name="event_info" id="event_info" style="height:140px;">${event.event_info}</textarea>
 			</div>
   			</div>
 				
@@ -241,5 +255,6 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 </c:if>
 </div></div>
 </body>
+<br><br><br><br><br>
 <jsp:include page="../include/footer.jsp"></jsp:include>
 </html>

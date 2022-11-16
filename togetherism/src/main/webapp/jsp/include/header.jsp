@@ -39,7 +39,7 @@ $(function(){
 </script>
 
 </head>
-<body>
+<body style="background-image: url('<%=request.getContextPath()%>/images/backimage.png')">
 	<!-- 로고 -->
 	<div class="fixed-top">
 		<nav class="navbar navbar-expand-lg bg navbar py-3"

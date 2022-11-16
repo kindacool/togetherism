@@ -173,5 +173,6 @@ marker.setMap(map);
 
 </div></div>
 </body>
+<br><br><br><br><br>
 <jsp:include page="../include/footer.jsp"></jsp:include>
 </html>

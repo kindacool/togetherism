@@ -18,7 +18,7 @@
 </c:if>
 <c:if test="${result == 2}">
 <script>
-	alert("사진 작성자나 모임장이 아니므로 삭제 불가능");
+	alert("사진 작성자나 모임장이 아니므로 삭제 불가능합니다");
 	history.go(-1);
 </script>
 </c:if>

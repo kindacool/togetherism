@@ -33,7 +33,7 @@ function leave(club_num){
 <body>
 <div class="wrapper">
 <div class="content">
-<br><br><br><br><br>
+<br><br>
 <table>
 <tr>
 <td valign=top><jsp:include page="../include/sidemenu.jsp"></jsp:include>
@@ -49,7 +49,7 @@ function leave(club_num){
 <%-- 리스트 출력 --%>
 <c:if test="${not empty joinedClubList}">
 <c:set var="no1" value="${no}"></c:set><!-- 화면출력번호 -->
-<h2 class="heartlist_title" style="text-align: center;">내가 좋아요한 모임 목록</h2>
+<h2 class="heartlist_title" style="text-align: center;font-weight:bold;">내가 가입한 모임 목록</h2>
 <br><br>
 <c:forEach var="i" items="${joinedClubList}"> 
 <%-- 여기부터 카드 시작 --%>
@@ -134,5 +134,6 @@ function leave(club_num){
 
 
 </body>
+<br><br><br><br><br>
 <jsp:include page="../include/footer.jsp"></jsp:include>
 </html>

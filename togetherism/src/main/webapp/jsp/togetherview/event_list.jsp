@@ -36,7 +36,7 @@ margin: 10px;
 <br><br><br><br><br><br><br><br>
 	<form action="<%=request.getContextPath()%>/event_list.do" method="get">
 		<input class="search-input" type="text" name="keyword">
-		<input class="search-button btn btn-warning" type="submit" value="검색">
+		<input class="search-button btn btn-warning" type="submit" value="검색" style="border-radius:20px;">
 	</form>
 	<br>
 	
@@ -49,7 +49,7 @@ margin: 10px;
 	<br><br>
 	</c:when>
 	<%-- 특정 지역 모임 페이지 일때 --%>
-	<c:when test="${not empty club_region}">
+	<c:when test="${not empty event_region}">
    	<c:choose>
      	<c:when test="${event_region == 'Seoul_Metropolitan'}"><h5>수도권 지역 이벤트</h5></c:when>
      	<c:when test="${event_region == 'Gangwon'}"><h5>강원 지역 이벤트</h5></c:when>
@@ -59,8 +59,8 @@ margin: 10px;
      	<c:when test="${event_region == 'Jeju'}"><h5>제주 지역 이벤트</h5></c:when>
      	<c:when test="${event_region == 'Abroad'}"><h5>해외 지역 이벤트</h5></c:when>
     	</c:choose>
-	<a href="<%=request.getContextPath()%>/club_list.do?club_region=${club_region}" class="big" style="color:gray">Groups</a>
-	<a href="<%=request.getContextPath()%>/event_list.do?event_region=${event_region}" class="big">Events</a>
+	<a href="<%=request.getContextPath()%>/club_list.do?club_region=${event_region}" class="big" style="color:gray">Groups</a>
+	<a href="<%=request.getContextPath()%>/event_list.do?event_region=${club_region}" class="big">Events</a>
 	<br><br>
 	</c:when>	
 	<%-- 전체 목록의 페이지 일때 --%>
@@ -284,7 +284,12 @@ margin: 10px;
 </nav>
 </div></div>
 </body>
-<c:if test="club_num != 0">
+<c:if test="${club_num == 0}">
+<br><br><br><br><br>
+<jsp:include page="../include/footer.jsp"></jsp:include>
+</c:if>
+<c:if test="${club_num != 0 && empty preview}">
+<br><br><br><br><br>
 <jsp:include page="../include/footer.jsp"></jsp:include>
 </c:if>
 </html>
