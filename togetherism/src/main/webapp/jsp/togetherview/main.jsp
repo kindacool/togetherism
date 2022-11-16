@@ -115,7 +115,7 @@ $(document).ready(function(){
     &nbsp;HOT
     </div><br>
       <div id="hot" class="center" style="border:6px solid #ffc107;height:380px;"></div>
-     <br><br>  
+     <br><br>
       
         <div style="font-size:30px;">
       <img src="<%=request.getContextPath()%>/images/diamond.png" style="width:35px;height:35px;">

@@ -111,7 +111,7 @@ function copy_to_clipboard() {
 <br><br><br><br>
  <div class="center yellow-border" style="height:300px;background-color:white;">
     <div class="host" style="width:500px; height:270px;">
-    	<img style="height:270px; width:450px;" src="<%=request.getContextPath()%>/upload/${club.club_image}" alt="${club.club_image}"/>
+    	<img class="full" src="<%=request.getContextPath()%>/upload/${club.club_image}" alt="${club.club_image}"/>
     </div>
     <div class="host" style="width:500px; height:270px;">
       <div class="center" style="width:500px;height:80px;font-size:30px;font-weight:bold;">${club.club_name}</div>

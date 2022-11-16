@@ -20,6 +20,14 @@
   justify-content: space-between;
   }
 </style>
+<script>
+function delete_confirm(a){
+    if (!confirm("정말 모임을 삭제하시겠습니까?")) {
+    } else {
+    	location.href="<%=request.getContextPath()%>/club_detail.do?club_num=" + a + "&state=del";
+    }
+}
+</script>
 </head>
 <jsp:include page="../include/header.jsp"></jsp:include><br><br><br><br><br>
 <body>
@@ -60,7 +68,7 @@
 	  	<div style="float:right;">
 	  	<button onclick="location='<%=request.getContextPath()%>/club_detail.do?club_num=${i.club_num}&state=edit';"
  		class="btn btn-warning" style="width:70px; height:40px; border-radius:20px;">수정</button>
- 		<button onclick="location='<%=request.getContextPath()%>/club_detail.do?club_num=${i.club_num}&state=del';"
+ 		<button onclick="delete_confirm(${i.club_num})" 
  		class="btn btn-warning" style="width:70px; height:40px; border-radius:20px;">삭제</button>
 	  	</div>
 	  </div>

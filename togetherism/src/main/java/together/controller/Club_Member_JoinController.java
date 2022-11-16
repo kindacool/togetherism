@@ -49,8 +49,7 @@ public class Club_Member_JoinController {
 		int result = 0;
 		// 중복 가입 검사 : 모임가입테이블은 중복가입이 가능하므로 중복가입을 방지
 		// 1. 세션 구하기 (현재는 Merge 가 안되었으므로 임의로 정함)
-		String sess = "mimi@gmail.com";
-		//(String) session.getAttribute("email");
+		String sess = (String) session.getAttribute("email");
 		cmjdto.setMember_email(sess);
 
 		// 넘어오는 값 확인
@@ -166,7 +165,7 @@ public class Club_Member_JoinController {
 	public String joinedClub(Model model, HttpServletRequest request, HttpSession session) throws Exception {
 
 		// 1. 세션 구하기 (현재는 Merge 가 안되었으므로 임의로 정함)
-		String sess = "mimi@gmail.com";
+		String sess = (String) session.getAttribute("email");
 		//(String) session.getAttribute("email");
 		//(String) session.getAttribute("email");
 		
@@ -220,7 +219,7 @@ public class Club_Member_JoinController {
 	@RequestMapping(value = "/leave_club.do", method = RequestMethod.GET)
 	public String leaveClub(Model model, @ModelAttribute Club_Member_JoinDTO cmjdto, HttpSession session) throws Exception {
 		// 1. 세션 구하기 (현재는 Merge 가 안되었으므로 임의로 정함)
-		String sess = "mimi@gmail.com";
+		String sess = (String) session.getAttribute("email");
 		//(String) session.getAttribute("email");
 		//(String) session.getAttribute("email");
 		cmjdto.setMember_email(sess);
@@ -262,9 +261,8 @@ public class Club_Member_JoinController {
 	public String myClub(Model model, HttpServletRequest request, HttpSession session) throws Exception {
 
 		// 1. 세션 구하기 (현재는 Merge 가 안되었으므로 임의로 정함)
-		String sess = "mimi@gmail.com";
+		String sess = (String) session.getAttribute("email");
 		//(String) session.getAttribute("email");
-				//(String) session.getAttribute("email");
 	
 		List<Club_Member_JoinDTO> myClubList = new ArrayList<Club_Member_JoinDTO>();
 		
@@ -419,7 +417,7 @@ public class Club_Member_JoinController {
 		model.addAttribute("club_num", club_num);
 		
 		// 1. 세션을 구해서 모임장인지 확인, 모임장만 내보내기 가능
-		String sess = "mimi@gmail.com";
+		String sess = (String) session.getAttribute("email");
 		//(String) session.getAttribute("email");
 
 		// member_email, club_num 을 담은 Club_Member_Join DTO 필요

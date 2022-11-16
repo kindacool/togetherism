@@ -53,7 +53,7 @@ public class EventController {
 	public String eventCreateForm(@RequestParam("club_num") int club_num, Model model, HttpSession session) throws Exception {
 		// 1. 세션을 구하기
 		// 2. 세션을 구해서 club 테이블에서 확인해서 모임장이면 수정 가능
-		String sess = "mimi@gmail.com";
+		String sess = (String) session.getAttribute("email");
 		//(String) session.getAttribute("email");
 		ClubDTO clubdto = club_Member_JoinService.getClubCont(club_num);
 					
@@ -238,7 +238,7 @@ public class EventController {
 
 		// 1. 세션을 구하기
 		// 2. 세션을 구해서 club 테이블에서 확인해서 모임장이면 수정 가능
-		String sess = "mimi@gmail.com";
+		String sess = (String) session.getAttribute("email");
 		//(String) session.getAttribute("email");
 		ClubDTO clubdto = club_Member_JoinService.getClubCont(event.getClub_num());
 		

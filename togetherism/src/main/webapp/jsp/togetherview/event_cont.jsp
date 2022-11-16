@@ -35,7 +35,14 @@ function edit_ok(){
         location.href="<%=request.getContextPath()%>/event_cont.do?club_num=${club_num}&event_num=${event.event_num}&eventPage=${eventPage}&state=edit";
     }
 }
-
+function attend_confirm(a,b){
+    var conre = confirm("이벤트에 참석하시겠습니까?")
+    if (conre == true) {
+         location.href="<%=request.getContextPath()%>/event_user_attend_ok.do?event_num="+a+"&club_num="+b;
+     } else {
+         return false;
+     }
+}
 </script>
 
 
@@ -156,7 +163,7 @@ marker.setMap(map);
 <button onclick="delete_ok()" class="btn btn-warning" style="width:100px; height:40px; border-radius:20px;">삭제</button>
 
 </c:if>
-<button onclick="location='<%=request.getContextPath()%>/event_user_attend_ok.do?club_num=${club_num}&event_num=${event.event_num}'"
+<button onclick="attend_confirm(${event.event_num},${club_num})" 
  class="btn btn-warning" style="width:200px; height:40px; border-radius:20px;">이벤트 참석하기</button>
 
 <input type="button" value="해당 모임의 이벤트 더보기" onclick="location='<%=request.getContextPath()%>/event_list.do?club_num=${club_num}&eventPage=${eventPage}'"
@@ -164,9 +171,7 @@ marker.setMap(map);
 
 </c:if>
 <c:if test="${club_num == 0}">
-<button onclick="location='<%=request.getContextPath()%>/event_user_attend_ok.do?club_num=${club_num}&event_num=${event.event_num}'"
- class="btn btn-warning" style="width:200px; height:40px; border-radius:20px;">이벤트 참석하기</button>
-<input type="button" value="해당 모임에 가입하기" onclick="location='<%=request.getContextPath()%>/club_ct.do?club_num=${event.club_num}'"
+<input type="button" value="해당 모임 확인하기" onclick="location='<%=request.getContextPath()%>/club_ct.do?club_num=${event.club_num}'"
  class="btn btn-warning" style="width:250px; height:40px; border-radius:20px;">
  
 </c:if>
