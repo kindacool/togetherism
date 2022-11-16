@@ -5,7 +5,7 @@ $(function(){
 			$("#qna_category").focus();
 			return false;
 		}
-		if($("#member_nickname").val() == ""){
+		if($("#member_nickname").val() == "" ){
 			alert("작성자를 입력해주세요");
 			$("#member_nickname").focus();
 			return false;

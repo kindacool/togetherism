@@ -14,7 +14,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="./js/qna_mailCheck.js"></script>
 </head>
 <body>
@@ -217,11 +216,10 @@
 	</div>
 </section>
 <!-- 모임 아코디언 종료 -->
-<br><br>
 
 <!-- 메일 폼 시작 -->
 <form action="qna_beforeMail.do" method="post">
-<br><br><br><br><br>
+<br><br><br><br>
 
 <div class="container">
 	<p><h3>1:1 문의</h3></p>
@@ -249,7 +247,7 @@
 			<td>
 				<!-- 로그인 세션이 유지될 경우 -->
 				<c:if test="${not empty sessionScope.email }">
-					<input type="text" name="member_nickname" style='background-color:#E9ECEF' id="member_nickname" class="form-control" placeholder="${memberDto.member_nickname }" style="width: 700px" readonly>
+					<input type="text" name="member_nickname" style="background-color:#E9ECEF;" class="form-control" value="${memberDto.member_nickname }" style="width:700px;" readonly>
 				</c:if>
 				
 				<!-- 비회원 -->
@@ -263,7 +261,7 @@
 			<td>
 				<!-- 로그인 세션이 유지될 경우 -->
 				<c:if test="${not empty sessionScope.email }">
-					<input type="email" name="member_email" style='background-color:#E9ECEF' id="member_email" class="form-control" value="${memberDto.member_email }" style="width: 700px">
+					<input type="email" name="member_email" style='background-color:#E9ECEF' class="form-control" value="${memberDto.member_email }" style="width:700px;" readonly>
 				</c:if>
 				
 				<!-- 비회원 -->

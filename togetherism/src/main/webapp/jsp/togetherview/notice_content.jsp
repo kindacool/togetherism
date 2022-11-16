@@ -18,7 +18,7 @@ $(function(){
 });
 </script>
 <style>
-  	#linkstyle{text-decoration:none; color:black;}
+  	#linkstyle {text-decoration:none; color:black;}
 	#linkstyle:hover {text-decoration: none; color: #5e17eb; }
 	.currentPage {font-style: bold;}
 </style>
@@ -31,7 +31,14 @@ $(function(){
 <div class="container">
 	<div class="row">
 	<div class="col" style="text-align:center; padding:20px;">
-		<p><h3>관리자 > 공지사항 </h3></p>
+		<p><h3>
+		<c:if test="${empty sessionScope.manager_email }">
+		공지사항 
+		</c:if>
+		<c:if test="${not empty sessionScope.manager_email }">
+		관리자 > 공지사항 
+		</c:if>
+		</h3></p>
 	</div>
 	<div class="col">
 	</div>
@@ -78,7 +85,7 @@ $(function(){
 				<c:if test="${noticeDto.notice_file != null }">
 					<tr>
 						<td colspan=2>
-							첨부파일 : <a href="./jsp/togetherview/file_down.jsp?file_name=${noticeDto.notice_file }" style="text-decoration:none">${noticeDto.notice_file }</a>
+							첨부파일 : <a href="./jsp/togetherview/file_down.jsp?file_name=${noticeDto.notice_file }" id="linkstyle">${noticeDto.notice_file }</a>
 						</td>
 					</tr>
 				</c:if>

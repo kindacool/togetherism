@@ -13,7 +13,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
 <jsp:include page="../include/header.jsp"></jsp:include><br><br><br>
@@ -51,16 +50,6 @@
 		<tr>
 			<th> 메일 주소 </th>
 			<td> <input type="email" name="member_email" id="member_email" value="${member_email }" class="form-control" placeholder="답변 받을 이메일 주소를 입력해주세요" style="width: 700px" readonly></td>
-			
-			<%-- <!-- 로그인 세션이 유지될 경우 -->
-			<c:if test="${not empty memberDto.member_email }">
-				<td style="width:500px"><input type="email" name="member_email" id="member_email" class="form-control" value="회원이메일주소 표시" style="width: 500px"></td>
-			</c:if>
-			
-			<!-- 비회원 -->
-			<c:if test="${empty memberDto.member_email }">
-				<td style="width:500px"><input type="email" name="member_email" id="member_email" class="form-control" placeholder="답변 받을 이메일 주소를 입력해주세요" style="width: 500px"></td>
-			</c:if> --%>
 		</tr>
 		<tr>
 			<th> 제목 </th>

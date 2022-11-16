@@ -37,10 +37,10 @@ function check(){
    <table class="table table-borderless w-auto">
    	<tr>
    		</td>
-         <form action="<%=request.getContextPath()%>/manager_login.do" method="post" onsubmit="return check()">
-			<input type="email" class="form-control" name="manager_email" id="manager_email" placeholder="이메일주소" style="width:400"/> 
-			<input type="password" class="form-control" name="manager_pw" id="manager_pw" placeholder="비밀번호" style="width:400"/>
-			<br><br><button type="submit" class="btn btn-warning" id="login">로그인</button>
+         <form action="<%=request.getContextPath()%>/manager_login.do" method="post" onSubmit="return check()">
+			<input type="email" class="form-control" name="manager_email" id="manager_email" value="together@ism.kr" style="width:400"/> 
+			<input type="password" class="form-control" name="manager_pw" id="manager_pw" value="1234" style="width:400"/>
+			<br><br><button type="submit" class="btn text-white" style="background-color:#5e17eb;" id="login">로그인</button>
          </form>
         </td>
     </tr>

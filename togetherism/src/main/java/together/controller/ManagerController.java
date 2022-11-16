@@ -105,9 +105,15 @@ public class ManagerController {
 		int reportRank1 = reportDto.get(0).getReport_count();
 		int reportRank2 = reportDto.get(1).getReport_count();
 		int reportRank3 = reportDto.get(2).getReport_count();
+		int reportRank4 = reportDto.get(3).getReport_count();
+		int reportRank5 = reportDto.get(4).getReport_count();
+		int reportRank6 = reportDto.get(5).getReport_count();
 		String reportName1 = reportDto.get(0).getMember_nickname();
 		String reportName2 = reportDto.get(1).getMember_nickname();
 		String reportName3 = reportDto.get(2).getMember_nickname();
+		String reportName4 = reportDto.get(3).getMember_nickname();
+		String reportName5 = reportDto.get(4).getMember_nickname();
+		String reportName6 = reportDto.get(5).getMember_nickname();
 				
 		System.out.println(reportName1+"신고 횟수 : "+reportRank1);
 		System.out.println(reportName2+"신고 횟수 : "+reportRank2);
@@ -119,9 +125,15 @@ public class ManagerController {
 		model.addAttribute("reportRank1", reportRank1);
 		model.addAttribute("reportRank2", reportRank2);
 		model.addAttribute("reportRank3", reportRank3);
+		model.addAttribute("reportRank4", reportRank4);
+		model.addAttribute("reportRank5", reportRank5);
+		model.addAttribute("reportRank6", reportRank6);
 		model.addAttribute("reportName1", reportName1);
 		model.addAttribute("reportName2", reportName2);
 		model.addAttribute("reportName3", reportName3);
+		model.addAttribute("reportName4", reportName4);
+		model.addAttribute("reportName5", reportName5);
+		model.addAttribute("reportName6", reportName6);
 		
 		return "togetherview/manager_main";
 	}
@@ -349,9 +361,25 @@ public class ManagerController {
 	
 	//Q&A 페이지 진입
 	@RequestMapping("qna.do")
-	public String qna () throws Exception {
+	public String qna (HttpSession session, Model model) throws Exception {
 		System.out.println("Q&A 페이지 진입");
-		
+			
+		//세션 연결이 유지될 경우 세션 값으로 회원 정보 구해오기
+		String email = (String) session.getAttribute("email");
+			
+		if (email != null) {
+					
+			MemberDTO old = new MemberDTO();
+			old.setMember_email(email);
+			MemberDTO memberDto = managerService.getMember(old);
+				
+			System.out.println("세션 정보로 회원 구해오기 성공");
+				
+			model.addAttribute("memberDto", memberDto);
+		}
+				
+		System.out.println("세션 정보가 없는 비회원입니다");
+
 		return "togetherview/qna";
 	}
 	
@@ -403,7 +431,7 @@ public class ManagerController {
 		String charSet = "utf-8";
 		String hostSMTP = "smtp.naver.com";
 		String hostSMTPid = "milkysea39@naver.com";	// 메일주소 입력
-		String hostSMTPpwd = "sh**ting7!"; 		// 로그인 비밀번호 입력
+		String hostSMTPpwd = "Sh**tingstar1!"; 		// 로그인 비밀번호 입력
 
 		// 보내는 사람 EMail, 제목, 내용
 		String fromEmail = hostSMTPid;	// 관리자 이메일
@@ -443,7 +471,7 @@ public class ManagerController {
 		String admin_charSet = "utf-8";
 		String admin_hostSMTP = "smtp.naver.com";
 		String admin_hostSMTPid = "milkysea39@naver.com";	// 메일주소 입력
-		String admin_hostSMTPpwd = "sh**ting7!"; 		// 로그인 비밀번호 입력
+		String admin_hostSMTPpwd = "Sh**tingstar1!"; 		// 로그인 비밀번호 입력
 
 		// 보내는 사람 EMail, 제목, 내용
 		// 발송 완료 안내메일

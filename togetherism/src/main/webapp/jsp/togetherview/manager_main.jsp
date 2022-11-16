@@ -60,7 +60,7 @@
 		</div>
 		<div class="col">
 			<!-- 신고 당한 회원 랭킹 -->
-			<h4>신고 랭킹 TOP 3</h4><br>
+			<h4>신고 랭킹 TOP 6</h4><br>
 			<div style="width:400px; height:auto; align:center">
 				<canvas id="reportChart">
 				</canvas>
@@ -126,20 +126,26 @@
   new Chart(document.getElementById("reportChart"), {
     type: 'doughnut',		//차트 형태
     data: {
-      labels: ['${reportName1 }', '${reportName2 }', '${reportName3 }'],	//x축
+      labels: ['${reportName1 }', '${reportName2 }', '${reportName3 }', '${reportName4 }', '${reportName5 }', '${reportName6 }'],	//x축
       datasets: [
     	 { 
           label: "회원",
-          data: [${reportRank1}, ${reportRank2 }, ${reportRank3 }],
+          data: [${reportRank1}, ${reportRank2 }, ${reportRank3 }, ${reportRank4}, ${reportRank5}, ${reportRank6}],
           borderColor: [
 				'rgba(153, 102, 255, 1)',
 				'rgba(255, 206, 86, 1)',
-				'rgba(255, 99, 132, 1)'
+				'rgba(255, 99, 132, 1)',
+				'rgba(153, 200, 255, 1)',
+				'rgba(237, 160, 199, 1)',
+				'rgba(227, 255, 220, 1)'
 			],
 			backgroundColor: [
 				'rgba(153, 102, 255, 0.2)',
 				'rgba(255, 206, 86, 0.2)',
-				'rgba(255, 99, 132, 0.2)'
+				'rgba(255, 99, 132, 0.2)',
+				'rgba(153, 200, 255, 0.2)',
+				'rgba(237, 160, 199, 0.2)',
+				'rgba(227, 255, 220, 0.2)'
 			],
           fill: false,
           datalabels:{

@@ -58,8 +58,7 @@
      color:black;
 
   }
-
-  
+    
 </style>
 </head>
 <body>
@@ -100,76 +99,76 @@
                   <li class="nave-item"><a href="#" class="nav-link">
                   </a></li>
 
-                  <!-- 프로필 & 드롭다운 -->
-                  <div class="dropdown">
-                     <a class="btn btn-secondary dropdown-toggle" href="#"
-                        role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                        aria-expanded="false" style="background-color: #5e17eb"> 프로필
-                     </a>
-                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item" href="<%=request.getContextPath()%>/member_login.do">로그인</a></li>
-                        <li><a class="dropdown-item" href="<%=request.getContextPath()%>/member_signup.do">회원가입</a></li>
-                     </ul>
-                  </div>
-               </ul>
-            </div>
-            </c:if>   
-                  
-                  
-            <!-- 로그인 했을 때 프로필 -->
-            <c:if test="${!empty sessionScope.email}">
-            <div class="collapse navbar-collapse" id="navmenu">
-               <ul class="navbar-nav ms-auto">
-                  <li class="nav-item"><a href="<%=request.getContextPath()%>/about.do" class="nav-link" id="about">About</a>
-                  </li>
-                  
-                  <li class="nave-item"><a href="#" class="nav-link">
-                  </a></li>   
-                  
-                  <li class="nave-item"><a href="#">
-                     <div id="ttt"></div>
-                  </a></li>
-                  
-                  <li class="nave-item"><a href="#" class="nav-link">
-                  </a></li>
-                  
-                  <div class="dropdown">
-                     <a class="btn btn-secondary dropdown-toggle" href="#"
-                        role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                        aria-expanded="false" style="background-color: #5e17eb"> 프로필
-                     </a>
-                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item" href="<%=request.getContextPath()%>/member_logout.do">로그아웃</a></li>
-                              <li><a class="dropdown-item" href="<%=request.getContextPath()%>/member_edit.do">정보수정</a></li>
-                              <li><a class="dropdown-item" href="<%=request.getContextPath()%>/joined_club.do">마이페이지 </a></li>
-                     </ul>
-                  </div>
-               </ul>
-            </div>
-         </c:if>
-         
-         </div>
-      </nav>
-      <!-- 카테고리 -->
-      <section class="bg text p-5 p-lg-0 pt-lg-1 text-center text-sm-start"
-         style="background-color: #ffc100;">
-         <div class="container">
-            <nav class="nav text-dark">
-            <a class="nav-link active" aria-current="page" href="<%=request.getContextPath()%>/main.do">Home</a>
-                  <a class="nav-link" href="<%=request.getContextPath()%>/club_list.do">전체</a> 
-                  <a class="nav-link" href="<%=request.getContextPath()%>/club_list.do?club_region=Seoul_Metropolitan">수도권</a>
-                  <a class="nav-link" href="<%=request.getContextPath()%>/club_list.do?club_region=Gangwon">강원</a> 
-                  <a class="nav-link" href="<%=request.getContextPath()%>/club_list.do?club_region=Gyeongsang">경상</a>
-                  <a class="nav-link" href="<%=request.getContextPath()%>/club_list.do?club_region=Jeolla">전라</a> 
-                  <a class="nav-link" href="<%=request.getContextPath()%>/club_list.do?club_region=Chungcheong">충청</a>
-                  <a class="nav-link" href="<%=request.getContextPath()%>/club_list.do?club_region=Jeju">제주</a> 
-                  <a class="nav-link" href="<%=request.getContextPath()%>/club_list.do?club_region=Abroad">해외</a>
-                  <a class="nav-link" href="<%=request.getContextPath()%>/qna.do">FAQ/Contact</a>
-               <a class="nav-link" href="<%=request.getContextPath()%>/notice_list.do">공지사항</a>
-               <a class="nav-link" href="<%=request.getContextPath()%>/admin.do">　　　　</a>
-            </nav>
-         </div>
-      </section>
+						<!-- 프로필 & 드롭다운 -->
+						<div class="dropdown">
+							<a class="btn btn-secondary dropdown-toggle" href="#"
+								role="button" id="dropdownMenuLink" data-toggle="dropdown"
+								aria-expanded="false" style="background-color: #5e17eb"> 프로필
+							</a>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<li><a class="dropdown-item" href="<%=request.getContextPath()%>/member_login.do">로그인</a></li>
+								<li><a class="dropdown-item" href="<%=request.getContextPath()%>/member_signup.do">회원가입</a></li>
+								<li><a class="dropdown-item" href="<%=request.getContextPath()%>/admin.do">관리자 로그인</a></li>
+							</ul>
+						</div>
+					</ul>
+				</div>
+				</c:if>	
+						
+						
+				<!-- 로그인 했을 때 프로필 -->
+				<c:if test="${!empty sessionScope.email}">
+				<div class="collapse navbar-collapse" id="navmenu">
+					<ul class="navbar-nav ms-auto">
+						<li class="nav-item"><a href="<%=request.getContextPath()%>/about.do" class="nav-link">About</a>
+						</li>
+						
+						<li class="nave-item"><a href="#" class="nav-link">
+						</a></li>	
+						
+						<li class="nave-item"><a href="#">
+							<div id="ttt"></div>
+						</a></li>
+						
+						<li class="nave-item"><a href="#" class="nav-link">
+						</a></li>
+						
+						<div class="dropdown">
+							<a class="btn btn-secondary dropdown-toggle" href="#"
+								role="button" id="dropdownMenuLink" data-toggle="dropdown"
+								aria-expanded="false" style="background-color: #5e17eb"> 프로필
+							</a>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<li><a class="dropdown-item" href="<%=request.getContextPath()%>/member_logout.do">로그아웃</a></li>
+		                        <li><a class="dropdown-item" href="<%=request.getContextPath()%>/member_edit.do">정보수정</a></li>
+		                        <li><a class="dropdown-item" href="<%=request.getContextPath()%>/joined_club.do">마이페이지 </a></li>
+							</ul>
+						</div>
+					</ul>
+				</div>
+			</c:if>
+			
+			</div>
+		</nav>
+		<!-- 카테고리 -->
+		<section class="bg text p-5 p-lg-0 pt-lg-1 text-center text-sm-start"
+			style="background-color: #ffc100;">
+			<div class="container">
+				<nav class="nav text-dark">
+				<a class="nav-link active" aria-current="page" href="<%=request.getContextPath()%>/main.do" style="font-family:sans; font-size:large; color:white;">Home</a>
+	               <a class="nav-link" href="<%=request.getContextPath()%>/club_list.do" style="font-family:sans; font-size:large; color:white;">전체</a> 
+	               <a class="nav-link" href="<%=request.getContextPath()%>/club_list.do?club_region=Seoul_Metropolitan" style="font-family:sans; font-size:large; color:white;">수도권</a>
+	               <a class="nav-link" href="<%=request.getContextPath()%>/club_list.do?club_region=Gangwon" style="font-family:sans; font-size:large; color:white;">강원</a> 
+	               <a class="nav-link" href="<%=request.getContextPath()%>/club_list.do?club_region=Gyeongsang" style="font-family:sans; font-size:large; color:white;">경상</a>
+	               <a class="nav-link" href="<%=request.getContextPath()%>/club_list.do?club_region=Jeolla" style="font-family:sans; font-size:large; color:white;">전라</a> 
+	               <a class="nav-link" href="<%=request.getContextPath()%>/club_list.do?club_region=Chungcheong" style="font-family:sans; font-size:large; color:white;">충청</a>
+	               <a class="nav-link" href="<%=request.getContextPath()%>/club_list.do?club_region=Jeju" style="font-family:sans; font-size:large; color:white;">제주</a> 
+	               <a class="nav-link" href="<%=request.getContextPath()%>/club_list.do?club_region=Abroad" style="font-family:sans; font-size:large; color:white;">해외</a>
+	               <a class="nav-link" href="<%=request.getContextPath()%>/qna.do" style="font-family:sans; font-size:large; color:white;">FAQ/Contact</a>
+	               <a class="nav-link" href="<%=request.getContextPath()%>/notice_list.do" style="font-family:sans; font-size:large; color:white;">공지사항</a>
+				</nav>
+			</div>
+		</section>
 
    </div>
 </body>

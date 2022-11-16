@@ -113,7 +113,8 @@
 											pattern="yyyy-MM-dd"/> </td>
 						<td>
 							<!-- 탈퇴한 회원일 경우 탈퇴일자를 표시 -->
-							<c:if test="${ s.member_del_yn == 'Y' }"> ${s.member_del_date }</c:if>
+							<c:if test="${ s.member_del_yn == 'Y' }"> <fmt:formatDate value="${s.member_reg_date }"  
+											pattern="yyyy-MM-dd"/></c:if>
 							<c:if test="${ s.member_del_yn == 'N' }"></c:if>
 						</td>
 						<td>
