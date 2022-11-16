@@ -58,8 +58,7 @@
   	text-decoration:none;
   	color:black;
   }
-
-  
+    
 </style>
 </head>
 <body>
@@ -109,6 +108,7 @@
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 								<li><a class="dropdown-item" href="<%=request.getContextPath()%>/member_login.do">로그인</a></li>
 								<li><a class="dropdown-item" href="<%=request.getContextPath()%>/member_signup.do">회원가입</a></li>
+								<li><a class="dropdown-item" href="<%=request.getContextPath()%>/admin.do">관리자 로그인</a></li>
 							</ul>
 						</div>
 					</ul>
@@ -156,7 +156,6 @@
 			<div class="container">
 				<nav class="nav text-dark">
 				<a class="nav-link active" aria-current="page" href="<%=request.getContextPath()%>/main.do">Home</a>
-	               <a class="nav-link" href="<%=request.getContextPath()%>/notice_list.do">공지사항</a>
 	               <a class="nav-link" href="<%=request.getContextPath()%>/club_list.do">전체</a> 
 	               <a class="nav-link" href="<%=request.getContextPath()%>/club_list.do?club_region=Seoul_Metropolitan">수도권</a>
 	               <a class="nav-link" href="<%=request.getContextPath()%>/club_list.do?club_region=Gangwon">강원</a> 
@@ -166,8 +165,7 @@
 	               <a class="nav-link" href="<%=request.getContextPath()%>/club_list.do?club_region=Jeju">제주</a> 
 	               <a class="nav-link" href="<%=request.getContextPath()%>/club_list.do?club_region=Abroad">해외</a>
 	               <a class="nav-link" href="<%=request.getContextPath()%>/qna.do">FAQ/Contact</a>
-					<a class="nav-link" href="<%=request.getContextPath()%>/notice_list.do">공지사항</a>
-					<a class="nav-link" href="<%=request.getContextPath()%>/admin.do">　　　　</a>
+	               <a class="nav-link" href="<%=request.getContextPath()%>/notice_list.do">공지사항</a>
 				</nav>
 			</div>
 		</section>
