@@ -21,7 +21,7 @@
 //location.href="photo_list.do?club_num=22"; // 사진첩 리스트
 //location.href="club_list.do";
 //location.href="club_pre_list.do?preview=pre";
-location.href="main.do";
+//location.href="main.do";
 </script>
 </body>
 </html>

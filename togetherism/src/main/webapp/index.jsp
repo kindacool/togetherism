@@ -22,7 +22,7 @@
 //location.href="heart_list.do";
 //location.href="club.do";
 //location.href="tester1.do";
-location.href="member_login.do";
+//location.href="member_login.do";
 //location.href="club_detail.do?club_num=226&state=edit";
 //location.href="club_pre_list.do?preview=pre";
 //location.href = "testselect.do";
@@ -32,6 +32,7 @@ location.href="member_login.do";
 //location.href = "qna.do";
 //location.href = "notice_recent.do";
 //location.href="member_signup.do";
+location.href="main.do";
 </script>
 </body>
 </html>

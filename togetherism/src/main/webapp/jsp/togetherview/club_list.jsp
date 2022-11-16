@@ -21,7 +21,10 @@ $(document).ready(function(){
 function heart2(club_num){ // 빈 하트 클릭
        var data = {"club_num":club_num}
        $.post("<%=request.getContextPath()%>/insert_heart.do", data, function(result){
-          $("#heart2_div" + club_num).hide();
+    	  if(result == -1){
+    		  alert("이미 좋아요한 모임입니다");
+    	  } 
+		  $("#heart2_div" + club_num).hide();
           $("#heart1_div" + club_num).show();
        });    
 }
@@ -41,6 +44,7 @@ text-decoration: none;
 color: black;
 font-size:40px;
 margin: 10px;
+font-weight: bold;
 }
     .host{
       float: left;
@@ -59,7 +63,7 @@ margin: 10px;
 <br><br><br>
 <form action="<%=request.getContextPath()%>/club_list.do" method="get">
 	<input class="search-input" type="text" name="keyword">
-	<input class="search-button btn btn-warning" type="submit" value="검색">
+	<input class="search-button btn btn-warning" type="submit" value="검색" style="border-radius:20px;">
 </form>
 <br>
 <%-- 검색 결과 페이지 일떄--%>
@@ -92,7 +96,7 @@ margin: 10px;
 <div class="cover">
 <div style="float: left;">
 <a href="<%=request.getContextPath()%>/club_list.do?club_region=${club_region}" class="big">Groups</a>
-<a href="<%=request.getContextPath()%>/event_list.do?event_region=${event_region}" class="big" style="color:gray">Events</a>
+<a href="<%=request.getContextPath()%>/event_list.do?event_region=${club_region}" class="big" style="color:gray">Events</a>
 </div>
 <div style="float:right;" class="center">
 <button onclick="location='<%=request.getContextPath()%>/club.do'"
@@ -158,7 +162,7 @@ margin: 10px;
    	  </div>
    	  <div style="float:right;">
         <p class="card-text hidden">
-	   	   <div id="heart1_div${i.club_num}">
+	   	   <div id="heart1_div${i.club_num}"> <%--꽉찬하트 --%>
       		<button id="heart1${i.club_num}" onclick="heart1(${i.club_num});" class="heart_button_fill" type="button" style="border:0; background-color:transparent;">
       		<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-heart-fill" style="color:red;" viewBox="0 0 16 16">
   			<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
@@ -267,5 +271,6 @@ margin: 10px;
 </nav>
 </div></div>
 </body>
+<br><br><br><br><br>
 <jsp:include page="../include/footer.jsp"></jsp:include>
 </html>

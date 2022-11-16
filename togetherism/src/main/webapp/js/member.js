@@ -37,21 +37,51 @@ function check(){
 		$("#member_nickname").val("").focus();
 		return false;
 	}
-	if($.trim($("#member_mobile1").val())==""){
-		alert("휴대전화번호 앞자리를 입력하세요!");
-		$("#member_mobile1").val("").focus();
-		return false;
-	}
-	if($.trim($("#member_mobile2").val())==""){
-		alert("휴대전화번호 중간자리를 입력하세요!");
-		$("#member_mobile2").val("").focus();
-		return false;
-	 }
-	 if($.trim($("#member_mobile3").val())==""){
-		 alert("휴대전화번호 마지막자리를 입력하세요!");
-		 $("#member_mobile3").val("").focus();
-		 return false;
-	 }
+	   if($.trim($("#member_mobile1").val())==""){
+		      alert("휴대전화번호 앞자리를 입력하세요!");
+		      $("#member_mobile1").val("").focus();
+		      return false;
+		   }
+		   if($("#member_mobile1").val().length != 3 ){
+		       alert("휴대전화번호 앞자리는 3자리로 입력해주세요!");
+		       $("#member_mobile1").val("").focus();
+		       return false;
+		   }
+		   if(isNaN($("#member_mobile1").val())){
+		      alert("휴대전화번호는 숫자만 입력하세요!");
+		      $("#member_mobile1").val("").focus();
+		      return false;
+		   }
+		   if($.trim($("#member_mobile2").val())==""){
+		      alert("휴대전화번호 중간자리를 입력하세요!");
+		      $("#member_mobile2").val("").focus();
+		      return false;
+		    }
+		   if($("#member_mobile2").val().length != 4 ){
+		       alert("휴대전화번호 중간자리는 4자리로 입력해주세요!");
+		       $("#member_mobile2").val("").focus();
+		       return false;
+		   }
+		   if(isNaN($("#member_mobile2").val())){
+		      alert("휴대전화번호는 숫자만 입력하세요!");
+		      $("#member_mobile2").val("").focus();
+		      return false;
+		   }
+		    if($.trim($("#member_mobile3").val())==""){
+		       alert("휴대전화번호 마지막자리를 입력하세요!");
+		       $("#member_mobile3").val("").focus();
+		       return false;
+		   }
+		   if($("#member_mobile3").val().length != 4 ){
+		      alert("휴대전화번호 마지막자리는 4자리로 입력해주세요!");
+		      $("#member_mobile3").val("").focus();
+		      return false;
+		   }
+		   if(isNaN($("#member_mobile3").val())){
+		      alert("휴대전화번호는 숫자만 입력하세요!");
+		      $("#member_mobile3").val("").focus();
+		      return false;
+		   }
 	 if($.trim($("#member_region").val())==""){
 		 alert("거주지역을 선택하세요!");
 		 $("#member_region").val("").focus();

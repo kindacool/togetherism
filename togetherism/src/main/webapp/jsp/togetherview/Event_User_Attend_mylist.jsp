@@ -50,7 +50,7 @@ function notattend_confirm(a,b){
 <body>
 
 <jsp:include page="../include/header.jsp"></jsp:include><br><br><br><br><br>
-
+<br><br>
 <div class="wrapper"><div class="content">
 <table>
 <tr>
@@ -80,8 +80,7 @@ function notattend_confirm(a,b){
         style="text-decoration:none;">${my.event_title}</a></h5>   
 	  </div>
       <div class="center cover" style="height:50px;">
-        <p class="card-title hidden" style="float:left;"><a href="<%=request.getContextPath() %>/event_cont.do?club_num=${my.club_num}&event_num=${my.event_num }&eventPage=1&state=cont" 
-        style="text-decoration:none;">
+        <p class="card-title hidden" style="float:left;">
         <c:choose>
            <c:when test="${my.event_region == 'Seoul_Metropolitan'}">수도권</c:when>
            <c:when test="${my.event_region == 'Gangwon'}">강원</c:when>
@@ -91,11 +90,10 @@ function notattend_confirm(a,b){
            <c:when test="${my.event_region == 'Jeju'}">제주</c:when>
            <c:when test="${my.event_region == 'Abroad'}">해외</c:when>
         </c:choose>
-        </a></p>
+        </p>
       </div>
       <div class="center cover" style="height:50px;">
-        <p class="card-title hidden" style="float:left;"><a href="<%=request.getContextPath() %>/event_cont.do?club_num=${my.club_num}&event_num=${my.event_num }&eventPage=1&state=cont" 
-        style="text-decoration:none;">${my.event_date}</a></p>
+        <p class="card-title hidden" style="float:left;">${my.event_date}</p>
       </div>       
       <div style="float:right;">
         <button onclick="notattend_confirm(${my.event_num},${my.club_num})"

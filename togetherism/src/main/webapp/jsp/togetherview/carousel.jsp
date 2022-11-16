@@ -360,5 +360,6 @@ justify-content: center;
       </div>
 
 </body>
+<br><br><br><br><br>
 <jsp:include page="../include/footer.jsp"></jsp:include>
 </html>

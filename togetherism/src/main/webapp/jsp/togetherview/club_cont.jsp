@@ -109,7 +109,7 @@ function copy_to_clipboard() {
 <div class="wrapper">
 <div class="content">
 <br><br><br><br>
- <div class="center yellow-border" style="height:300px;">
+ <div class="center yellow-border" style="height:300px;background-color:white;">
     <div class="host" style="width:500px; height:270px;">
     	<img class="full" src="<%=request.getContextPath()%>/upload/${club.club_image}" alt="${club.club_image}"/>
     </div>
@@ -255,7 +255,7 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 mapOption = { 
 		
     center: new kakao.maps.LatLng(avg_event_spot_lat, avg_event_spot_long), // 지도의 중심좌표
-    level: 7 // 지도의 확대 레벨
+    level: 9 // 지도의 확대 레벨
 	
 	
 };
@@ -310,5 +310,6 @@ for (var i = 0; i < positions.length; i ++) {
 </div>
 
 </body>
+<br><br><br><br><br>
 <jsp:include page="../include/footer.jsp"></jsp:include>
 </html>

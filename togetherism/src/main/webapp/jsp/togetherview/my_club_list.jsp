@@ -20,13 +20,21 @@
   justify-content: space-between;
   }
 </style>
+<script>
+function delete_confirm(a){
+    if (!confirm("정말 모임을 삭제하시겠습니까?")) {
+    } else {
+    	location.href="<%=request.getContextPath()%>/club_detail.do?club_num=" + a + "&state=del";
+    }
+}
+</script>
 </head>
 <jsp:include page="../include/header.jsp"></jsp:include><br><br><br><br><br>
 <body>
 
 <div class="wrapper">
 <div class="content">
-<br><br><br><br><br>
+<br><br>
 <table>
 <tr>
 <td valign=top><jsp:include page="../include/sidemenu.jsp"></jsp:include>
@@ -43,7 +51,7 @@
 <%-- 리스트 출력 --%>
 <c:if test="${not empty joinedClist}">
 <c:set var="no1" value="${no}"></c:set><!-- 화면출력번호 -->
-<h2 class="heartlist_title" style="text-align: center;">내가 운영하는 모임 목록</h2>
+<h2 class="heartlist_title" style="text-align: center;font-weight:bold;">내가 운영하는 모임</h2>
 <br><br>
 <c:forEach var="i" items="${joinedClist}"> 
 <div class="card mb-3 border-warning" style="width: 800px; height: 250px;line-height:3;border-width: 2px;">
@@ -60,8 +68,8 @@
 	  	<div style="float:right;">
 	  	<button onclick="location='<%=request.getContextPath()%>/club_detail.do?club_num=${i.club_num}&state=edit';"
  		class="btn btn-warning" style="width:70px; height:40px; border-radius:20px;">수정</button>
- 		<button onclick="location='<%=request.getContextPath()%>/club_detail.do?club_num=${i.club_num}&state=del';"
- 		class="btn btn-warning" style="width:70px; height:40px; border-radius:20px;">삭제</button>
+
+ 		<button onclick="delete_confirm(${i.club_num})" class="btn btn-warning" style="width:70px; height:40px; border-radius:20px;">삭제</button>
 	  	</div>
 	  </div>
 		
@@ -123,5 +131,6 @@
 </nav>
 </td></tr></table></div></div>
 </body>
+<br><br><br><br><br>
 <jsp:include page="../include/footer.jsp"></jsp:include>
 </html>

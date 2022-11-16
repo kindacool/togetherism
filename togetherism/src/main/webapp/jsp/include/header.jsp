@@ -47,12 +47,12 @@
       text-decoration:none;
   }
   
-  #about{
+  .about{
         color:black;
         font-size:large;
         text-decoration:none;
   }
-  #about:hover{
+  .about:hover{
      font-weight:900;
      text-decoration:none;
      color:black;
@@ -61,7 +61,8 @@
     
 </style>
 </head>
-<body>
+
+<body style="background-image: url('<%=request.getContextPath()%>/images/backimage.png')">
    <!-- 로고 -->
    <div class="fixed-top">
       <nav class="navbar navbar-expand-lg bg navbar py-3"
@@ -85,7 +86,7 @@
             <!--  기업소개 버튼 -->
             <div class="collapse navbar-collapse" id="navmenu">
                <ul class="navbar-nav ms-auto">
-                  <li class="nav-item"><a href="<%=request.getContextPath()%>/about.do" class="nav-link" id="about">About</a>
+                  <li class="nav-item"><a href="<%=request.getContextPath()%>/about.do" class="nav-link about" id="about">About</a>
                   </li>
                   
                   <li class="nave-item"><a href="#" class="nav-link">
@@ -101,9 +102,9 @@
 
 						<!-- 프로필 & 드롭다운 -->
 						<div class="dropdown">
-							<a class="btn btn-secondary dropdown-toggle" href="#"
+							<a class="btn btn-warning dropdown-toggle" href="#"
 								role="button" id="dropdownMenuLink" data-toggle="dropdown"
-								aria-expanded="false" style="background-color: #5e17eb"> 프로필
+								aria-expanded="false" style="width:150px; height:40px; border-radius:20px;"> 프로필
 							</a>
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 								<li><a class="dropdown-item" href="<%=request.getContextPath()%>/member_login.do">로그인</a></li>
@@ -120,7 +121,7 @@
 				<c:if test="${!empty sessionScope.email}">
 				<div class="collapse navbar-collapse" id="navmenu">
 					<ul class="navbar-nav ms-auto">
-						<li class="nav-item"><a href="<%=request.getContextPath()%>/about.do" class="nav-link">About</a>
+						<li class="nav-item"><a href="<%=request.getContextPath()%>/about.do" class="nav-link about">About</a>
 						</li>
 						
 						<li class="nave-item"><a href="#" class="nav-link">
@@ -134,9 +135,9 @@
 						</a></li>
 						
 						<div class="dropdown">
-							<a class="btn btn-secondary dropdown-toggle" href="#"
+							<a class="btn btn-warning dropdown-toggle" href="#"
 								role="button" id="dropdownMenuLink" data-toggle="dropdown"
-								aria-expanded="false" style="background-color: #5e17eb"> 프로필
+								aria-expanded="false" style="width:150px; height:40px; border-radius:20px;"> 프로필
 							</a>
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 								<li><a class="dropdown-item" href="<%=request.getContextPath()%>/member_logout.do">로그아웃</a></li>

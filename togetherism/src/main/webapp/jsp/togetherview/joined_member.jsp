@@ -43,7 +43,7 @@ function kickout(member_email, club_num){
 
 	<c:forEach var="m" items="${cmilist}">    
 	
-<div style="border:5px solid #ffc107; width:410px; height:110px;margin:20px;border-radius: 40px;" class="host center">
+<div style="border:5px solid #ffc107; width:410px; height:110px;margin:20px;border-radius:40px;background-color:white;" class="host center">
   <div class="host" style=" width:100px; height:100px;">
   		<img class="img-circle full" src="<%=request.getContextPath() %>/upload/${m.member_image}" alt="Card image cap">
   </div>

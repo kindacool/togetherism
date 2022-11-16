@@ -53,6 +53,11 @@ $(document).ready(function(){
 			$("#event_info").focus();
 			return false;
 		}
+		if($("#event_info").val().length > 100){
+			alert("이벤트 설명을 100자 이내로 입력해주세요");
+			$("#event_title").focus();
+			return false;
+		}
 		if($("#event_spot_lat").val() == ""){
 			alert("지도를 선택해주세요");
 			return false;
@@ -235,5 +240,6 @@ history.go(-1);
 </div>
 </div>
 </body>
+<br><br><br><br><br>
 <jsp:include page="../include/footer.jsp"></jsp:include>
 </html>

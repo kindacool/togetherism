@@ -175,10 +175,9 @@ h1 a {
 			<div class="link">내 모임</div>
 			<ul class="submenu">
 
-				<li><a href="<%=request.getContextPath()%>/joined_club.do">가입한 모임</a></li>
-				<li><a href="<%=request.getContextPath()%>/heart_list.do">관심있는 모임</a></li>
-				<li><a href="<%=request.getContextPath()%>/my_club.do">운영하는 모임</a></li>
-
+				<li><a href="<%=request.getContextPath()%>/joined_club.do">내가 가입한 모임</a></li>
+				<li><a href="<%=request.getContextPath()%>/heart_list.do">내가 관심있는 모임</a></li>
+				<li><a href="<%=request.getContextPath()%>/my_club.do">내가 운영하는 모임</a></li>
 				<li><a href="<%=request.getContextPath() %>/event_user_attend_mylistPaging.do">내가 참석한 이벤트</a></li>
 			</ul>
 		</li>

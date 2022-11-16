@@ -239,6 +239,7 @@ public class EventController {
 		// 1. 세션을 구하기
 		// 2. 세션을 구해서 club 테이블에서 확인해서 모임장이면 수정 가능
 		String sess = (String) session.getAttribute("email");
+		//(String) session.getAttribute("email");
 		ClubDTO clubdto = club_Member_JoinService.getClubCont(event.getClub_num());
 		
 		
@@ -264,8 +265,6 @@ public class EventController {
 			} else {
 				// 그리고 모임장이면 수정 가능
 				// 글내용중 엔터키 친부분을 웹상에 보이게 할때 다음줄로 개행
-				String eventInfobr = event.getEvent_info().replace("\n", "<br>");
-				model.addAttribute("eventInfobr", eventInfobr);
 				return "togetherview/event_editform";
 			}
 		} else if (state.equals("del")) {// 삭제폼

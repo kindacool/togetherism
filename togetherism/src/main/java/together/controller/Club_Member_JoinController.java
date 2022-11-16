@@ -167,6 +167,7 @@ public class Club_Member_JoinController {
 		// 1. 세션 구하기 (현재는 Merge 가 안되었으므로 임의로 정함)
 		String sess = (String) session.getAttribute("email");
 		//(String) session.getAttribute("email");
+		//(String) session.getAttribute("email");
 		
 		List<ClubDTO> joinedClubList = new ArrayList<ClubDTO>();
 		
@@ -220,6 +221,7 @@ public class Club_Member_JoinController {
 		// 1. 세션 구하기 (현재는 Merge 가 안되었으므로 임의로 정함)
 		String sess = (String) session.getAttribute("email");
 		//(String) session.getAttribute("email");
+		//(String) session.getAttribute("email");
 		cmjdto.setMember_email(sess);
 		int result = 0;
 
@@ -260,7 +262,7 @@ public class Club_Member_JoinController {
 
 		// 1. 세션 구하기 (현재는 Merge 가 안되었으므로 임의로 정함)
 		String sess = (String) session.getAttribute("email");
-				//(String) session.getAttribute("email");
+		//(String) session.getAttribute("email");
 	
 		List<Club_Member_JoinDTO> myClubList = new ArrayList<Club_Member_JoinDTO>();
 		
@@ -416,6 +418,7 @@ public class Club_Member_JoinController {
 		
 		// 1. 세션을 구해서 모임장인지 확인, 모임장만 내보내기 가능
 		String sess = (String) session.getAttribute("email");
+		//(String) session.getAttribute("email");
 
 		// member_email, club_num 을 담은 Club_Member_Join DTO 필요
 		Club_Member_JoinDTO cmjdto = new Club_Member_JoinDTO();

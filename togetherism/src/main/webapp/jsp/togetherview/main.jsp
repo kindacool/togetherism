@@ -16,7 +16,7 @@
       display: flex;
       justify-content: center;
     }
-    
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Roboto+Flex:opsz,wght@8..144,600;8..144,900&family=Roboto+Serif:opsz,wght@8..144,600;8..144,700&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap');
 /* body {
@@ -28,15 +28,13 @@
   background-color: #f3f4f6;
 } */
 
-*{
 
-}
 
 .statictitle {
   font-weight: 900;
   text-transform: uppercase;
   margin-bottom: 1.5rem;
-  font-family: 'Gowun Batang', serif;
+  font-family: 'Do Hyeon', sans-serif;
 }
 
 .movingtitle {
@@ -47,7 +45,7 @@
   white-space: nowrap;
   overflow: hidden;
   width: 0;
-  font-family: 'Gowun Batang', serif;
+  font-family: 'Do Hyeon', sans-serif;
   border-right: 3px solid;
   font-size: clamp(3rem, 6vw + 1rem, 5rem);
   line-height: 1.5;
@@ -76,6 +74,8 @@
     border-color: black;
   }
 }
+
+
 </style>
 <script>
 $(document).ready(function(){
@@ -98,17 +98,14 @@ $(document).ready(function(){
 			<hr class="order-2 m-0 w-auto" style="color:#C8C8DC; width:80%;"></hr>
 			<p class="lead text-center mb-5"></p>
 			<div class="lead text-center" text-align="center" id="ourservice">
-				TOGETHERISM 은 온라인을 통해 인접 지역 사람들과 소통하고 만남으로 이어지는 <br>
-				<strong>'오프라인 모임'</strong> 서비스 입니다. <br>
-				인접 지역을 중심으로 개인이 원하는 모임을 찾아 가입해 활동할 수도 있고,<br>
-				직접 모임을 만들어 운영할 수도 있습니다.<br><br>
-				지역 카테고리에 속한 모임을 통해 만난 사람들은 친구가 되어 <br>서로의 관심사와 취향을 알아갈 수 있습니다.<br><br>
-				친구들은 모임장이 주최하는 이벤트를 통해 취미 생활을 공유할 수도 있고,<br> 다양한 활동을 함께 하며 친밀감을 공유할 수 있습니다.<br>
+				TOGETHERISM 은 오프라인 중심 모임 플랫폼 TOGETHERISM입니다. 
+				<br> <strong>누구나, 언제나, 어디서나</strong> 모임을 만들고 가입할 수 있습니다.
+				<br><br> 지금, 시작해볼까요?
+			
 			</div>
 			<p class="lead text-center text-black mb-5"></p>
-			<br>
-    <button onclick="location='<%=request.getContextPath()%>/club.do'"
- 		class="btn btn-warning center" style="width:400px; height:50px; border-radius:20px;font-size:20px; color:white">지금 모임 만들기
+    <button onclick="location='<%=request.getContextPath()%>/club_list.do'"
+ 		class="btn btn-warning center" style="width:400px; height:50px; border-radius:20px;font-size:20px; color:white">지금 시작하기
  	</button>
  	</section>
  	</div>
@@ -118,7 +115,7 @@ $(document).ready(function(){
     &nbsp;HOT
     </div><br>
       <div id="hot" class="center" style="border:6px solid #ffc107;height:380px;"></div>
-     <br><br>  
+     <br><br>
       
         <div style="font-size:30px;">
       <img src="<%=request.getContextPath()%>/images/diamond.png" style="width:35px;height:35px;">
@@ -126,10 +123,11 @@ $(document).ready(function(){
       </div><br>
       <div id="new" class="center" style="border:6px solid #ffc107;height:400px;"></div>
     <br><br>  
-    <h2>마감임박</h2><br>
+    <h2>모임 둘러보기</h2><br>
       <div id="pre" style="border:6px solid #ffc107;height:1000px;"></div>
     </div>
 </div></div>
 </body>
+<br><br><br><br><br>
 <jsp:include page="../include/footer.jsp"></jsp:include>
 </html>
