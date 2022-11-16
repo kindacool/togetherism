@@ -109,8 +109,7 @@ public class ClubController {
 
 		clubmjdto.setClub_num(old.getClub_num());
 
-		String session_email = "jackson@naver.com";
-//				(String) session.getAttribute("email");
+		String session_email = (String) session.getAttribute("email");
 			
 		clubmjdto.setMember_email(session_email);
 

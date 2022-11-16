@@ -129,9 +129,10 @@
 
 					<div id="club_join_menu">
 						<input type="submit" value="모임 만들기" onSubmit="location.href='<%=request.getContextPath()%>/my_club.do';"
-						class="club_create_button" onClick="alert('모임 등록이 완료되었습니다.');"/>
+						class="club_create_button"/>
 						 <!-- my_club.do -->
 						<input type="reset" value="취소" class="input_button" />
+						<input type="hidden" name="checked_id" value="">
 					</div>
 					</div> 
 					</div>

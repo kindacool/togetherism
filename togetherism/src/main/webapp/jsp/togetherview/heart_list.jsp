@@ -29,7 +29,7 @@
 							<div class="alert alert-warning" role="alert"
 								style="width: 800px;">현재 좋아요한 모임이 없습니다.</div>
 						</c:if> <%-- 리스트 출력 --%> <c:if test="${!empty heartlist}">
-							<h2 class="heartlist_title" style="text-align: center;">내가
+							<h2 class="heartlist_title" style="text-align: center; font-weight:bold;'">내가
 								좋아요한 모임 목록</h2>
 							<br>
 							<br>

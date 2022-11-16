@@ -32,9 +32,11 @@ public class HeartController {
 	public String insert_heart(int club_num,  
 							   HttpSession session, Model model) throws Exception{
 		
-		String session_email = "jackson@naver.com";
-				/* (String) session.getAttribute("email"); */
+		String session_email = (String) session.getAttribute("email");
 		
+		HeartDTO heartdto = new HeartDTO();
+		heartdto.setClub_num(club_num);
+		heartdto.setMember_email(session_email);
 		
 		
 		model.addAttribute("club_num", club_num);
@@ -42,14 +44,19 @@ public class HeartController {
 		//String email = (String) session.getAttribute("email");
 		System.out.println("club_num:"+club_num);
 		System.out.println("session_email:"+ session_email);
-
-		HeartDTO heartdto = new HeartDTO();
-		heartdto.setClub_num(club_num);
-		heartdto.setMember_email(session_email);
-
-		int result = heartservice.insertHeart(heartdto);
-		if(result == 1) System.out.println("좋아요 처리완료");
-		model.addAttribute("result", result);
+		
+		
+		HeartDTO heart = heartservice.heart_check(heartdto);
+		
+		int result;
+		
+		if(heart == null) {
+			result = heartservice.insertHeart(heartdto);
+			System.out.println("좋아요 처리완료");
+		}else {
+			result = -1;
+			model.addAttribute("result", result);
+		}
 		
 		return "togetherview/heartResult";
 //		return "togetherview/heart";
@@ -59,8 +66,7 @@ public class HeartController {
 	@RequestMapping(value ="remove_heart.do")
 	public String remove_heart(int club_num, HttpSession session) throws Exception{
 	
-		String session_email = "jackson@naver.com";
-				/*(String) session.getAttribute("email");*/
+		String session_email = (String) session.getAttribute("email");
 		
 		HeartDTO heartdto = new HeartDTO();
 		heartdto.setClub_num(club_num);
@@ -76,8 +82,7 @@ public class HeartController {
 	public String remove1_heart(int club_num, HttpSession session) throws Exception{
 	
 		
-		String session_email = "jackson@naver.com";
-		/* (String) session.getAttribute("email"); */
+		String session_email = (String) session.getAttribute("email");
 		
 		HeartDTO heartdto = new HeartDTO();
 		heartdto.setClub_num(club_num);
@@ -103,8 +108,7 @@ public class HeartController {
 	         heartPage = Integer.parseInt(request.getParameter("heartPage"));
 	      }
 	      
-	      String session_email = "jackson@naver.com";
-		/* (String) session.getAttribute("email"); */
+	      String session_email = (String) session.getAttribute("email"); 
 	      
 	      Map<String, Object> map = new HashMap<String, Object>();
 	      map.put("session_email", session_email);
@@ -175,6 +179,6 @@ public class HeartController {
 //		
 //		return "togetherview/suc";
 //	}
-//	
-//	
+	
+	
 }

@@ -13,7 +13,7 @@
 
 	<c:if test="${result1 == 1 }">
 		<script>
-			alert("모임 수정이 완료되었습니다. ");
+			alert("모임 등록이 완료되었습니다. ");
 			location.href = 'my_club.do';
 		</script>
 	</c:if>

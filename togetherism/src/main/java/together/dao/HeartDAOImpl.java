@@ -38,9 +38,9 @@ public class HeartDAOImpl implements HeartDAO{
 	}
 	
 //	//Heart Check
-//	public HeartDTO heart_check(HeartDTO heartdto) throws Exception{
-//		return sqlSession.selectList("heartns.heart_check", heartdto);
-//		
-//	}
+	public HeartDTO heart_check(HeartDTO heartdto) throws Exception{
+		return sqlSession.selectOne("heartns.heart_check", heartdto);
+		
+	}
 	
 }

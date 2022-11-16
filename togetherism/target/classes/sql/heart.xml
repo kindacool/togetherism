@@ -45,9 +45,9 @@
 	</select>
 	
 	<!-- 하트 검사 -->
-	<!-- <select id="heart_check" parameterType="heart" resultType="heart">
+	<select id="heart_check" parameterType="heart" resultType="heart">
 	select * from heart where club_num=#{club_num} and member_email=#{member_email}
-	</select> -->
+	</select> 
 </mapper>
 
 

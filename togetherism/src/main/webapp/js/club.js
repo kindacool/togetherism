@@ -41,9 +41,16 @@
  		 $("#club_chat").val("").focus();
  		 return false;
  	 } 
+ 	  // 중복체크 했는지 확인
+ 			   if($("input[name='checked_id']").val()==''){
+ 		        alert('아이디중복 확인을 해주세요.');
+ 		        $("input[name='checked_id']").eq(0).focus();
+ 		        return false;
+ 		    	}
 
   }
   
+
 
  /* 모임 명 중복체크 */
  function club_name_check1(){	 
@@ -132,18 +139,17 @@
 	 
 	  var clubmembercount = $("#club_member_count").val();
 	  var clubmemberlimit = $("#club_member_limit").val();
-//	  console.log('clubmembercount'+clubmembercount);
-//	  console.log('clubmemberlimit'+clubmemberlimit);
-//    console.log(typeof(clubmemberlimit));
-//	  alert(typeof(clubmemberlimit));
 	  if(clubmembercount > clubmemberlimit){
 		  alert("모임 정원은 현재 모임 가입 회원 수 이상으로만 수정 가능합니다.");
 	 		 $("#club_member_limit").val("").focus();
 	 		 return false;
 	  }
+ 	  // 중복체크 했는지 확인
+	   if($("input[name='checked_id']").val()==''){
+        alert('아이디중복 확인을 해주세요.');
+        $("input[name='checked_id']").eq(0).focus();
+        return false;
+    	}
  }
  
- function club_delete(){
-	  
- }
  
