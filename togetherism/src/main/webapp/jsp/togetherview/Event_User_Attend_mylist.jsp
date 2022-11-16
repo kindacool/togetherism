@@ -9,7 +9,7 @@
 <title>내가 참여한 이벤트</title>
 <style type="text/css">
 
-#box{background-color:#F6F7F8;}
+
 
 .wrapper {
         display: flex;
@@ -35,10 +35,20 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+function notattend_confirm(a,b){
+		var notre = confirm("이벤트에 참석을 취소하시겠습니까?")
+	   if (notre == true) {
+		   location.href="<%=request.getContextPath() %>/event_user_attend_no.do?event_num="+a+"&club_num="+b;
+	    } else {
+	        return false;
+	    }
+}
+</script>
 
 </head>
 <body>
-<div id="box">
+
 <jsp:include page="../include/header.jsp"></jsp:include><br><br><br><br><br>
 
 <div class="wrapper"><div class="content">
@@ -49,9 +59,8 @@
 
 <td align="center" class="wrapper" width="800px">
 <div id="eventlist_wrap">
-<h2 align="right" style="font-weight: bold; color: #5e17eb">Togetherism</h2>
-<h2 align="right" style="font-weight: bold;">내가 참석한 이벤트</h2>
-<br><br><br><br><br><br>
+<h2 align="center" style="font-weight: bold;">내가 참석한 이벤트</h2>
+<br><br>
 
 
 
@@ -89,8 +98,8 @@
         style="text-decoration:none;">${my.event_date}</a></p>
       </div>       
       <div style="float:right;">
-        <button onclick="location.href='<%=request.getContextPath() %>/event_user_attend_no.do?event_num=${my.event_num }&club_num=${my.club_num}'"
-				 class="btn btn-danger">참석취소</button>
+        <button onclick="notattend_confirm(${my.event_num},${my.club_num})"
+				 class="btn btn-danger"> 참석취소</button>
       </div>
      </div>
    </div>
@@ -133,7 +142,7 @@
 </div>
 
 </div>
-</div>
+
 
 <br><br><br><br><br>
 <jsp:include page="../include/footer.jsp"></jsp:include>

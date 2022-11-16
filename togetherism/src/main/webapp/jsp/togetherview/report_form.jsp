@@ -17,15 +17,11 @@ function check(){
 }
 </script>
 
-<style type="text/css">
 
-#box{background-color:#F6F7F8;}
-
-</style>
 
 </head>
 <body>
-<div id="box">
+
 <jsp:include page="../include/header.jsp"></jsp:include><br><br><br><br><br>
 
 <br><br>
@@ -85,6 +81,6 @@ function check(){
 
 <br><br><br><br><br>
 <jsp:include page="../include/footer.jsp"></jsp:include>
-</div>
+
 </body>
 </html>

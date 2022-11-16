@@ -13,7 +13,7 @@
 
 <style type="text/css">
 
-#box{background-color:#F6F7F8;}
+
 
 
 .wrapper {
@@ -31,7 +31,7 @@
 
 <body>
 
-<div id="box">
+
 <jsp:include page="../include/header.jsp"></jsp:include><br><br><br><br><br>
 
 <div class="wrapper"><div class="content">
@@ -178,6 +178,6 @@
 
 <br><br><br><br><br>
 <jsp:include page="../include/footer.jsp"></jsp:include>
-</div>
+
 </body>
 </html>

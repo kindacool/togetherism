@@ -9,13 +9,10 @@
 <link rel="icon" href="<%=request.getContextPath()%>/images/favicon.ico" />
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="./js/member.js"></script>
-<style type="text/css">
 
-#box{background-color:#F6F7F8;}
-</style>
 
 </head>
-<div id="box">
+
 <body>
 <jsp:include page="../include/header.jsp"></jsp:include><br><br><br><br><br>
 
@@ -148,6 +145,6 @@
 
 <br><br><br><br><br>
 <jsp:include page="../include/footer.jsp"></jsp:include>
-</div>
+
 </body>
 </html>
