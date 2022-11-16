@@ -35,8 +35,8 @@ public class HeartServiceImpl implements HeartService {
 	public int getHeartListCount(Map<String, Object> map) throws Exception {
 		return heartDao.getHeartListCount(map);
 	}
-//	
-//	public HeartDTO heart_check(HeartDTO heartdto) throws Exception {
-//		return heartDao.heart_check(heartdto);
-//	}
+	
+	public HeartDTO heart_check(HeartDTO heartdto) throws Exception {
+	return heartDao.heart_check(heartdto);
+	}
 }

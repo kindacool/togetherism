@@ -9,7 +9,6 @@
 <body>
 <script>
 
-
 //location.href="event_createform.do?club_num=24";// -이벤트 생성 폼으로 가기
 //location.href="club_join.do?club_num=24&join_hello=안녕하세요"; // 모임 가입하기
 //location.href="event_list.do?club_num=22"; // 22번 모임의 이벤트리스트
@@ -26,12 +25,13 @@
 location.href="member_login.do";
 //location.href="club_detail.do?club_num=226&state=edit";
 //location.href="club_pre_list.do?preview=pre";
-//	 location.href = "testselect.do";
-//	 location.href = "notice_list.do";
-//	 location.href = "manager_list.do";
-//	 location.href = "admin.do";
-//	 location.href = "qna.do";
-//	 location.href = "notice_recent.do";
+//location.href = "testselect.do";
+//location.href = "notice_list.do";
+//location.href = "manager_list.do";
+//location.href = "admin.do";
+//location.href = "qna.do";
+//location.href = "notice_recent.do";
+//location.href="member_signup.do";
 </script>
 </body>
 </html>

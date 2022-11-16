@@ -15,6 +15,6 @@ public interface HeartService {
 	
 	public int getHeartListCount(Map<String, Object> map) throws Exception;
 	
-//	public HeartDTO heart_check(HeartDTO heartdto) throws Exception;
+	public HeartDTO heart_check(HeartDTO heartdto) throws Exception;
 
 }

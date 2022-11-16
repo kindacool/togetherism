@@ -1,4 +1,6 @@
-  function club_check(){
+ var check_club_name = 0;
+ 
+function club_check(){
 	  
 	  if($.trim($("#club_image1").val())==""){
 	       alert("모임 대표사진은 필수입니다.");
@@ -42,8 +44,15 @@
  		 return false;
  	 } 
 
+ 	 if(check_club_name == 0){
+ 		 alert('모임명 중복 확인을 해주세요.');
+ 		 return false;
+ 	 }
+ 	 
+ 	 
   }
   
+
 
  /* 모임 명 중복체크 */
  function club_name_check1(){	 
@@ -69,6 +78,8 @@
          		$("#clubnamecheck").show();
          		$("#clubnamecheck").append(newtext);
            		$("#club_name").val('').focus();
+           		check_club_name = 0;           		
+           		
            		return false;
  	     
        	  }else{	// 사용 가능한 모임명
@@ -77,6 +88,8 @@
        		$("#clubnamecheck").show();
        		$("#clubnamecheck").append(newtext);
        		$("#club_keyword").focus();
+       		check_club_name = 1; 
+       		
        	  }  	    	  
          }
          ,
@@ -86,7 +99,7 @@
        });// $.ajax
 }
 
- 
+
  function club_edit_check(){
 	   
 	 if($.trim($("#club_name").val())==""){
@@ -132,6 +145,7 @@
 	 		 $("#club_member_limit").val("").focus();
 	 		 return false;
 	  }
+
  }
 
  

@@ -13,21 +13,11 @@
 
 	<c:if test="${result1 == 1 }">
 		<script>
-			alert("모임 수정이 완료되었습니다.");
+			alert("모임 등록이 완료되었습니다.");
 			location.href = "<%=request.getContextPath()%>/my_club.do";
+
 		</script>
 	</c:if>
-
-	<script>
-		function club_delete_popup(club_num) {
-			var url = "club_delete.do?club_num=" + club_num;
-			var name = "club_delete";
-			var option = "width=600, height=600, left=100, top=50, location=no";
-
-			window.open(url, name, option);
-
-		}
-	</script>
 <body>
 
 
