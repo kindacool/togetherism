@@ -74,13 +74,13 @@
 														<p class="card-text">${ch.club_member_count}명/
 															${ch.club_member_limit} 명</p>
 													</div>
-													<div style="float: right;">
-														<button
-															onclick="location='<%=request.getContextPath()%>/remove1_heart.do?club_num=${ch.club_num}'"
-															class="btn btn-warning"
-															style="width: 200px; height: 40px; border-radius: 20px;">좋아요
-															취소</button>
-													</div>
+													<div style="float: right;" id="heart2_div">
+						
+		<button id="heart2" class="heart_button_cancel" type="button" style="border:0; background-color:transparent;" onclick="location='<%=request.getContextPath() %>/remove1_heart.do?club_num=${ch.club_num }'">
+		<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-heart-fill" style="color:red;" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+</svg></button> 
+	</div>
 												</div>
 
 											</div>
