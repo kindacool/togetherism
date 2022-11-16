@@ -58,7 +58,7 @@
     
     <!-- 탈퇴하는 회원이 가입한 모임들의 현재 정원을 -1명 시키기-->
     <update id="reduce_Clubmemeber" parameterType="String">
-    	update club set club_member_count = club_member_count where club_num in
+    	update club set club_member_count = club_member_count-1 where club_num in
     		(select club_num from club_member_join where member_email=#{email})
     </update>
     

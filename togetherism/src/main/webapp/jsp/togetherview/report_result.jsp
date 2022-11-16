@@ -15,7 +15,7 @@
 <c:if test="${!empty insertR}"> 
 	<script>
 		alert("신고 완료되었습니다.");
-		location.href="<%=request.getContextPath()%>/jsp/togetherview/member_main.jsp";
+		location.href="<%=request.getContextPath()%>/main.do";
 	</script>
 </c:if>
 

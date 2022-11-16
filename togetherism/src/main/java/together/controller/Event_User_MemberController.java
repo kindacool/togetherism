@@ -24,9 +24,11 @@ public class Event_User_MemberController {
 	@Autowired
 	private Event_User_AttendServiceImpl euaService;
 	
+
+	
 	/* 선택한 이벤트 참석 이력 */
 	@RequestMapping(value = "/event_user_attend_ok.do", method = RequestMethod.GET)
-	public String event_user_attend_check(int event_num,
+	public String event_user_attend_ok(int event_num,
 											int club_num,
 											HttpSession session,
 											Model model) throws Exception{
