@@ -18,7 +18,7 @@ $(function(){
 });
 </script>
 <style>
-  	#linkstyle{text-decoration:none; color:black;}
+  	#linkstyle {text-decoration:none; color:black;}
 	#linkstyle:hover {text-decoration: none; color: #5e17eb; }
 	.currentPage {font-style: bold;}
 </style>
@@ -78,7 +78,7 @@ $(function(){
 				<c:if test="${noticeDto.notice_file != null }">
 					<tr>
 						<td colspan=2>
-							첨부파일 : <a href="./jsp/togetherview/file_down.jsp?file_name=${noticeDto.notice_file }" style="text-decoration:none">${noticeDto.notice_file }</a>
+							첨부파일 : <a href="./jsp/togetherview/file_down.jsp?file_name=${noticeDto.notice_file }" id="linkstyle">${noticeDto.notice_file }</a>
 						</td>
 					</tr>
 				</c:if>
