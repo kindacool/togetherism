@@ -27,14 +27,19 @@ font-weight: bold;
     }
 </style>
 </head>
-
+<c:if test="${club_num == 0}">
+<br><br><br><br><br>
 <jsp:include page="../include/header.jsp"></jsp:include>
-
-
+</c:if>
+<c:if test="${club_num != 0 && empty preview}">
+<br><br><br><br><br>
+<jsp:include page="../include/header.jsp"></jsp:include>
+</c:if>
+<body>
 <div class="wrapper">
 <div class="content">
 <c:if test="${club_num == 0}"> <!-- 모임 내에서 이벤트를 볼때는 검색창 없음 -->
-<br><br><br><br><br><br><br><br>
+<br><br><br>
 	<form action="<%=request.getContextPath()%>/event_list.do" method="get">
 		<input class="search-input" type="text" name="keyword">
 		<input class="search-button btn btn-warning" type="submit" value="검색" style="border-radius:20px;">
@@ -75,17 +80,23 @@ font-weight: bold;
 	</c:if>
 	
 <c:if test="${club_num != 0}"> <!-- 모임 페이지 내에서 모임내 이벤트를 볼때 -->
-<button onclick="location='<%=request.getContextPath()%>/event_createform.do?club_num=${club_num}'"
- class="btn btn-warning" style="width:200px; height:40px; border-radius:20px;">이벤트 생성하기</button>
 
 	<c:if test="${not empty preview}"> <!--  모임 내에서 이벤트를 볼때 preview 상태면 더보기 출력 -->
+		<button onclick="location='<%=request.getContextPath()%>/event_createform.do?club_num=${club_num}'"
+ 		class="btn btn-warning" style="width:200px; height:40px; border-radius:20px;">이벤트 생성하기</button>
+		
 		<button onclick="location='<%=request.getContextPath()%>/event_list.do?club_num=${club_num}'"
  		class="btn btn-warning" style="width:200px; height:40px; border-radius:20px;">더보기</button>
 	</c:if>
 	<c:if test="${empty preview}"> <!--  모임 내에서 이벤트를 볼때 preview 상태가 아니면 모임으로 돌아가기 출력-->
-	<br><br><br><br><br><br><br><br>
+	<br><br>
+	<div class="cover">
+	<button onclick="location='<%=request.getContextPath()%>/event_createform.do?club_num=${club_num}'"
+ 	class="btn btn-warning" style="width:200px; height:40px; border-radius:20px;">이벤트 생성하기</button>
+		
 	<button onclick="location='<%=request.getContextPath()%>/club_ct.do?club_num=${club_num}'"
  		class="btn btn-warning" style="width:200px; height:40px; border-radius:20px;">해당 모임으로 돌아가기</button>
+	</div>
 	</c:if>
 	<br><br>
 	<h5>이 모임의 이벤트(정모)</h5>

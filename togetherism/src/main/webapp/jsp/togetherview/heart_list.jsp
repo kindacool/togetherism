@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>내가 가입한 모임 목록</title>
+<title>내가 관심있는 모임</title>
 <link rel="icon" href="<%=request.getContextPath()%>/images/favicon.ico" />
 <link href="<%=request.getContextPath()%>/css/heartlist.css"
 	rel="stylesheet" type="text/css" />

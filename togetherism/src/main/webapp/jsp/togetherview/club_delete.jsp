@@ -8,7 +8,7 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/club_delete_popup.js">
 
 </script>
-<title>Insert title here</title>
+<title>모임 삭제</title>
 </head>
 <body>
 
