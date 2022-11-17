@@ -107,18 +107,13 @@ data-bs-target="#photoModal" data-bs-whatever="@mdo" style="border-radius:20px; 
       </div>
       <div class="modal-body">
         
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">현재사진</label>
-             <img src="<%=request.getContextPath() %>/upload/${p.photo_file}" style="width:100px; height:100px">
-            
-          </div>
           <div class="mb-3"> <!-- 이후 유효성검사 -->
             <label for="recipient-name" class="col-form-label">사진</label>
             <input type="file" class="form-control" name="photo_file0" id="photoe">
           </div>
           <div class="mb-3"> <!-- 이후 유효성검사 -->
             <label for="recipient-name" class="col-form-label">글귀</label>
-            <input type="text" class="form-control" name="photo_content" id="contente" value="${p.photo_content}">
+            <input type="text" class="form-control" name="photo_content" id="contente">
           </div>
         
       </div>
