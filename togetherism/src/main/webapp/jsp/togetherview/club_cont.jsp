@@ -14,7 +14,7 @@
 <link href="<%=request.getContextPath()%>/css/fullimage.css" rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath()%>/css/fontj.css" rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath()%>/css/border.css" rel="stylesheet" type="text/css" />
-</head>
+
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=44a98d8b63fb071cda538e0fedd4970c"></script>
@@ -25,9 +25,9 @@
 <script>
 $(document).ready(function(){
  //버튼 클릭시 ajax 실행  
-		
+	console.log("ajax 불림");
  	// 초기상태
- 	$('#container').html("${clubInfobr}");
+ 	$("#container").html("${clubInfobr}");
  	$("#photoPaging").hide();
  	if(${club.club_region == 'Abroad'}){
 		$(".hide").hide();
@@ -95,6 +95,7 @@ function copy_to_clipboard() {
     }
 
 </style>
+</head>
 <jsp:include page="../include/header.jsp"></jsp:include><br><br><br><br><br>
 <body>
 
@@ -214,7 +215,7 @@ function copy_to_clipboard() {
 </form>
 
 <br>
-<div id="container" style="width:1000px; padding:10px; margin:auto"></div>
+<div id="container" style="width:1000px; padding:10px; margin:auto;word-break:break-all;"></div>
 
 
 <div style="width:1000px; padding:10px;">

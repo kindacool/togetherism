@@ -27,7 +27,7 @@
 					</td>
 					<td><c:if test="${empty heartlist}">
 							<div class="alert alert-warning" role="alert"
-								style="width: 800px;">현재 좋아요한 모임이 없습니다.</div>
+								style="width: 800px;">현재 관심있는 모임이 없습니다.</div>
 						</c:if> <%-- 리스트 출력 --%> <c:if test="${!empty heartlist}">
 							<h2 class="heartlist_title" style="text-align: center; font-weight:bold;'">내가
 								관심있는 모임</h2>

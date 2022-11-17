@@ -242,7 +242,7 @@ public class ClubController {
 
 		model.addAttribute("clubdto", clubdto);
 
-		return "togetherview/club_deleteResult";
+		return "redirect:/my_club.do";
 	}
 
 	@RequestMapping(value = "/club_deleteResult.do", method = RequestMethod.GET)

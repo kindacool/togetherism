@@ -24,7 +24,7 @@
 function delete_confirm(a){
     if (!confirm("정말 모임을 삭제하시겠습니까?")) {
     } else {
-    	location.href="<%=request.getContextPath()%>/club_detail.do?club_num=" + a + "&state=del";
+    	location.href="<%=request.getContextPath()%>/club_delete.do?club_num=" + a ;
     }
 }
 </script>
@@ -43,7 +43,7 @@ function delete_confirm(a){
 
 <c:if test="${empty myClubList}">
 <div class="alert alert-warning" role="alert" style="width: 800px;">
-	현재 내가 운영하는 모임이 없습니다! <a href="#" class="alert-link">모임 만들러 가기</a>
+	현재 내가 운영하는 모임이 없습니다! <a href="<%=request.getContextPath()%>/club.do" class="alert-link">모임 만들러 가기</a>
 </div>
 </c:if>
 

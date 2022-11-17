@@ -295,14 +295,17 @@ public class Club_Member_JoinController {
 		map.put("sess",sess);
 		myClubList = club_Member_JoinService.getMyClub(map); // 리스트를 받아옴 1
 		System.out.println(myClubList);
+		
 		model.addAttribute("myClubList", myClubList);
-
+		if(!myClubList.isEmpty()) {
+			System.out.println("아웃");
 		// club 테이블 작업, merge 이후 수정하기
 		List<ClubDTO> joinedClist = club_Member_JoinService.getClubList(myClubList); // 리스트를 받아옴 2
 			
 		// club 테이블 작업, merge 이후 수정하기
 		// 가져온 이벤트 리스트
 		model.addAttribute("joinedClist", joinedClist);
+		}
 		// 화면 출력 번호
 		model.addAttribute("no", no);
 		// 데이터 갯수, 화면에 출력할 데이터 갯수, 블랙덩 페이지 갯수, 현재 페이지 번호,

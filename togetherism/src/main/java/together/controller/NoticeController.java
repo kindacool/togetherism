@@ -237,14 +237,14 @@ public class NoticeController {
 				resultFile = 1;
 				model.addAttribute("fileResult", resultFile);
 				
-				return "togetherview/notice/fileResult";
+				return "togetherview/notice/notice_fileResult";
 			} else if (!file[1].equals("jpg") &&
 					   !file[1].equals("gif") &&
 					   !file[1].equals("png")) {
 				resultFile = 2;
 				model.addAttribute("resultFile", resultFile);
 				
-				return "togetherview/fileResult";
+				return "togetherview/notice_fileResult";
 			}
 		}
 		
