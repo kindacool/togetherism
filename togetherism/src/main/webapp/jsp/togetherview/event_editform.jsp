@@ -171,9 +171,6 @@ history.go(-1);
             				<c:when test="${token eq 'png'}">
             						<img src="<%=request.getContextPath() %>/upload/${event.event_file}" style="height:200px; weight:200px;"alt="${event.event_file}"/>
             				</c:when>
-            				<c:when test="${token eq 'jfif'}">
-            						<img src="<%=request.getContextPath() %>/upload/${event.event_file}" style="height:200px; weight:200px;" alt="${event.event_file}"/>
-            				</c:when>
             				<c:when test="${token eq 'gif'}">
             						<img src="<%=request.getContextPath() %>/upload/${event.event_file}" style="height:200px; weight:200px;" alt="${event.event_file}"/>
             				</c:when>

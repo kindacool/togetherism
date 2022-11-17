@@ -153,11 +153,6 @@ font-weight: bold;
             			<img src="<%=request.getContextPath() %>/upload/${i.event_file}" class="card-img full"  style="width:100%; height:245px" alt="${i.event_file}"/>
             			</a>
             		</c:when>
-            		<c:when test="${token eq 'jfif'}">
-            		    <a href="<%=request.getContextPath()%>/event_cont.do?club_num=${club_num}&event_num=${i.event_num}&eventPage=${eventPage}&state=cont"> 
-            			<img src="<%=request.getContextPath() %>/upload/${i.event_file}" class="card-img full"  style="width:100%; height:245px" alt="${i.event_file}"/>
-            			</a>
-            		</c:when>
             		<c:when test="${token eq 'gif'}">
             		    <a href="<%=request.getContextPath()%>/event_cont.do?club_num=${club_num}&event_num=${i.event_num}&eventPage=${eventPage}&state=cont"> 
             			<img src="<%=request.getContextPath() %>/upload/${i.event_file}" class="card-img full"  style="width:100%; height:245px" alt="${i.event_file}"/>

@@ -102,9 +102,7 @@ public class Photo_BoardController {
 
 				} else if (!(file[1].toLowerCase()).equals("jpg") && 
 						!(file[1].toLowerCase()).equals("gif") && 
-						!(file[1].toLowerCase()).equals("png") &&
-						!(file[1].toLowerCase()).equals("jfif") &&
-						!(file[1].toLowerCase()).equals("gif")) {
+						!(file[1].toLowerCase()).equals("png")) {
 					result = 4;
 					model.addAttribute("result", result);
 					return "togetherview/photo_board_create_result";
