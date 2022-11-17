@@ -70,7 +70,8 @@ function club_check(){
      $.ajax({
          type:"POST",
          url:"club_namecheck.do",
-         data: {"club_name":club_name},        
+         data: {"club_name":club_name},
+         contentType: 'application/x-www-form-urlencoded; charset=euc-kr',
          success: function (data) {  // 콜백함수
        	  if(data==1){	// 중복 모임명
        		var newtext='<font color="red">같은 모임 명이 이미 존재합니다. 다른 모임명을 입력하세요.</font>';

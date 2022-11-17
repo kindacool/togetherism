@@ -27,5 +27,17 @@ alert("사진 크기 1MB 초과");
 history.go(-1);
 </script>
 </c:if>
+<c:if test="${result == 3}">
+<script>
+alert("사진 크기 1MB 초과");
+history.go(-1);
+</script>
+</c:if>
+<c:if test="${result == 4}">
+<script>
+	alert("jpg,png,gif 사진 파일만 업로드 가능합니다");
+	history.go(-1);
+</script>
+</c:if>
 </body>
 </html>
