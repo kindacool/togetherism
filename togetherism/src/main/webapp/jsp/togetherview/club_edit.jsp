@@ -47,7 +47,7 @@
 				</div>
 				<div class="col-lg-5">
 					<img
-						src="<%=request.getContextPath() %>/upload/${club_cont.club_image}" />
+						src="<%=request.getContextPath() %>/upload/${club_cont.club_image}" width="300" height="300"/>
 					<input type="file" name="club_image1" id="club_image1" />
 				</div>
 			</div>

@@ -26,8 +26,7 @@
 $(document).ready(function(){
  //버튼 클릭시 ajax 실행  
 	console.log("ajax 불림");
- 	// 초기상태
- 	$("#container").html("${clubInfobr}");
+
  	$("#photoPaging").hide();
  	if(${club.club_region == 'Abroad'}){
 		$(".hide").hide();
@@ -50,18 +49,7 @@ $(document).ready(function(){
 	});
 	// 모임 상세 정보
 	$("#club_info").click(function(){
-		$('#container').html("${clubInfobr}");
-
-	 	if(${club.club_region == 'Abroad'}){
-			$(".hide").hide();
-			$("#photoPaging").hide();
-	 	} else{
-	 		if(${empty eventlist}){
-	 	 		$(".hide").hide();
-	 	 	} else
-				$(".hide").show();
-			$("#photoPaging").hide();
-	 	}
+		location.href="<%=request.getContextPath()%>/club_ct.do?club_num=${club.club_num}";
 	});
 	
 	// 사진첩
@@ -109,7 +97,7 @@ function copy_to_clipboard() {
 <c:if test="${not empty club}">
 <div class="wrapper">
 <div class="content">
-<br><br><br><br>
+<br>
  <div class="center yellow-border" style="height:300px;background-color:white;">
     <div class="host" style="width:500px; height:270px;">
     	<img class="full" src="<%=request.getContextPath()%>/upload/${club.club_image}" alt="${club.club_image}"/>
@@ -215,7 +203,7 @@ function copy_to_clipboard() {
 </form>
 
 <br>
-<div id="container" style="width:1000px; padding:10px; margin:auto;word-break:break-all;"></div>
+<div id="container" style="width:1000px; padding:10px; margin:auto;word-break:break-all;">${clubInfobr}</div>
 
 
 <div style="width:1000px; padding:10px;">
