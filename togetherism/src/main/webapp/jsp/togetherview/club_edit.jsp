@@ -81,26 +81,22 @@
 
 					<div class="col-lg-5 d-flex">
 						<div class="dropdown">
-							<select
-								name="club_region" id="club_region" class="select_box"
-								value="${club_cont.club_region}">
-								<option value="">=지역선택=</option>
-								<option value="Seoul_Metropolitan"
-									<c:if test="${club_cont.club_region == 'Seoul Metropolitan'}">selected</c:if>>수도권</option>
-
-								<option value="Gangwon"
-									<c:if test="${club_cont.club_region == 'Gangwon'}">selected</c:if>>강원</option>
-								<option value="Gyeongsang"
-									<c:if test="${club_cont.club_region == 'Gyeongsang'}">selected</c:if>>경상</option>
-								<option value="Jeolla"
-									<c:if test="${club_cont.club_region == 'Jeolla'}">selected</c:if>>전라</option>
-								<option value="Chungcheong"
-									<c:if test="${club_cont.club_region == 'Chungcheong'}">selected</c:if>>충청</option>
-								<option value="Jeju"
-									<c:if test="${club_cont.club_region == 'Jeju'}">selected</c:if>>제주</option>
-								<option value="Abroad"
-									<c:if test="${club_cont.club_region == 'Abroad'}">selected</c:if>>해외</option>
-							</select>
+							<select class="select_box" aria-label="Default select example" name="club_region" id="club_region">
+         			<option value="Seoul_Metropolitan" <c:if test="${club_cont.club_region == 'Seoul Metropolitan'}">selected
+            			</c:if>>수도권</option>
+         			<option value="Gangwon" <c:if test="${club_cont.club_region == 'Gangwon'}">selected
+            			</c:if>>강원</option>
+         			<option value="Gyeongsang" <c:if test="${club_cont.club_region == 'Gyeongsang'}">selected
+            			</c:if>>경상</option>
+         			<option value="Jeolla" <c:if test="${club_cont.club_region == 'Jeolla'}">selected
+            			</c:if>>전라</option>
+         			<option value="Chungcheong" <c:if test="${club_cont.club_region == 'Chungcheong'}">selected
+            			</c:if>>충청</option>
+         			<option value="Jeju" <c:if test="${club_cont.club_region == 'Jeju'}">selected
+           				 </c:if>>제주</option>
+         				<option value="Abroad" <c:if test="${club_cont.club_region == 'Abroad'}">selected
+            			</c:if>>해외</option>
+        			 </select>
 						</div>
 
 					</div>

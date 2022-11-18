@@ -66,7 +66,7 @@ function notattend_confirm(a,b){
 <c:if test="${empty attendMylist}">
    <br><br><br>
    <div class="alert alert-warning" role="alert" style="width: 800px;">
-       현재 가입된 모임이 없습니다! <a href="<%=request.getContextPath()%>/club_list.do" class="alert-link">가입하러 가기</a>
+       참석하는 이벤트가 없습니다!
    </div>
 </c:if>
 

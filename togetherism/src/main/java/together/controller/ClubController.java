@@ -185,14 +185,13 @@ public class ClubController {
 			file[0] = st.nextToken();
 			file[1] = st.nextToken();
 
-			if (size > 100000) {
+			if (size > 1000000) {
 				result = 1;
 				model.addAttribute("result", result);
 
 				return "togetherview/club_uploadResult";
 			} else if (!(file[1].toLowerCase()).equals("jpg") && !(file[1].toLowerCase()).equals("gif")
-					&& !(file[1].toLowerCase()).equals("png") && !(file[1].toLowerCase()).equals("jfif")
-					&& !(file[1].toLowerCase()).equals("gif")) {
+					&& !(file[1].toLowerCase()).equals("png")) {
 
 				result = 2;
 				model.addAttribute("result", result);
