@@ -130,11 +130,11 @@ public class MemberController {
 			// Mail Server 설정
 			String charSet = "utf-8";
 			String hostSMTP = "smtp.naver.com";
-			String hostSMTPid = "share2013three@naver.com";
-			String hostSMTPpwd = "test0101)!)!"; // 비밀번호 입력해야함
+			String hostSMTPid = "이메일주소";
+			String hostSMTPpwd = "비밀번호"; // 비밀번호 입력해야함
 
 			// 보내는 사람 EMail, 제목, 내용
-			String fromEmail = "share2013three@naver.com";
+			String fromEmail = "이메일주소";
 			String fromName = "관리자";
 			String subject = "비밀번호 찾기";
 

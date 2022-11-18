@@ -87,7 +87,7 @@ function notattend_confirm(a,b){
     </c:if>
     
     <c:if test="${empty my.event_file}">
-     <a href="<%=request.getContextPath()%>/event_cont.do?club_num=${my.club_num}&event_num=${my.event_num}&eventPage=${eventPage}&state=cont">
+     <a href="<%=request.getContextPath()%>/event_cont.do?club_num=${my.club_num}&event_num=${my.event_num}&eventPage=1&state=cont">
      <img src="<%=request.getContextPath()%>/images/logo_square.png" class="card-img"  style="width:100%; height:245px" alt="defalutimage">
      </a>
    </c:if>

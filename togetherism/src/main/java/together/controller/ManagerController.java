@@ -430,8 +430,8 @@ public class ManagerController {
 		
 		String charSet = "utf-8";
 		String hostSMTP = "smtp.naver.com";
-		String hostSMTPid = "milkysea39@naver.com";	// 메일주소 입력
-		String hostSMTPpwd = "Sh**tingstar1!"; 		// 로그인 비밀번호 입력
+		String hostSMTPid = "이메일주소";	// 메일주소 입력
+		String hostSMTPpwd = "비번"; 		// 로그인 비밀번호 입력
 
 		// 보내는 사람 EMail, 제목, 내용
 		String fromEmail = hostSMTPid;	// 관리자 이메일
@@ -470,8 +470,8 @@ public class ManagerController {
 		// Mail Server 설정
 		String admin_charSet = "utf-8";
 		String admin_hostSMTP = "smtp.naver.com";
-		String admin_hostSMTPid = "milkysea39@naver.com";	// 메일주소 입력
-		String admin_hostSMTPpwd = "Sh**tingstar1!"; 		// 로그인 비밀번호 입력
+		String admin_hostSMTPid = "이메일주소";	// 메일주소 입력
+		String admin_hostSMTPpwd = "비번"; 		// 로그인 비밀번호 입력
 
 		// 보내는 사람 EMail, 제목, 내용
 		// 발송 완료 안내메일
